@@ -1,0 +1,491 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Folger-Shakespeare-Library/durb/schemas/constituent.schema.json",
+  "title": "Constituent",
+  "description": "A person, household, or organization in Tessitura. This is a domain object that consolidates data from multiple API endpoints into a single, flattened representation. Only data belonging to this constituent is included — affiliated data (from households, organizations, etc.) is excluded.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique identifier for the constituent."
+    },
+    "firstName": {
+      "type": ["string", "null"],
+      "description": "First name. Required for individuals."
+    },
+    "middleName": {
+      "type": ["string", "null"],
+      "description": "Middle name. Only used for individuals."
+    },
+    "lastName": {
+      "type": ["string", "null"],
+      "description": "Last name for individuals, or group/organization name."
+    },
+    "displayName": {
+      "type": ["string", "null"],
+      "description": "Standardized display name built by Tessitura. Read-only.",
+      "readOnly": true
+    },
+    "sortName": {
+      "type": ["string", "null"],
+      "description": "Name used for sorting in lists.",
+      "readOnly": true
+    },
+    "prefix": {
+      "type": ["string", "null"],
+      "description": "Name prefix (e.g. \"Mr.\", \"Dr.\")."
+    },
+    "suffix": {
+      "type": ["string", "null"],
+      "description": "Name suffix (e.g. \"Jr.\", \"III\")."
+    },
+    "gender": {
+      "type": ["string", "null"],
+      "description": "Gender description."
+    },
+    "pronoun": {
+      "type": ["string", "null"],
+      "description": "Pronoun preference."
+    },
+    "constituentType": {
+      "type": ["string", "null"],
+      "description": "Type classification (e.g. \"Individual\", \"Organization\", \"Household\")."
+    },
+    "constituentGroup": {
+      "type": ["string", "null"],
+      "description": "Group classification for the constituent type."
+    },
+    "inactive": {
+      "type": "boolean",
+      "description": "Whether this constituent is marked inactive.",
+      "default": false
+    },
+    "inactiveReason": {
+      "type": ["string", "null"],
+      "description": "Reason for inactivation, if inactive."
+    },
+    "protectionType": {
+      "type": ["string", "null"],
+      "description": "Protection classification restricting access to this constituent."
+    },
+    "originalSource": {
+      "type": ["string", "null"],
+      "description": "How this constituent originally entered the system."
+    },
+    "nameStatus": {
+      "type": ["string", "null"],
+      "description": "Status of the constituent's name data."
+    },
+    "mailIndicator": {
+      "type": ["string", "null"],
+      "description": "Mail preference indicator."
+    },
+    "emailIndicator": {
+      "type": ["string", "null"],
+      "description": "Email/emarket preference indicator."
+    },
+    "phoneIndicator": {
+      "type": ["string", "null"],
+      "description": "Phone preference indicator."
+    },
+    "lastActivityDate": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Date of last activity (update or transaction).",
+      "readOnly": true
+    },
+    "lastGiftDate": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Date of last contribution.",
+      "readOnly": true
+    },
+    "lastTicketDate": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Date of last ticket purchase.",
+      "readOnly": true
+    },
+    "createdAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "When this constituent was created.",
+      "readOnly": true
+    },
+    "createdBy": {
+      "type": ["string", "null"],
+      "description": "User who created this constituent.",
+      "readOnly": true
+    },
+    "updatedAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "When this constituent was last updated.",
+      "readOnly": true
+    },
+    "updatedBy": {
+      "type": ["string", "null"],
+      "description": "User who last updated this constituent.",
+      "readOnly": true
+    },
+    "addresses": {
+      "type": "array",
+      "description": "Postal addresses belonging to this constituent. Always included.",
+      "items": { "$ref": "#/$defs/address" }
+    },
+    "emails": {
+      "type": "array",
+      "description": "Email addresses belonging to this constituent. Always included.",
+      "items": { "$ref": "#/$defs/email" }
+    },
+    "phones": {
+      "type": "array",
+      "description": "Phone numbers belonging to this constituent. Always included.",
+      "items": { "$ref": "#/$defs/phone" }
+    },
+    "salutations": {
+      "type": "array",
+      "description": "Salutations belonging to this constituent. Always included.",
+      "items": { "$ref": "#/$defs/salutation" }
+    },
+    "affiliations": {
+      "type": "array",
+      "description": "Relationships to other constituents (households, organizations). Populated with --include=affiliations.",
+      "items": { "$ref": "#/$defs/affiliation" }
+    }
+  },
+  "required": ["id"],
+  "$defs": {
+    "address": {
+      "type": "object",
+      "description": "A postal address belonging to this constituent.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Address identifier."
+        },
+        "type": {
+          "type": ["string", "null"],
+          "description": "Address type (e.g. \"Home Address\", \"Business Address\")."
+        },
+        "primary": {
+          "type": "boolean",
+          "description": "Whether this is the primary address.",
+          "default": false
+        },
+        "inactive": {
+          "type": "boolean",
+          "description": "Whether this address is inactive.",
+          "default": false
+        },
+        "street1": {
+          "type": ["string", "null"],
+          "description": "Street line 1."
+        },
+        "street2": {
+          "type": ["string", "null"],
+          "description": "Street line 2."
+        },
+        "street3": {
+          "type": ["string", "null"],
+          "description": "Street line 3."
+        },
+        "city": {
+          "type": ["string", "null"],
+          "description": "City name."
+        },
+        "state": {
+          "type": ["string", "null"],
+          "description": "State or province name."
+        },
+        "stateCode": {
+          "type": ["string", "null"],
+          "description": "State or province abbreviation (e.g. \"DC\", \"MA\")."
+        },
+        "postalCode": {
+          "type": ["string", "null"],
+          "description": "Postal/ZIP code."
+        },
+        "country": {
+          "type": ["string", "null"],
+          "description": "Country name."
+        },
+        "countryCode": {
+          "type": ["string", "null"],
+          "description": "ISO 3166-1 alpha-2 country code (e.g. \"US\", \"GB\")."
+        },
+        "startDate": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Start of active date range."
+        },
+        "endDate": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "End of active date range."
+        },
+        "months": {
+          "type": ["string", "null"],
+          "description": "12-character Y/N string indicating active months (e.g. \"YYYYYYYYYYYY\" for year-round).",
+          "pattern": "^[YN]{12}$"
+        },
+        "createdAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        }
+      },
+      "required": ["id"]
+    },
+    "email": {
+      "type": "object",
+      "description": "An email or electronic address belonging to this constituent.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Email address identifier."
+        },
+        "type": {
+          "type": ["string", "null"],
+          "description": "Electronic address type (e.g. \"Primary Email Address\")."
+        },
+        "address": {
+          "type": ["string", "null"],
+          "format": "email",
+          "description": "The email address."
+        },
+        "primary": {
+          "type": "boolean",
+          "description": "Whether this is the primary email.",
+          "default": false
+        },
+        "inactive": {
+          "type": "boolean",
+          "description": "Whether this email is inactive.",
+          "default": false
+        },
+        "isEmail": {
+          "type": "boolean",
+          "description": "Whether this is an email (vs. other electronic address like a URL)."
+        },
+        "allowHtml": {
+          "type": ["boolean", "null"],
+          "description": "Whether HTML-formatted emails are allowed."
+        },
+        "allowMarketing": {
+          "type": "boolean",
+          "description": "Whether marketing emails are allowed.",
+          "default": false
+        },
+        "startDate": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Start of active date range."
+        },
+        "endDate": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "End of active date range."
+        },
+        "months": {
+          "type": ["string", "null"],
+          "description": "12-character Y/N string indicating active months.",
+          "pattern": "^[YN]{12}$"
+        },
+        "createdAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        }
+      },
+      "required": ["id"]
+    },
+    "phone": {
+      "type": "object",
+      "description": "A phone number belonging to this constituent.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Phone number identifier."
+        },
+        "type": {
+          "type": ["string", "null"],
+          "description": "Phone type (e.g. \"Primary\", \"Business\", \"Unknown\")."
+        },
+        "number": {
+          "type": ["string", "null"],
+          "description": "The phone number."
+        },
+        "formatted": {
+          "type": ["string", "null"],
+          "description": "Phone number in display format.",
+          "readOnly": true
+        },
+        "internationalMobile": {
+          "type": ["string", "null"],
+          "description": "E.164 formatted international mobile number (e.g. \"+12025551234\").",
+          "readOnly": true
+        },
+        "primary": {
+          "type": "boolean",
+          "description": "Whether this is the primary phone.",
+          "default": false
+        },
+        "inactive": {
+          "type": "boolean",
+          "description": "Whether this phone is inactive.",
+          "default": false
+        },
+        "isMobile": {
+          "type": "boolean",
+          "description": "Whether this is a mobile number.",
+          "default": false
+        },
+        "allowTelemarketing": {
+          "type": ["boolean", "null"],
+          "description": "Whether telemarketing calls are allowed."
+        },
+        "country": {
+          "type": ["string", "null"],
+          "description": "Country for this phone number."
+        },
+        "createdAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        }
+      },
+      "required": ["id"]
+    },
+    "salutation": {
+      "type": "object",
+      "description": "A salutation belonging to this constituent, used for mail merge and correspondence.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Salutation identifier."
+        },
+        "type": {
+          "type": ["string", "null"],
+          "description": "Salutation type (e.g. \"Default\", \"Formal\")."
+        },
+        "businessTitle": {
+          "type": ["string", "null"],
+          "description": "Business title (e.g. \"Head of Information Technology\")."
+        },
+        "envelopeSalutation1": {
+          "type": ["string", "null"],
+          "description": "Primary envelope salutation line."
+        },
+        "envelopeSalutation2": {
+          "type": ["string", "null"],
+          "description": "Secondary envelope salutation line."
+        },
+        "letterSalutation": {
+          "type": ["string", "null"],
+          "description": "Letter greeting (e.g. \"Dear Mr. Stickle\")."
+        },
+        "default": {
+          "type": "boolean",
+          "description": "Whether this is the default salutation.",
+          "default": false
+        },
+        "createdAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        }
+      },
+      "required": ["id"]
+    },
+    "affiliation": {
+      "type": "object",
+      "description": "A relationship between this constituent and another (household, organization, or individual).",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Affiliation identifier."
+        },
+        "type": {
+          "type": ["string", "null"],
+          "description": "Affiliation type (e.g. \"Adult Member\", \"Employee\")."
+        },
+        "groupName": {
+          "type": ["string", "null"],
+          "description": "Name of the group constituent (household or organization). Present when querying an individual."
+        },
+        "groupId": {
+          "type": ["integer", "null"],
+          "description": "ID of the group constituent. Present when querying an individual."
+        },
+        "individualName": {
+          "type": ["string", "null"],
+          "description": "Name of the individual constituent. Present when querying a group."
+        },
+        "individualId": {
+          "type": ["integer", "null"],
+          "description": "ID of the individual constituent. Present when querying a group."
+        },
+        "title": {
+          "type": ["string", "null"],
+          "description": "Title or position within the affiliation."
+        },
+        "primary": {
+          "type": "boolean",
+          "description": "Whether this is the primary affiliation.",
+          "default": false
+        },
+        "inactive": {
+          "type": "boolean",
+          "description": "Whether this affiliation is inactive.",
+          "default": false
+        },
+        "startDate": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Start date of the affiliation."
+        },
+        "endDate": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "End date of the affiliation."
+        },
+        "note": {
+          "type": ["string", "null"],
+          "description": "Note on the affiliation."
+        },
+        "createdAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        }
+      },
+      "required": ["id"]
+    }
+  }
+}
