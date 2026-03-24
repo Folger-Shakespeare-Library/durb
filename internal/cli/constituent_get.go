@@ -35,7 +35,7 @@ Examples:
 
 func init() {
 	constituentGetCmd.Flags().StringSliceVar(&includeFlags, "with", nil,
-		`attach related data: affiliations, associations, notes, logins (or "all")`)
+		`attach related data: affiliations, aliases, associations, logins, notes (or "all")`)
 }
 
 func runConstituentGet(cmd *cobra.Command, args []string) error {
@@ -76,13 +76,14 @@ func runConstituentGet(cmd *cobra.Command, args []string) error {
 	client := tessitura.NewClient(cfg)
 	includes := parseIncludes(includeFlags)
 	includeAffiliations := includes["affiliations"]
+	includeAliases := includes["aliases"]
 	includeAssociations := includes["associations"]
-	includeNotes := includes["notes"]
 	includeLogins := includes["logins"]
+	includeNotes := includes["notes"]
 
 	// Fetch all constituents concurrently (each one gets its own HTTP call,
 	// or batch call if extras are included)
-	apiResults, err := client.GetConstituentsBatch(cmd.Context(), ids, includeAffiliations, includeAssociations, includeNotes, includeLogins)
+	apiResults, err := client.GetConstituentsBatch(cmd.Context(), ids, includeAffiliations, includeAssociations, includeNotes, includeLogins, includeAliases)
 	if err != nil {
 		return err
 	}
@@ -95,14 +96,17 @@ func runConstituentGet(cmd *cobra.Command, args []string) error {
 		if includeAffiliations {
 			constituent.AttachAffiliations(r.Affiliations)
 		}
+		if includeAliases {
+			constituent.AttachAliases(r.Aliases)
+		}
 		if includeAssociations {
 			constituent.AttachAssociations(r.Associations)
 		}
-		if includeNotes {
-			constituent.AttachNotes(r.Notes)
-		}
 		if includeLogins {
 			constituent.AttachLogins(r.Logins)
+		}
+		if includeNotes {
+			constituent.AttachNotes(r.Notes)
 		}
 
 		results = append(results, constituent)
@@ -126,9 +130,10 @@ func parseIncludes(flags []string) map[string]bool {
 			key := strings.TrimSpace(strings.ToLower(part))
 			if key == "all" {
 				m["affiliations"] = true
+				m["aliases"] = true
 				m["associations"] = true
-				m["notes"] = true
 				m["logins"] = true
+				m["notes"] = true
 				return m
 			}
 			m[key] = true

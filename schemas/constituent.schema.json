@@ -172,6 +172,11 @@
       "type": "array",
       "description": "Web login accounts for this constituent. Populated with --with logins.",
       "items": { "$ref": "#/$defs/login" }
+    },
+    "aliases": {
+      "type": "array",
+      "description": "Alternate names for this constituent. Populated with --with aliases.",
+      "items": { "$ref": "#/$defs/alias" }
     }
   },
   "required": ["id"],
@@ -674,6 +679,47 @@
           "type": "integer",
           "description": "Number of consecutive failed login attempts.",
           "readOnly": true
+        },
+        "createdAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "createdBy": {
+          "type": ["string", "null"],
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updatedBy": {
+          "type": ["string", "null"],
+          "readOnly": true
+        }
+      },
+      "required": ["id"]
+    },
+    "alias": {
+      "type": "object",
+      "description": "An alternate name for this constituent.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Alias identifier."
+        },
+        "firstName": {
+          "type": ["string", "null"],
+          "description": "First name for the alias."
+        },
+        "lastName": {
+          "type": ["string", "null"],
+          "description": "Last name for the alias."
+        },
+        "type": {
+          "type": ["string", "null"],
+          "description": "Alias type (e.g. \"Maiden Name\", \"Nickname\")."
         },
         "createdAt": {
           "type": ["string", "null"],

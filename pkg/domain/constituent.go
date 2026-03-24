@@ -41,6 +41,7 @@ type Constituent struct {
 	Associations     []Association `json:"associations,omitempty"`
 	Notes            []Note        `json:"notes,omitempty"`
 	Logins           []Login       `json:"logins,omitempty"`
+	Aliases          []Alias       `json:"aliases,omitempty"`
 }
 
 type Address struct {
@@ -463,6 +464,40 @@ func loginFromAPI(l tessitura.APIWebLogin) Login {
 func (c *Constituent) AttachLogins(apiLogins []tessitura.APIWebLogin) {
 	for _, l := range apiLogins {
 		c.Logins = append(c.Logins, loginFromAPI(l))
+	}
+}
+
+type Alias struct {
+	ID        int     `json:"id"`
+	FirstName *string `json:"firstName,omitempty"`
+	LastName  *string `json:"lastName,omitempty"`
+	Type      *string `json:"type,omitempty"`
+	CreatedAt *string `json:"createdAt"`
+	CreatedBy *string `json:"createdBy"`
+	UpdatedAt *string `json:"updatedAt"`
+	UpdatedBy *string `json:"updatedBy"`
+}
+
+func aliasFromAPI(a tessitura.APIAlias) Alias {
+	al := Alias{
+		ID:        derefInt(a.Id),
+		FirstName: a.AliasFirstName,
+		LastName:  a.AliasLastName,
+		CreatedAt: a.CreatedDateTime,
+		CreatedBy: a.CreatedBy,
+		UpdatedAt: a.UpdatedDateTime,
+		UpdatedBy: a.UpdatedBy,
+	}
+	if a.AliasType != nil {
+		al.Type = a.AliasType.Description
+	}
+	return al
+}
+
+// AttachAliases maps raw API aliases and attaches them to the constituent.
+func (c *Constituent) AttachAliases(apiAliases []tessitura.APIAlias) {
+	for _, a := range apiAliases {
+		c.Aliases = append(c.Aliases, aliasFromAPI(a))
 	}
 }
 
