@@ -167,6 +167,11 @@
       "type": "array",
       "description": "Freeform notes attached to this constituent. Populated with --with notes.",
       "items": { "$ref": "#/$defs/note" }
+    },
+    "logins": {
+      "type": "array",
+      "description": "Web login accounts for this constituent. Populated with --with logins.",
+      "items": { "$ref": "#/$defs/login" }
     }
   },
   "required": ["id"],
@@ -600,6 +605,75 @@
         "text": {
           "type": ["string", "null"],
           "description": "Note contents."
+        },
+        "createdAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "createdBy": {
+          "type": ["string", "null"],
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updatedBy": {
+          "type": ["string", "null"],
+          "readOnly": true
+        }
+      },
+      "required": ["id"]
+    },
+    "login": {
+      "type": "object",
+      "description": "A web login account for this constituent.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Login identifier."
+        },
+        "login": {
+          "type": ["string", "null"],
+          "description": "The login username or email."
+        },
+        "type": {
+          "type": ["string", "null"],
+          "description": "Login type (e.g. \"Online\")."
+        },
+        "primary": {
+          "type": "boolean",
+          "description": "Whether this is the primary login.",
+          "default": false
+        },
+        "temporary": {
+          "type": "boolean",
+          "description": "Whether this is a temporary login.",
+          "default": false
+        },
+        "inactive": {
+          "type": "boolean",
+          "description": "Whether this login is inactive.",
+          "default": false
+        },
+        "lastLogin": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Date of last login.",
+          "readOnly": true
+        },
+        "locked": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Date this login was locked, if locked.",
+          "readOnly": true
+        },
+        "failed": {
+          "type": "integer",
+          "description": "Number of consecutive failed login attempts.",
+          "readOnly": true
         },
         "createdAt": {
           "type": ["string", "null"],

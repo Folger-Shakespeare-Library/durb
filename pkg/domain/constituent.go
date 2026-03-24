@@ -40,6 +40,7 @@ type Constituent struct {
 	Affiliations     []Affiliation `json:"affiliations,omitempty"`
 	Associations     []Association `json:"associations,omitempty"`
 	Notes            []Note        `json:"notes,omitempty"`
+	Logins           []Login       `json:"logins,omitempty"`
 }
 
 type Address struct {
@@ -421,6 +422,47 @@ func (c *Constituent) AttachAssociations(apiAssociations []tessitura.APIAssociat
 func (c *Constituent) AttachNotes(apiNotes []tessitura.APINote) {
 	for _, n := range apiNotes {
 		c.Notes = append(c.Notes, noteFromAPI(n))
+	}
+}
+
+type Login struct {
+	ID        int     `json:"id"`
+	Login     *string `json:"login"`
+	Type      *string `json:"type"`
+	Primary   bool    `json:"primary"`
+	Temporary bool    `json:"temporary"`
+	Inactive  bool    `json:"inactive"`
+	LastLogin *string `json:"lastLogin,omitempty"`
+	Locked    *string `json:"locked,omitempty"`
+	Failed    int     `json:"failed"`
+	CreatedAt *string `json:"createdAt"`
+	CreatedBy *string `json:"createdBy"`
+	UpdatedAt *string `json:"updatedAt"`
+	UpdatedBy *string `json:"updatedBy"`
+}
+
+func loginFromAPI(l tessitura.APIWebLogin) Login {
+	return Login{
+		ID:        derefInt(l.Id),
+		Login:     l.Login,
+		Type:      refDesc(l.LoginType),
+		Primary:   derefBool(l.PrimaryIndicator),
+		Temporary: derefBool(l.TemporaryIndicator),
+		Inactive:  derefBool(l.Inactive),
+		LastLogin: l.LastLoginDate,
+		Locked:    l.LockedDate,
+		Failed:    derefInt(l.FailedAttempts),
+		CreatedAt: l.CreatedDateTime,
+		CreatedBy: l.CreatedBy,
+		UpdatedAt: l.UpdatedDateTime,
+		UpdatedBy: l.UpdatedBy,
+	}
+}
+
+// AttachLogins maps raw API web logins and attaches them to the constituent.
+func (c *Constituent) AttachLogins(apiLogins []tessitura.APIWebLogin) {
+	for _, l := range apiLogins {
+		c.Logins = append(c.Logins, loginFromAPI(l))
 	}
 }
 

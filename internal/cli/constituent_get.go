@@ -35,7 +35,7 @@ Examples:
 
 func init() {
 	constituentGetCmd.Flags().StringSliceVar(&includeFlags, "with", nil,
-		`attach related data: affiliations, associations, notes (or "all")`)
+		`attach related data: affiliations, associations, notes, logins (or "all")`)
 }
 
 func runConstituentGet(cmd *cobra.Command, args []string) error {
@@ -78,10 +78,11 @@ func runConstituentGet(cmd *cobra.Command, args []string) error {
 	includeAffiliations := includes["affiliations"]
 	includeAssociations := includes["associations"]
 	includeNotes := includes["notes"]
+	includeLogins := includes["logins"]
 
 	// Fetch all constituents concurrently (each one gets its own HTTP call,
 	// or batch call if extras are included)
-	apiResults, err := client.GetConstituentsBatch(cmd.Context(), ids, includeAffiliations, includeAssociations, includeNotes)
+	apiResults, err := client.GetConstituentsBatch(cmd.Context(), ids, includeAffiliations, includeAssociations, includeNotes, includeLogins)
 	if err != nil {
 		return err
 	}
@@ -99,6 +100,9 @@ func runConstituentGet(cmd *cobra.Command, args []string) error {
 		}
 		if includeNotes {
 			constituent.AttachNotes(r.Notes)
+		}
+		if includeLogins {
+			constituent.AttachLogins(r.Logins)
 		}
 
 		results = append(results, constituent)
@@ -124,6 +128,7 @@ func parseIncludes(flags []string) map[string]bool {
 				m["affiliations"] = true
 				m["associations"] = true
 				m["notes"] = true
+				m["logins"] = true
 				return m
 			}
 			m[key] = true
