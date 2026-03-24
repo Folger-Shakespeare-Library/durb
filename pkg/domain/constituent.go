@@ -37,6 +37,7 @@ type Constituent struct {
 	Phones           []Phone       `json:"phones,omitempty"`
 	Salutations      []Salutation  `json:"salutations,omitempty"`
 	Affiliations     []Affiliation `json:"affiliations,omitempty"`
+	Notes            []Note        `json:"notes,omitempty"`
 }
 
 type Address struct {
@@ -319,6 +320,38 @@ func affiliationFromAPI(a tessitura.APIAffiliation, parentID int) Affiliation {
 func (c *Constituent) AttachAffiliations(apiAffiliations []tessitura.APIAffiliation) {
 	for _, a := range apiAffiliations {
 		c.Affiliations = append(c.Affiliations, affiliationFromAPI(a, c.ID))
+	}
+}
+
+type Note struct {
+	ID        int     `json:"id"`
+	Type      *string `json:"type"`
+	Text      *string `json:"text"`
+	CreatedAt *string `json:"createdAt"`
+	CreatedBy *string `json:"createdBy"`
+	UpdatedAt *string `json:"updatedAt"`
+	UpdatedBy *string `json:"updatedBy"`
+}
+
+func noteFromAPI(n tessitura.APINote) Note {
+	note := Note{
+		ID:        derefInt(n.Id),
+		Text:      n.Note,
+		CreatedAt: n.CreatedDateTime,
+		CreatedBy: n.CreatedBy,
+		UpdatedAt: n.UpdatedDateTime,
+		UpdatedBy: n.UpdatedBy,
+	}
+	if n.NoteType != nil {
+		note.Type = n.NoteType.Description
+	}
+	return note
+}
+
+// AttachNotes maps raw API notes and attaches them to the constituent.
+func (c *Constituent) AttachNotes(apiNotes []tessitura.APINote) {
+	for _, n := range apiNotes {
+		c.Notes = append(c.Notes, noteFromAPI(n))
 	}
 }
 

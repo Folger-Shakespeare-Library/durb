@@ -160,13 +160,14 @@ func (c *Client) GetConstituentDetail(ctx context.Context, id string) (*APIConst
 type ConstituentResult struct {
 	Detail       *APIConstituentDetail
 	Affiliations []APIAffiliation
+	Notes        []APINote
 }
 
-// GetConstituentFull fetches detail and (optionally) affiliations for a single
-// constituent. When affiliations are requested, it uses a batch call to get
-// the detail + both affiliation queries in one HTTP request.
-func (c *Client) GetConstituentFull(ctx context.Context, id string, includeAffiliations bool) (*ConstituentResult, error) {
-	if !includeAffiliations {
+// GetConstituentFull fetches detail and optionally affiliations and/or notes
+// for a single constituent. When any extras are requested, it uses a single
+// batch call to fetch everything in one HTTP request.
+func (c *Client) GetConstituentFull(ctx context.Context, id string, includeAffiliations, includeNotes bool) (*ConstituentResult, error) {
+	if !includeAffiliations && !includeNotes {
 		// Simple case: just the detail endpoint
 		detail, err := c.GetConstituentDetail(ctx, id)
 		if err != nil {
@@ -175,11 +176,17 @@ func (c *Client) GetConstituentFull(ctx context.Context, id string, includeAffil
 		return &ConstituentResult{Detail: detail}, nil
 	}
 
-	// Batch the detail + both affiliation queries into one HTTP call
+	// Batch the detail + any requested extras into one HTTP call.
+	// Fixed request IDs: 1=detail, 2=affiliations (individual), 3=affiliations (group), 4=notes
 	items := []BatchRequestItem{
 		{HttpMethod: "GET", Id: 1, Uri: "/CRM/Constituents/" + id + "/Detail"},
-		{HttpMethod: "GET", Id: 2, Uri: "/CRM/Affiliations?individualConstituentId=" + id},
-		{HttpMethod: "GET", Id: 3, Uri: "/CRM/Affiliations?groupConstituentId=" + id},
+	}
+	if includeAffiliations {
+		items = append(items, BatchRequestItem{HttpMethod: "GET", Id: 2, Uri: "/CRM/Affiliations?individualConstituentId=" + id})
+		items = append(items, BatchRequestItem{HttpMethod: "GET", Id: 3, Uri: "/CRM/Affiliations?groupConstituentId=" + id})
+	}
+	if includeNotes {
+		items = append(items, BatchRequestItem{HttpMethod: "GET", Id: 4, Uri: "/CRM/Notes?constituentId=" + id})
 	}
 
 	batchResp, err := c.Batch(ctx, items)
@@ -216,6 +223,13 @@ func (c *Client) GetConstituentFull(ctx context.Context, id string, includeAffil
 				return nil, fmt.Errorf("unable to parse group affiliations for constituent %s: %w", id, err)
 			}
 			result.Affiliations = append(result.Affiliations, affiliations...)
+
+		case 4:
+			var notes []APINote
+			if err := json.Unmarshal(resp.ResponseObject, &notes); err != nil {
+				return nil, fmt.Errorf("unable to parse notes for constituent %s: %w", id, err)
+			}
+			result.Notes = notes
 		}
 	}
 
@@ -228,9 +242,8 @@ func (c *Client) GetConstituentFull(ctx context.Context, id string, includeAffil
 
 // GetConstituentsBatch fetches multiple constituents concurrently using
 // goroutines. Each constituent gets its own HTTP call (or batch call if
-// affiliations are included). Results are returned in the same order as
-// the input IDs.
-func (c *Client) GetConstituentsBatch(ctx context.Context, ids []string, includeAffiliations bool) ([]*ConstituentResult, error) {
+// extras are included). Results are returned in the same order as the input IDs.
+func (c *Client) GetConstituentsBatch(ctx context.Context, ids []string, includeAffiliations, includeNotes bool) ([]*ConstituentResult, error) {
 	results := make([]*ConstituentResult, len(ids))
 	errs := make([]error, len(ids))
 
@@ -239,7 +252,7 @@ func (c *Client) GetConstituentsBatch(ctx context.Context, ids []string, include
 		wg.Add(1)
 		go func(idx int, cid string) {
 			defer wg.Done()
-			result, err := c.GetConstituentFull(ctx, cid, includeAffiliations)
+			result, err := c.GetConstituentFull(ctx, cid, includeAffiliations, includeNotes)
 			results[idx] = result
 			errs[idx] = err
 		}(i, id)
