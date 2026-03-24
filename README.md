@@ -8,7 +8,7 @@ Built by the [Folger Shakespeare Library](https://www.folger.edu).
 
 ## Why
 
-The Tessitura API maps directly to database tables, spreading a single concept like a "constituent" across many endpoints. Durb consolidates these into clean domain objects -- a single `tess constituent get` call returns addresses, emails, phones, salutations, and affiliations in one unified JSON response.
+The Tessitura API maps directly to database tables, spreading a single concept like a "constituent" or "report" across many endpoints. Durb consolidates these into clean domain objects -- a single `tess constituent get` call returns addresses, emails, phones, salutations, and affiliations in one unified JSON response; a `tess report get` merges the base report and its detail (including parameters) into one record.
 
 ## Install
 
@@ -119,6 +119,40 @@ tess constituent search --last-name Smith | jq -r '.[].id' | tess constituent ge
 tess constituent search --last-name Smith | jq -r '.[].id' | tess constituent get --with affiliations
 ```
 
+### Get a report
+
+```bash
+tess report get perfseatingbook
+```
+
+Always returns a JSON array. The response includes the full report record: base fields, indicators (`publicIndicator`, `warningIndicator`, `utilityIndicator`), and the `parameters` array -- fetched via a single batched API call.
+
+### Get multiple reports
+
+```bash
+tess report get perfseatingbook annualgifts
+
+# Or pipe IDs from a list
+tess report list | jq -r '.[].id' | tess report get
+```
+
+### List reports
+
+```bash
+# All active reports
+tess report list
+
+# Filter by type or category
+tess report list --type-ids 6
+tess report list --category-ids 9
+tess report list --type-ids 6 --category-ids 9,12
+
+# Include inactive reports
+tess report list --include-inactive
+```
+
+Returns a JSON array of summary records. Active reports only by default.
+
 ### Aliases
 
 `constituent` can be shortened to `con`, and `configure` to `config`:
@@ -148,9 +182,15 @@ tess con get 12345 | jq '.[0].addresses[] | select(.primary)'
 
 Durb maps Tessitura's table-oriented API responses to clean domain objects:
 
+**Constituents**
 - Contact info (addresses, emails, phones, digital addresses, salutations) is filtered to only the constituent's own records -- affiliated records are excluded
 - Reference fields like prefix, suffix, and gender are flattened from `{"Id": 5, "Description": "Mr."}` to just `"Mr."`
 - Aliases, associations, and web logins are available as optional `--with` attachments
+
+**Reports**
+- `report get` merges the base report and its detail endpoint into one object via a batched API call
+- `category` and `reportType` are sub-objects (`{"id": 9, "description": "..."}`) rather than flat fields
+- `report list` filters inactive reports client-side (the Tessitura API has no server-side inactive filter)
 
 ## Compatibility
 
