@@ -37,6 +37,7 @@ type Constituent struct {
 	Phones           []Phone       `json:"phones,omitempty"`
 	Salutations      []Salutation  `json:"salutations,omitempty"`
 	Affiliations     []Affiliation `json:"affiliations,omitempty"`
+	Associations     []Association `json:"associations,omitempty"`
 	Notes            []Note        `json:"notes,omitempty"`
 }
 
@@ -346,6 +347,57 @@ func noteFromAPI(n tessitura.APINote) Note {
 		note.Type = n.NoteType.Description
 	}
 	return note
+}
+
+type Association struct {
+	ID             int     `json:"id"`
+	Type           *string `json:"type"`
+	AssociatedID   *int    `json:"associatedId,omitempty"`
+	AssociatedName *string `json:"associatedName,omitempty"`
+	Gender         *string `json:"gender,omitempty"`
+	BirthDate      *string `json:"birthDate,omitempty"`
+	Inactive       bool    `json:"inactive"`
+	StartDate      *string `json:"startDate,omitempty"`
+	EndDate        *string `json:"endDate,omitempty"`
+	Note           *string `json:"note,omitempty"`
+	CreatedAt      *string `json:"createdAt"`
+	CreatedBy      *string `json:"createdBy"`
+	UpdatedAt      *string `json:"updatedAt"`
+	UpdatedBy      *string `json:"updatedBy"`
+}
+
+func associationFromAPI(a tessitura.APIAssociation) Association {
+	assoc := Association{
+		ID:             derefInt(a.Id),
+		AssociatedName: a.AssociatedName,
+		BirthDate:      a.BirthDate,
+		Inactive:       derefBool(a.Inactive),
+		StartDate:      a.StartDate,
+		EndDate:        a.EndDate,
+		Note:           a.Note,
+		CreatedAt:      a.CreatedDateTime,
+		CreatedBy:      a.CreatedBy,
+		UpdatedAt:      a.UpdatedDateTime,
+		UpdatedBy:      a.UpdatedBy,
+	}
+	if a.AssociationType != nil {
+		assoc.Type = a.AssociationType.Description
+	}
+	if a.AssociatedConstituent != nil {
+		id := a.AssociatedConstituent.Id
+		assoc.AssociatedID = &id
+	}
+	if a.Gender != nil {
+		assoc.Gender = a.Gender.Description
+	}
+	return assoc
+}
+
+// AttachAssociations maps raw API associations and attaches them to the constituent.
+func (c *Constituent) AttachAssociations(apiAssociations []tessitura.APIAssociation) {
+	for _, a := range apiAssociations {
+		c.Associations = append(c.Associations, associationFromAPI(a))
+	}
 }
 
 // AttachNotes maps raw API notes and attaches them to the constituent.

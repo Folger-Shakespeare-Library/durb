@@ -35,7 +35,7 @@ Examples:
 
 func init() {
 	constituentGetCmd.Flags().StringSliceVar(&includeFlags, "with", nil,
-		`attach related data: affiliations, notes (or "all")`)
+		`attach related data: affiliations, associations, notes (or "all")`)
 }
 
 func runConstituentGet(cmd *cobra.Command, args []string) error {
@@ -76,11 +76,12 @@ func runConstituentGet(cmd *cobra.Command, args []string) error {
 	client := tessitura.NewClient(cfg)
 	includes := parseIncludes(includeFlags)
 	includeAffiliations := includes["affiliations"]
+	includeAssociations := includes["associations"]
 	includeNotes := includes["notes"]
 
 	// Fetch all constituents concurrently (each one gets its own HTTP call,
 	// or batch call if extras are included)
-	apiResults, err := client.GetConstituentsBatch(cmd.Context(), ids, includeAffiliations, includeNotes)
+	apiResults, err := client.GetConstituentsBatch(cmd.Context(), ids, includeAffiliations, includeAssociations, includeNotes)
 	if err != nil {
 		return err
 	}
@@ -92,6 +93,9 @@ func runConstituentGet(cmd *cobra.Command, args []string) error {
 
 		if includeAffiliations {
 			constituent.AttachAffiliations(r.Affiliations)
+		}
+		if includeAssociations {
+			constituent.AttachAssociations(r.Associations)
 		}
 		if includeNotes {
 			constituent.AttachNotes(r.Notes)
@@ -118,6 +122,7 @@ func parseIncludes(flags []string) map[string]bool {
 			key := strings.TrimSpace(strings.ToLower(part))
 			if key == "all" {
 				m["affiliations"] = true
+				m["associations"] = true
 				m["notes"] = true
 				return m
 			}
