@@ -32,9 +32,10 @@ type Constituent struct {
 	CreatedBy        *string  `json:"createdBy"`
 	UpdatedAt        *string  `json:"updatedAt"`
 	UpdatedBy        *string  `json:"updatedBy"`
-	Addresses        []Address     `json:"addresses,omitempty"`
-	Emails           []Email       `json:"emails,omitempty"`
-	Phones           []Phone       `json:"phones,omitempty"`
+	Addresses        []Address        `json:"addresses,omitempty"`
+	Emails           []Email          `json:"emails,omitempty"`
+	DigitalAddresses []DigitalAddress `json:"digitalAddresses,omitempty"`
+	Phones           []Phone          `json:"phones,omitempty"`
 	Salutations      []Salutation  `json:"salutations,omitempty"`
 	Affiliations     []Affiliation `json:"affiliations,omitempty"`
 	Associations     []Association `json:"associations,omitempty"`
@@ -63,19 +64,24 @@ type Address struct {
 }
 
 type Email struct {
-	ID             int     `json:"id"`
-	Type           *string `json:"type"`
-	Address        *string `json:"address"`
-	Primary        bool    `json:"primary"`
-	Inactive       bool    `json:"inactive"`
-	IsEmail        bool    `json:"isEmail"`
-	AllowHtml      *bool   `json:"allowHtml"`
-	AllowMarketing bool    `json:"allowMarketing"`
-	StartDate      *string `json:"startDate"`
-	EndDate        *string `json:"endDate"`
-	Months         *string `json:"months"`
-	CreatedAt      *string `json:"createdAt"`
-	UpdatedAt      *string `json:"updatedAt"`
+	ID                  int     `json:"id"`
+	Type                *string `json:"type"`
+	Address             *string `json:"address"`
+	Primary             bool    `json:"primary"`
+	Inactive            bool    `json:"inactive"`
+	AllowMarketing      bool    `json:"allowMarketing"`
+	AlternateSalutation *string `json:"alternateSalutation,omitempty"`
+	CreatedAt           *string `json:"createdAt"`
+	UpdatedAt           *string `json:"updatedAt"`
+}
+
+type DigitalAddress struct {
+	ID                  int     `json:"id"`
+	Type                *string `json:"type"`
+	Address             *string `json:"address"`
+	AlternateSalutation *string `json:"alternateSalutation,omitempty"`
+	CreatedAt           *string `json:"createdAt"`
+	UpdatedAt           *string `json:"updatedAt"`
 }
 
 type Phone struct {
@@ -180,7 +186,11 @@ func ConstituentFromAPI(d *tessitura.APIConstituentDetail) *Constituent {
 	}
 	for _, e := range d.ElectronicAddresses {
 		if e.Constituent == nil || e.Constituent.Id == c.ID {
-			c.Emails = append(c.Emails, emailFromAPI(e))
+			if derefBool(e.IsEmail) {
+				c.Emails = append(c.Emails, emailFromAPI(e))
+			} else {
+				c.DigitalAddresses = append(c.DigitalAddresses, digitalAddressFromAPI(e))
+			}
 		}
 	}
 	for _, p := range d.PhoneNumbers {
@@ -222,19 +232,26 @@ func addressFromAPI(a tessitura.APIAddress) Address {
 
 func emailFromAPI(e tessitura.APIElectronicAddress) Email {
 	return Email{
-		ID:             derefInt(e.Id),
-		Type:           refDesc(e.ElectronicAddressType),
-		Address:        e.Address,
-		Primary:        derefBool(e.PrimaryIndicator),
-		Inactive:       derefBool(e.Inactive),
-		IsEmail:        derefBool(e.IsEmail),
-		AllowHtml:      e.AllowHtmlFormat,
-		AllowMarketing: derefBool(e.AllowMarketing),
-		StartDate:      e.StartDate,
-		EndDate:        e.EndDate,
-		Months:         e.Months,
-		CreatedAt:      e.CreatedDateTime,
-		UpdatedAt:      e.UpdatedDateTime,
+		ID:                  derefInt(e.Id),
+		Type:                refDesc(e.ElectronicAddressType),
+		Address:             e.Address,
+		Primary:             derefBool(e.PrimaryIndicator),
+		Inactive:            derefBool(e.Inactive),
+		AllowMarketing:      derefBool(e.AllowMarketing),
+		AlternateSalutation: refDesc(e.AltSalutationType),
+		CreatedAt:           e.CreatedDateTime,
+		UpdatedAt:           e.UpdatedDateTime,
+	}
+}
+
+func digitalAddressFromAPI(e tessitura.APIElectronicAddress) DigitalAddress {
+	return DigitalAddress{
+		ID:                  derefInt(e.Id),
+		Type:                refDesc(e.ElectronicAddressType),
+		Address:             e.Address,
+		AlternateSalutation: refDesc(e.AltSalutationType),
+		CreatedAt:           e.CreatedDateTime,
+		UpdatedAt:           e.UpdatedDateTime,
 	}
 }
 

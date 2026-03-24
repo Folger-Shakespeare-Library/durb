@@ -65,18 +65,18 @@ type APIElectronicAddress struct {
 	Id                    *int       `json:"Id"`
 	Constituent           *APIEntity `json:"Constituent"`
 	ElectronicAddressType *APIRef    `json:"ElectronicAddressType"`
-	Address               *string `json:"Address"`
-	PrimaryIndicator      *bool   `json:"PrimaryIndicator"`
-	Inactive              *bool   `json:"Inactive"`
-	IsEmail               *bool   `json:"IsEmail"`
-	AllowHtmlFormat       *bool   `json:"AllowHtmlFormat"`
-	AllowMarketing        *bool   `json:"AllowMarketing"`
-	StartDate             *string `json:"StartDate"`
-	EndDate               *string `json:"EndDate"`
-	Months                *string `json:"Months"`
-	IsFromAffiliation     bool    `json:"IsFromAffiliation"`
-	CreatedDateTime       *string `json:"CreatedDateTime"`
-	UpdatedDateTime       *string `json:"UpdatedDateTime"`
+	AltSalutationType     *APIRef    `json:"AltSalutationType"`
+	Address               *string    `json:"Address"`
+	PrimaryIndicator      *bool      `json:"PrimaryIndicator"`
+	Inactive              *bool      `json:"Inactive"`
+	IsEmail               *bool      `json:"IsEmail"`
+	AllowMarketing        *bool      `json:"AllowMarketing"`
+	StartDate             *string    `json:"StartDate"`
+	EndDate               *string    `json:"EndDate"`
+	Months                *string    `json:"Months"`
+	IsFromAffiliation     bool       `json:"IsFromAffiliation"`
+	CreatedDateTime       *string    `json:"CreatedDateTime"`
+	UpdatedDateTime       *string    `json:"UpdatedDateTime"`
 }
 
 type APIPhone struct {

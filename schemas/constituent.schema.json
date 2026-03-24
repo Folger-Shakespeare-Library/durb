@@ -138,6 +138,11 @@
       "description": "Email addresses belonging to this constituent. Always included.",
       "items": { "$ref": "#/$defs/email" }
     },
+    "digitalAddresses": {
+      "type": "array",
+      "description": "Website addresses and social media accounts belonging to this constituent. Always included.",
+      "items": { "$ref": "#/$defs/digitalAddress" }
+    },
     "phones": {
       "type": "array",
       "description": "Phone numbers belonging to this constituent. Always included.",
@@ -150,8 +155,18 @@
     },
     "affiliations": {
       "type": "array",
-      "description": "Relationships to other constituents (households, organizations). Populated with --include=affiliations.",
+      "description": "Org/household memberships for this constituent. Populated with --with affiliations.",
       "items": { "$ref": "#/$defs/affiliation" }
+    },
+    "associations": {
+      "type": "array",
+      "description": "Person-to-person links (spouse, parent, colleague, etc.). Populated with --with associations.",
+      "items": { "$ref": "#/$defs/association" }
+    },
+    "notes": {
+      "type": "array",
+      "description": "Freeform notes attached to this constituent. Populated with --with notes.",
+      "items": { "$ref": "#/$defs/note" }
     }
   },
   "required": ["id"],
@@ -244,7 +259,7 @@
     },
     "email": {
       "type": "object",
-      "description": "An email or electronic address belonging to this constituent.",
+      "description": "An email address belonging to this constituent.",
       "properties": {
         "id": {
           "type": "integer",
@@ -252,7 +267,7 @@
         },
         "type": {
           "type": ["string", "null"],
-          "description": "Electronic address type (e.g. \"Primary Email Address\")."
+          "description": "Email type (e.g. \"Primary Email Address\")."
         },
         "address": {
           "type": ["string", "null"],
@@ -269,33 +284,14 @@
           "description": "Whether this email is inactive.",
           "default": false
         },
-        "isEmail": {
-          "type": "boolean",
-          "description": "Whether this is an email (vs. other electronic address like a URL)."
-        },
-        "allowHtml": {
-          "type": ["boolean", "null"],
-          "description": "Whether HTML-formatted emails are allowed."
-        },
         "allowMarketing": {
           "type": "boolean",
           "description": "Whether marketing emails are allowed.",
           "default": false
         },
-        "startDate": {
+        "alternateSalutation": {
           "type": ["string", "null"],
-          "format": "date-time",
-          "description": "Start of active date range."
-        },
-        "endDate": {
-          "type": ["string", "null"],
-          "format": "date-time",
-          "description": "End of active date range."
-        },
-        "months": {
-          "type": ["string", "null"],
-          "description": "12-character Y/N string indicating active months.",
-          "pattern": "^[YN]{12}$"
+          "description": "Alternate salutation type associated with this email address."
         },
         "createdAt": {
           "type": ["string", "null"],
@@ -482,6 +478,145 @@
         "updatedAt": {
           "type": ["string", "null"],
           "format": "date-time",
+          "readOnly": true
+        }
+      },
+      "required": ["id"]
+    },
+    "digitalAddress": {
+      "type": "object",
+      "description": "A website address or social media account belonging to this constituent.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Digital address identifier."
+        },
+        "type": {
+          "type": ["string", "null"],
+          "description": "Digital address type (e.g. \"Website\", \"Twitter\", \"LinkedIn\")."
+        },
+        "address": {
+          "type": ["string", "null"],
+          "description": "The URL, handle, or username."
+        },
+        "alternateSalutation": {
+          "type": ["string", "null"],
+          "description": "Alternate salutation type associated with this digital address."
+        },
+        "createdAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        }
+      },
+      "required": ["id"]
+    },
+    "association": {
+      "type": "object",
+      "description": "A person-to-person link (spouse, parent, colleague, etc.) for this constituent.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Association identifier."
+        },
+        "type": {
+          "type": ["string", "null"],
+          "description": "Association type (e.g. \"Spouse\", \"Parent\", \"Child\")."
+        },
+        "associatedId": {
+          "type": ["integer", "null"],
+          "description": "ID of the associated constituent. Absent for soft associations."
+        },
+        "associatedName": {
+          "type": ["string", "null"],
+          "description": "Name of the associated person. Present for soft associations not linked to a constituent record."
+        },
+        "gender": {
+          "type": ["string", "null"],
+          "description": "Gender of the associated person."
+        },
+        "birthDate": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Birth date of the associated person, if recorded."
+        },
+        "inactive": {
+          "type": "boolean",
+          "description": "Whether this association is inactive.",
+          "default": false
+        },
+        "startDate": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Start date of the association."
+        },
+        "endDate": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "End date of the association."
+        },
+        "note": {
+          "type": ["string", "null"],
+          "description": "Note on the association."
+        },
+        "createdAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "createdBy": {
+          "type": ["string", "null"],
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updatedBy": {
+          "type": ["string", "null"],
+          "readOnly": true
+        }
+      },
+      "required": ["id"]
+    },
+    "note": {
+      "type": "object",
+      "description": "A freeform note attached to this constituent.",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Note identifier."
+        },
+        "type": {
+          "type": ["string", "null"],
+          "description": "Note type (e.g. \"General\", \"Research\")."
+        },
+        "text": {
+          "type": ["string", "null"],
+          "description": "Note contents."
+        },
+        "createdAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "createdBy": {
+          "type": ["string", "null"],
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updatedBy": {
+          "type": ["string", "null"],
           "readOnly": true
         }
       },
