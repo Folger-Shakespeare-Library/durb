@@ -13,6 +13,19 @@ The Tessitura API maps directly to database tables, spreading a single concept l
 ## Install
 
 ```bash
+# Current platform
+make build        # outputs ./tess
+
+# All platforms (outputs to dist/)
+make all
+
+# Release archives
+make release
+```
+
+Or directly:
+
+```bash
 go build -o tess ./cmd/tess
 ```
 
@@ -54,10 +67,19 @@ Multiple IDs are fetched concurrently.
 
 ```bash
 tess constituent get 12345 --with affiliations
+tess constituent get 12345 --with notes
+tess constituent get 12345 --with affiliations,notes
 tess constituent get 12345 --with all
 ```
 
-Addresses, emails, phones, and salutations are always included. The `--with` flag adds additional data like affiliations.
+Addresses, emails, phones, digital addresses, and salutations are always included. The `--with` flag adds optional data:
+
+- `affiliations` -- organization/household memberships
+- `aliases` -- alternative names
+- `associations` -- relationships to other constituents
+- `logins` -- web login credentials
+- `notes` -- constituent notes
+- `all` -- include everything above
 
 ### Search for constituents
 
@@ -76,6 +98,7 @@ tess constituent search --email user@example.com
 tess constituent search --phone 5551234567
 tess constituent search --order-no 99999
 tess constituent search --web-login jsmith
+tess constituent search --customer-service-no 12345
 
 # Filter by constituent group
 tess constituent search "Smith" --groups individuals
@@ -98,11 +121,12 @@ tess constituent search --last-name Smith | jq -r '.[].id' | tess constituent ge
 
 ### Aliases
 
-`constituent` can be shortened to `con`:
+`constituent` can be shortened to `con`, and `configure` to `config`:
 
 ```bash
 tess con get 12345
 tess con search "Smith"
+tess config
 ```
 
 ## Output
@@ -124,8 +148,9 @@ tess con get 12345 | jq '.[0].addresses[] | select(.primary)'
 
 Durb maps Tessitura's table-oriented API responses to clean domain objects:
 
-- Contact info (addresses, emails, phones, salutations) is filtered to only the constituent's own records -- affiliated records are excluded
+- Contact info (addresses, emails, phones, digital addresses, salutations) is filtered to only the constituent's own records -- affiliated records are excluded
 - Reference fields like prefix, suffix, and gender are flattened from `{"Id": 5, "Description": "Mr."}` to just `"Mr."`
+- Aliases, associations, and web logins are available as optional `--with` attachments
 
 ## Compatibility
 
