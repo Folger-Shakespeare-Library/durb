@@ -153,6 +153,57 @@ tess report list --include-inactive
 
 Returns a JSON array of summary records. Active reports only by default.
 
+### Get a report request
+
+```bash
+tess report request get 12345
+```
+
+Always returns a JSON array. Includes parameter values via a batched API call.
+
+### Get multiple report requests
+
+```bash
+tess report request get 12345 67890
+
+# Or pipe IDs
+tess report request results --report-id perfseatingbook | jq -r '.[].id' | tess report request get
+```
+
+### List report requests
+
+```bash
+# Active requests only (default)
+tess report request list
+
+# Include completed and cancelled
+tess report request list --include-inactive
+```
+
+### Report request results
+
+A richer, paginated view combining request, schedule, and report data:
+
+```bash
+# All results (page 1, 100 per page)
+tess report request results
+
+# Filter by report or schedule
+tess report request results --report-id perfseatingbook
+tess report request results --schedule-name "Daily Seating"
+
+# Date range
+tess report request results --start-date 2025-06-01 --end-date 2025-06-30
+
+# Only my results
+tess report request results --my-reports-only
+
+# Paginate
+tess report request results --page 2 --page-size 50
+```
+
+If there are more results beyond the current page, the remaining count is printed to stderr.
+
 ### Aliases
 
 `constituent` can be shortened to `con`, and `configure` to `config`:
@@ -191,6 +242,11 @@ Durb maps Tessitura's table-oriented API responses to clean domain objects:
 - `report get` merges the base report and its detail endpoint into one object via a batched API call
 - `category` and `reportType` are sub-objects (`{"id": 9, "description": "..."}`) rather than flat fields
 - `report list` filters inactive reports client-side (the Tessitura API has no server-side inactive filter)
+
+**Report requests**
+- `report request get` batches the base request and its detail (parameter values) in a single API call
+- `report request list` uses the API's server-side `activeOnly` filter; active requests only by default
+- `report request results` is a paginated combined entity (request + schedule + report); remaining result count is printed to stderr when more pages exist
 
 ## Compatibility
 
