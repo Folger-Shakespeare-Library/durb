@@ -14,4 +14,5 @@ var constituentCmd = &cobra.Command{
 func init() {
 	constituentCmd.AddCommand(constituentGetCmd)
 	constituentCmd.AddCommand(constituentSearchCmd)
+	constituentCmd.AddCommand(constituentCreateCmd)
 }

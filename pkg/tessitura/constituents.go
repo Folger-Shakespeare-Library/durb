@@ -156,6 +156,62 @@ func (c *Client) GetConstituentDetail(ctx context.Context, id string) (*APIConst
 	return &detail, nil
 }
 
+// CreateConstituentParams holds the fields for creating a new constituent.
+type CreateConstituentParams struct {
+	FirstName         string
+	LastName          string
+	Email             string
+	ConstituentTypeId int
+	OriginalSourceId  int
+	Street            string
+	PostalCode        string
+}
+
+// CreateConstituent creates a new constituent via POST /CRM/Constituents/Detail.
+func (c *Client) CreateConstituent(ctx context.Context, params CreateConstituentParams) (*APIConstituentDetail, error) {
+	sortName := params.LastName + ", " + params.FirstName
+
+	body := map[string]interface{}{
+		"FirstName":       params.FirstName,
+		"LastName":        params.LastName,
+		"SortName":        sortName,
+		"ConstituentType": map[string]int{"Id": params.ConstituentTypeId},
+		"OriginalSource":  map[string]int{"Id": params.OriginalSourceId},
+		"ElectronicAddresses": []map[string]interface{}{
+			{
+				"ElectronicAddressType": map[string]int{"Id": 1},
+				"Address":              params.Email,
+				"PrimaryIndicator":     true,
+			},
+		},
+	}
+
+	if params.Street != "" || params.PostalCode != "" {
+		addr := map[string]interface{}{
+			"Months":    "YYYYYYYYYYYY",
+			"IsPrimary": true,
+		}
+		if params.Street != "" {
+			addr["Street1"] = params.Street
+		}
+		if params.PostalCode != "" {
+			addr["PostalCode"] = params.PostalCode
+		}
+		body["Addresses"] = []map[string]interface{}{addr}
+	}
+
+	data, err := c.Post(ctx, "/CRM/Constituents/Detail", body)
+	if err != nil {
+		return nil, err
+	}
+
+	var detail APIConstituentDetail
+	if err := json.Unmarshal(data, &detail); err != nil {
+		return nil, fmt.Errorf("unable to parse create response: %w", err)
+	}
+	return &detail, nil
+}
+
 // ConstituentResult holds all API data fetched for a single constituent.
 type ConstituentResult struct {
 	Detail       *APIConstituentDetail
