@@ -24,6 +24,7 @@ var (
 	searchCustomerServiceNo  string
 	searchGroups             string
 	searchIncludeAffiliates  bool
+	searchOp                 string
 )
 
 var constituentSearchCmd = &cobra.Command{
@@ -70,6 +71,9 @@ func init() {
 	constituentSearchCmd.Flags().StringVar(&searchWebLogin, "web-login", "", "web login username")
 	constituentSearchCmd.Flags().StringVar(&searchCustomerServiceNo, "customer-service-no", "", "customer service number")
 
+	// Operator flag.
+	constituentSearchCmd.Flags().StringVar(&searchOp, "op", "", "operator for advanced search: Equals (default), Like, LessThan, GreaterThan")
+
 	// Filter flags.
 	constituentSearchCmd.Flags().StringVar(&searchGroups, "groups", "", "filter by constituent groups: individuals, organizations, households (comma-separated)")
 	constituentSearchCmd.Flags().BoolVar(&searchIncludeAffiliates, "include-affiliations", false, "include affiliated constituents in results")
@@ -87,6 +91,7 @@ func runConstituentSearch(cmd *cobra.Command, args []string) error {
 		OrderNo:           searchOrderNo,
 		WebLogin:          searchWebLogin,
 		CustomerServiceNo: searchCustomerServiceNo,
+		Operator:          searchOp,
 		IncludeAffiliates: searchIncludeAffiliates,
 		ConstituentGroups: searchGroups,
 	}

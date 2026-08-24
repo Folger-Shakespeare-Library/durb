@@ -56,6 +56,10 @@ type SearchParams struct {
 	WebLogin           string
 	CustomerServiceNo  string
 
+	// Operator for advanced search (Equals, Like, LessThan, GreaterThan).
+	// Defaults to Equals if empty.
+	Operator string
+
 	// Filters (apply to all search types).
 	IncludeAffiliates bool
 	ConstituentGroups string
@@ -72,7 +76,11 @@ func (c *Client) SearchConstituents(ctx context.Context, params SearchParams) (*
 	if atype, value := params.advancedSearch(); atype != "" {
 		v.Set("type", "advanced")
 		v.Set("atype", atype)
-		v.Set("op", "Like")
+		op := params.Operator
+		if op == "" {
+			op = "Equals"
+		}
+		v.Set("op", op)
 		v.Set("value", value)
 	} else if params.isBasic() {
 		v.Set("type", "basic")
