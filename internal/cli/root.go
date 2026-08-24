@@ -21,6 +21,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&profileFlag, "profile", "", "config profile to use (default: TESSITURA_PROFILE env var, or default_profile in config)")
 	rootCmd.AddCommand(configCmd)
 	rootCmd.AddCommand(constituentCmd)
+	rootCmd.AddCommand(interestCmd)
 	rootCmd.AddCommand(reportCmd)
 }
 
