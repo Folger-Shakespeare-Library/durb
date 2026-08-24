@@ -157,6 +157,45 @@ func (c *Client) Post(ctx context.Context, path string, payload interface{}) ([]
 	return body, nil
 }
 
+func (c *Client) Put(ctx context.Context, path string, payload interface{}) ([]byte, error) {
+	jsonBody, err := json.Marshal(payload)
+	if err != nil {
+		return nil, fmt.Errorf("unable to marshal request body: %w", err)
+	}
+
+	url := c.BaseURL + path
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodPut, url, bytes.NewReader(jsonBody))
+	if err != nil {
+		return nil, fmt.Errorf("unable to create request: %w", err)
+	}
+
+	req.Header.Set("Authorization", c.AuthHeader)
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := c.HTTP.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("request failed: %w", err)
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("unable to read response: %w", err)
+	}
+
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		return nil, &APIError{
+			StatusCode: resp.StatusCode,
+			Status:     resp.Status,
+			Body:       string(body),
+		}
+	}
+
+	return body, nil
+}
+
 // Batch sends multiple API requests in a single HTTP call using the
 // Tessitura batch endpoint. Returns the batch response with individual
 // results keyed by request ID.
