@@ -2,7 +2,6 @@ package config
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -18,84 +17,87 @@ type Config struct {
 	Password  string `json:"password"`
 }
 
-func Dir() (string, error) {
-	home, err := os.UserHomeDir()
-	if err != nil {
-		return "", fmt.Errorf("unable to determine home directory: %w", err)
+func Dir() string {
+	if xdg := os.Getenv("XDG_CONFIG_HOME"); xdg != "" {
+		return filepath.Join(xdg, "tess")
 	}
-	return filepath.Join(home, ".tess"), nil
+	home, _ := os.UserHomeDir()
+	return filepath.Join(home, ".config", "tess")
 }
 
-func Path() (string, error) {
-	dir, err := Dir()
-	if err != nil {
-		return "", err
-	}
-	return filepath.Join(dir, "config.json"), nil
+func Path() string {
+	return filepath.Join(Dir(), "config.json")
 }
 
-func Load() (Config, error) {
-	path, err := Path()
-	if err != nil {
-		return Config{}, err
-	}
+func Load() (*Config, error) {
+	cfg := &Config{}
+	path := Path()
 
-	// Check file permissions on Unix (skip on Windows where chmod is a no-op)
+	// Check file permissions on Unix.
 	if runtime.GOOS != "windows" {
 		info, err := os.Stat(path)
-		if err != nil {
-			if errors.Is(err, os.ErrNotExist) {
-				return Config{}, nil
+		if err == nil {
+			mode := info.Mode().Perm()
+			if mode&0077 != 0 {
+				return nil, fmt.Errorf(
+					"config file %s has permissions %o, expected 0600\n"+
+						"Fix with: chmod 600 %s", path, mode, path)
 			}
-			return Config{}, fmt.Errorf("unable to read config: %w", err)
-		}
-		mode := info.Mode().Perm()
-		if mode&0077 != 0 {
-			return Config{}, fmt.Errorf(
-				"config file %s has permissions %o, expected 0600\n"+
-					"Fix with: chmod 600 %s", path, mode, path)
 		}
 	}
 
 	data, err := os.ReadFile(path)
-	if err != nil {
-		if errors.Is(err, os.ErrNotExist) {
-			return Config{}, nil
+	if err == nil {
+		if err := json.Unmarshal(data, cfg); err != nil {
+			return nil, fmt.Errorf("parsing %s: %w", path, err)
 		}
-		return Config{}, fmt.Errorf("unable to read config: %w", err)
 	}
 
-	var cfg Config
-	if err := json.Unmarshal(data, &cfg); err != nil {
-		return Config{}, fmt.Errorf("unable to parse config: %w", err)
+	// Env vars override config file.
+	if v := os.Getenv("TESSITURA_HOSTNAME"); v != "" {
+		cfg.Hostname = v
+	}
+	if v := os.Getenv("TESSITURA_USERNAME"); v != "" {
+		cfg.Username = v
+	}
+	if v := os.Getenv("TESSITURA_USER_GROUP"); v != "" {
+		cfg.UserGroup = v
+	}
+	if v := os.Getenv("TESSITURA_LOCATION"); v != "" {
+		cfg.Location = v
+	}
+	if v := os.Getenv("TESSITURA_PASSWORD"); v != "" {
+		cfg.Password = v
 	}
 
 	cfg.Hostname = strings.TrimRight(cfg.Hostname, "/")
 	return cfg, nil
 }
 
-func Save(cfg Config) error {
+func Save(cfg *Config) error {
 	cfg.Hostname = strings.TrimRight(cfg.Hostname, "/")
 
-	dir, err := Dir()
-	if err != nil {
-		return err
-	}
+	dir := Dir()
 	if err := os.MkdirAll(dir, 0700); err != nil {
-		return fmt.Errorf("unable to create config directory: %w", err)
+		return fmt.Errorf("creating config directory: %w", err)
 	}
 
 	data, err := json.MarshalIndent(cfg, "", "  ")
 	if err != nil {
-		return fmt.Errorf("unable to marshal config: %w", err)
+		return fmt.Errorf("marshaling config: %w", err)
 	}
 
-	path := filepath.Join(dir, "config.json")
+	path := Path()
 	if err := os.WriteFile(path, data, 0600); err != nil {
-		return fmt.Errorf("unable to write config: %w", err)
+		return fmt.Errorf("writing %s: %w", path, err)
 	}
 
 	return nil
+}
+
+func Exists() bool {
+	_, err := os.Stat(Path())
+	return err == nil
 }
 
 func (c Config) Validate() error {
@@ -116,7 +118,7 @@ func (c Config) Validate() error {
 		missing = append(missing, "password")
 	}
 	if len(missing) > 0 {
-		return fmt.Errorf("missing required config fields: %s\nRun 'tess configure' to set up your credentials", strings.Join(missing, ", "))
+		return fmt.Errorf("missing required config fields: %s\nRun 'tess config init' to set up credentials, or set TESSITURA_* environment variables", strings.Join(missing, ", "))
 	}
 	return nil
 }
