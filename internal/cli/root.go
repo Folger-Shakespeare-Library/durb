@@ -20,6 +20,7 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.PersistentFlags().StringVar(&profileFlag, "profile", "", "config profile to use (default: TESSITURA_PROFILE env var, or default_profile in config)")
 	rootCmd.AddCommand(activityCmd)
+	rootCmd.AddCommand(attributeCmd)
 	rootCmd.AddCommand(configCmd)
 	rootCmd.AddCommand(constituentCmd)
 	rootCmd.AddCommand(interestCmd)
