@@ -5,9 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Folger-Shakespeare-Library/durb/pkg/config"
 	"github.com/Folger-Shakespeare-Library/durb/pkg/domain"
-	"github.com/Folger-Shakespeare-Library/durb/pkg/tessitura"
 	"github.com/spf13/cobra"
 )
 
@@ -39,15 +37,10 @@ func init() {
 }
 
 func runReportList(cmd *cobra.Command, args []string) error {
-	cfg, err := config.Load()
+	client, err := loadClient()
 	if err != nil {
 		return err
 	}
-	if err := cfg.Validate(); err != nil {
-		return err
-	}
-
-	client := tessitura.NewClient(cfg)
 
 	apiResults, err := client.GetReports(cmd.Context(), strings.Join(reportListTypeIds, ","), strings.Join(reportListCategoryIds, ","))
 	if err != nil {

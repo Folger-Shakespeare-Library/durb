@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Folger-Shakespeare-Library/durb/pkg/config"
 	"github.com/Folger-Shakespeare-Library/durb/pkg/domain"
 	"github.com/Folger-Shakespeare-Library/durb/pkg/tessitura"
 	"github.com/spf13/cobra"
@@ -124,15 +123,10 @@ func runConstituentSearch(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("cannot combine free-text, basic (--last-name, etc.), and advanced (--email, --phone, etc.) searches — these use different search modes")
 	}
 
-	cfg, err := config.Load()
+	client, err := loadClient()
 	if err != nil {
 		return err
 	}
-	if err := cfg.Validate(); err != nil {
-		return err
-	}
-
-	client := tessitura.NewClient(cfg)
 
 	resp, err := client.SearchConstituents(cmd.Context(), params)
 	if err != nil {

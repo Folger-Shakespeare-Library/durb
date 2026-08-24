@@ -8,9 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Folger-Shakespeare-Library/durb/pkg/config"
 	"github.com/Folger-Shakespeare-Library/durb/pkg/domain"
-	"github.com/Folger-Shakespeare-Library/durb/pkg/tessitura"
 	"github.com/spf13/cobra"
 )
 
@@ -65,15 +63,10 @@ func runConstituentGet(cmd *cobra.Command, args []string) error {
 		}
 	}
 
-	cfg, err := config.Load()
+	client, err := loadClient()
 	if err != nil {
 		return err
 	}
-	if err := cfg.Validate(); err != nil {
-		return err
-	}
-
-	client := tessitura.NewClient(cfg)
 	includes := parseIncludes(includeFlags)
 	includeAffiliations := includes["affiliations"]
 	includeAliases := includes["aliases"]

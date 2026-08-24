@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 
 	"github.com/Folger-Shakespeare-Library/durb/pkg/config"
@@ -15,10 +16,18 @@ var configCmd = &cobra.Command{
 	Short: "Manage Tessitura API credentials",
 }
 
+var configInitProfile string
+
 var configInitCmd = &cobra.Command{
 	Use:   "init",
 	Short: "Set up Tessitura API credentials interactively",
-	RunE:  runConfigInit,
+	Long: `Set up credentials for a named profile.
+
+Examples:
+  tess config init                  # creates/updates the "default" profile
+  tess config init --profile prod   # creates/updates the "prod" profile
+  tess config init --profile test   # creates/updates the "test" profile`,
+	RunE: runConfigInit,
 }
 
 var configShowCmd = &cobra.Command{
@@ -35,17 +44,46 @@ var configPathCmd = &cobra.Command{
 	},
 }
 
+var configUseCmd = &cobra.Command{
+	Use:   "use <profile>",
+	Short: "Set the active profile",
+	Long: `Set the default profile used by all commands.
+
+Examples:
+  tess config use prod
+  tess config use test`,
+	Args: cobra.ExactArgs(1),
+	RunE: runConfigUse,
+}
+
+var configListCmd = &cobra.Command{
+	Use:   "list",
+	Short: "List all configured profiles",
+	RunE:  runConfigList,
+}
+
 func init() {
+	configInitCmd.Flags().StringVar(&configInitProfile, "profile", "", "profile name to create or update (required)")
+	configInitCmd.MarkFlagRequired("profile")
 	configCmd.AddCommand(configInitCmd)
 	configCmd.AddCommand(configShowCmd)
 	configCmd.AddCommand(configPathCmd)
+	configCmd.AddCommand(configUseCmd)
+	configCmd.AddCommand(configListCmd)
 }
 
 var stdinReader = bufio.NewReader(os.Stdin)
 
 func runConfigInit(cmd *cobra.Command, args []string) error {
-	if config.Exists() {
-		overwrite, err := prompt("Config file already exists at %s. Overwrite? [y/N] ", config.Path())
+	cfg, err := config.LoadAll()
+	if err != nil {
+		cfg = &config.Config{Profiles: make(map[string]*config.Profile)}
+	}
+
+	name := configInitProfile
+	existing, hasExisting := cfg.Profiles[name]
+	if hasExisting {
+		overwrite, err := prompt("Profile %q already exists. Overwrite? [y/N] ", name)
 		if err != nil {
 			return err
 		}
@@ -53,10 +91,10 @@ func runConfigInit(cmd *cobra.Command, args []string) error {
 			fmt.Println("Aborted.")
 			return nil
 		}
+		_ = existing
 	}
 
-	fmt.Println("Setting up Tessitura API credentials.")
-	fmt.Println()
+	fmt.Printf("Setting up Tessitura API credentials for profile %q.\n\n", name)
 
 	hostname, err := prompt("Hostname (e.g. https://example.tnhs.cloud/tessitura): ")
 	if err != nil {
@@ -103,7 +141,7 @@ func runConfigInit(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("password is required")
 	}
 
-	cfg := &config.Config{
+	cfg.Profiles[name] = &config.Profile{
 		Hostname:  hostname,
 		Username:  username,
 		UserGroup: userGroup,
@@ -111,19 +149,26 @@ func runConfigInit(cmd *cobra.Command, args []string) error {
 		Password:  password,
 	}
 
-	if err := config.Save(cfg); err != nil {
+	if cfg.DefaultProfile == "" {
+		cfg.DefaultProfile = name
+	}
+
+	if err := config.SaveAll(cfg); err != nil {
 		return err
 	}
 
-	fmt.Printf("\nConfig written to %s\n", config.Path())
+	fmt.Printf("\nProfile %q written to %s\n", name, config.Path())
 	return nil
 }
 
 func runConfigShow(cmd *cobra.Command, args []string) error {
-	cfg, err := config.Load()
+	cfg, err := config.LoadAll()
 	if err != nil {
 		return err
 	}
+
+	name := config.ResolveProfileName(profileFlag, cfg)
+	profile, ok := cfg.Profiles[name]
 
 	fmt.Printf("Config file: %s", config.Path())
 	if config.Exists() {
@@ -131,12 +176,71 @@ func runConfigShow(cmd *cobra.Command, args []string) error {
 	} else {
 		fmt.Println(" (not found)")
 	}
+	fmt.Printf("Profile:     %s\n", name)
 	fmt.Println()
-	fmt.Printf("  hostname:   %s\n", valueOrDash(cfg.Hostname))
-	fmt.Printf("  username:   %s\n", valueOrDash(cfg.Username))
-	fmt.Printf("  user_group: %s\n", valueOrDash(cfg.UserGroup))
-	fmt.Printf("  location:   %s\n", valueOrDash(cfg.Location))
-	fmt.Printf("  password:   %s\n", mask(cfg.Password))
+
+	if !ok {
+		fmt.Printf("  (profile %q not found)\n", name)
+		return nil
+	}
+
+	fmt.Printf("  hostname:   %s\n", valueOrDash(profile.Hostname))
+	fmt.Printf("  username:   %s\n", valueOrDash(profile.Username))
+	fmt.Printf("  user_group: %s\n", valueOrDash(profile.UserGroup))
+	fmt.Printf("  location:   %s\n", valueOrDash(profile.Location))
+	fmt.Printf("  password:   %s\n", mask(profile.Password))
+
+	return nil
+}
+
+func runConfigUse(cmd *cobra.Command, args []string) error {
+	name := args[0]
+
+	cfg, err := config.LoadAll()
+	if err != nil {
+		return err
+	}
+
+	if _, ok := cfg.Profiles[name]; !ok {
+		names := config.ProfileNames(cfg)
+		if len(names) == 0 {
+			return fmt.Errorf("profile %q not found (no profiles configured)", name)
+		}
+		sort.Strings(names)
+		return fmt.Errorf("profile %q not found (available: %s)", name, strings.Join(names, ", "))
+	}
+
+	cfg.DefaultProfile = name
+	if err := config.SaveAll(cfg); err != nil {
+		return err
+	}
+
+	fmt.Printf("Active profile: %s\n", name)
+	return nil
+}
+
+func runConfigList(cmd *cobra.Command, args []string) error {
+	cfg, err := config.LoadAll()
+	if err != nil {
+		return err
+	}
+
+	if len(cfg.Profiles) == 0 {
+		fmt.Println("No profiles configured. Run 'tess config init' to create one.")
+		return nil
+	}
+
+	active := config.ResolveProfileName(profileFlag, cfg)
+	names := config.ProfileNames(cfg)
+	sort.Strings(names)
+
+	for _, name := range names {
+		marker := "  "
+		if name == active {
+			marker = "* "
+		}
+		fmt.Printf("%s%s\n", marker, name)
+	}
 
 	return nil
 }

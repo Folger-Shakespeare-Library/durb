@@ -70,7 +70,7 @@ type Client struct {
 }
 
 // NewClient creates a Client from the given config.
-func NewClient(cfg *config.Config) *Client {
+func NewClient(cfg *config.Profile) *Client {
 	creds := strings.Join([]string{cfg.Username, cfg.UserGroup, cfg.Location, cfg.Password}, ":")
 	auth := "Basic " + base64.StdEncoding.EncodeToString([]byte(creds))
 
