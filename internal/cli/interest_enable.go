@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -22,18 +21,18 @@ var interestEnableCmd = &cobra.Command{
 Creates the interest assignment if it doesn't exist, or updates it if it does.
 
 Examples:
-  tess interest enable --constituent-id 446106 --interest-ids 262
-  tess interest enable --constituent-id 446106 --interest-ids 262,263,264`,
+  tess interest enable --constituent-id 446106 --interest-type-ids 262
+  tess interest enable --constituent-id 446106 --interest-type-ids 262,263,264`,
 	RunE: runInterestEnable,
 }
 
 func init() {
 	f := interestEnableCmd.Flags()
 	f.IntVar(&interestEnableFlags.constituentId, "constituent-id", 0, "constituent ID (required)")
-	f.StringVar(&interestEnableFlags.interestIds, "interest-ids", "", "comma-separated interest type IDs (required)")
+	f.StringVar(&interestEnableFlags.interestIds, "interest-type-ids", "", "comma-separated interest type IDs (required)")
 
 	interestEnableCmd.MarkFlagRequired("constituent-id")
-	interestEnableCmd.MarkFlagRequired("interest-ids")
+	interestEnableCmd.MarkFlagRequired("interest-type-ids")
 }
 
 func runInterestEnable(cmd *cobra.Command, args []string) error {
@@ -43,7 +42,7 @@ func runInterestEnable(cmd *cobra.Command, args []string) error {
 func setInterests(cmd *cobra.Command, constituentId int, interestIdsStr string, selected bool) error {
 	typeIds, err := parseIntList(interestIdsStr)
 	if err != nil {
-		return fmt.Errorf("invalid --interest-ids: %w", err)
+		return fmt.Errorf("invalid --interest-type-ids: %w", err)
 	}
 
 	client, err := loadClient()
@@ -93,17 +92,6 @@ func setInterests(cmd *cobra.Command, constituentId int, interestIdsStr string, 
 		}
 	}
 
-	updated, err := client.GetInterests(cmd.Context(), constituentId)
-	if err != nil {
-		return fmt.Errorf("unable to fetch updated interests: %w", err)
-	}
-
-	out, err := json.MarshalIndent(updated, "", "  ")
-	if err != nil {
-		return fmt.Errorf("unable to format output: %w", err)
-	}
-
-	fmt.Fprintln(cmd.OutOrStdout(), string(out))
 	return nil
 }
 

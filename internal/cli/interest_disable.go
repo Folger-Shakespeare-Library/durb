@@ -15,18 +15,18 @@ var interestDisableCmd = &cobra.Command{
 	Long: `Disable one or more interests on a constituent by interest type ID.
 
 Examples:
-  tess interest disable --constituent-id 446106 --interest-ids 262
-  tess interest disable --constituent-id 446106 --interest-ids 262,263,264`,
+  tess interest disable --constituent-id 446106 --interest-type-ids 262
+  tess interest disable --constituent-id 446106 --interest-type-ids 262,263,264`,
 	RunE: runInterestDisable,
 }
 
 func init() {
 	f := interestDisableCmd.Flags()
 	f.IntVar(&interestDisableFlags.constituentId, "constituent-id", 0, "constituent ID (required)")
-	f.StringVar(&interestDisableFlags.interestIds, "interest-ids", "", "comma-separated interest type IDs (required)")
+	f.StringVar(&interestDisableFlags.interestIds, "interest-type-ids", "", "comma-separated interest type IDs (required)")
 
 	interestDisableCmd.MarkFlagRequired("constituent-id")
-	interestDisableCmd.MarkFlagRequired("interest-ids")
+	interestDisableCmd.MarkFlagRequired("interest-type-ids")
 }
 
 func runInterestDisable(cmd *cobra.Command, args []string) error {

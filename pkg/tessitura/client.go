@@ -157,6 +157,35 @@ func (c *Client) Post(ctx context.Context, path string, payload interface{}) ([]
 	return body, nil
 }
 
+func (c *Client) Delete(ctx context.Context, path string) error {
+	url := c.BaseURL + path
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodDelete, url, nil)
+	if err != nil {
+		return fmt.Errorf("unable to create request: %w", err)
+	}
+
+	req.Header.Set("Authorization", c.AuthHeader)
+	req.Header.Set("Accept", "application/json")
+
+	resp, err := c.HTTP.Do(req)
+	if err != nil {
+		return fmt.Errorf("request failed: %w", err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		body, _ := io.ReadAll(resp.Body)
+		return &APIError{
+			StatusCode: resp.StatusCode,
+			Status:     resp.Status,
+			Body:       string(body),
+		}
+	}
+
+	return nil
+}
+
 func (c *Client) Put(ctx context.Context, path string, payload interface{}) ([]byte, error) {
 	jsonBody, err := json.Marshal(payload)
 	if err != nil {

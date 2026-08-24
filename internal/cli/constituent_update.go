@@ -1,12 +1,9 @@
 package cli
 
 import (
-	"encoding/json"
 	"fmt"
-	"strconv"
 	"strings"
 
-	"github.com/Folger-Shakespeare-Library/durb/pkg/domain"
 	"github.com/spf13/cobra"
 )
 
@@ -95,17 +92,5 @@ func runConstituentUpdate(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("unable to update marketing flag: %w", err)
 	}
 
-	detail, err := client.GetConstituentDetail(cmd.Context(), strconv.Itoa(updateFlags.id))
-	if err != nil {
-		return fmt.Errorf("unable to fetch updated constituent: %w", err)
-	}
-
-	constituent := domain.ConstituentFromAPI(detail)
-	out, err := json.MarshalIndent(constituent, "", "  ")
-	if err != nil {
-		return fmt.Errorf("unable to format output: %w", err)
-	}
-
-	fmt.Fprintln(cmd.OutOrStdout(), string(out))
 	return nil
 }
