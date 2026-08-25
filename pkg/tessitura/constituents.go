@@ -214,6 +214,31 @@ func (c *Client) CreateConstituent(ctx context.Context, params CreateConstituent
 	return &detail, nil
 }
 
+func (c *Client) SetConstituentStatus(ctx context.Context, id string, inactiveId int, reasonId *int) error {
+	data, err := c.Get(ctx, "/CRM/Constituents/"+id+"/Detail")
+	if err != nil {
+		return fmt.Errorf("fetching constituent %s: %w", id, err)
+	}
+
+	var body map[string]interface{}
+	if err := json.Unmarshal(data, &body); err != nil {
+		return fmt.Errorf("parsing constituent %s: %w", id, err)
+	}
+
+	body["Inactive"] = map[string]int{"Id": inactiveId}
+	if reasonId != nil {
+		body["InactiveReason"] = map[string]int{"Id": *reasonId}
+	} else {
+		body["InactiveReason"] = nil
+	}
+
+	_, err = c.Put(ctx, "/CRM/Constituents/"+id, body)
+	if err != nil {
+		return fmt.Errorf("setting status on constituent %s: %w", id, err)
+	}
+	return nil
+}
+
 // ConstituentResult holds all API data fetched for a single constituent.
 type ConstituentResult struct {
 	Detail       *APIConstituentDetail

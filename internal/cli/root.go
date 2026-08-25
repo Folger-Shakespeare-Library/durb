@@ -24,6 +24,7 @@ func init() {
 	rootCmd.AddCommand(configCmd)
 	rootCmd.AddCommand(constituentCmd)
 	rootCmd.AddCommand(interestCmd)
+	rootCmd.AddCommand(refCmd)
 	rootCmd.AddCommand(reportCmd)
 }
 

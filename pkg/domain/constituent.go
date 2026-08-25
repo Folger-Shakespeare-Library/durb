@@ -17,7 +17,7 @@ type Constituent struct {
 	Pronoun          *string  `json:"pronoun"`
 	ConstituentType  *string  `json:"constituentType"`
 	ConstituentGroup *string  `json:"constituentGroup"`
-	Inactive         bool     `json:"inactive"`
+	Status           *string  `json:"status"`
 	InactiveReason   *string  `json:"inactiveReason"`
 	ProtectionType   *string  `json:"protectionType"`
 	OriginalSource   *string  `json:"originalSource"`
@@ -151,7 +151,7 @@ func ConstituentFromAPI(d *tessitura.APIConstituentDetail) *Constituent {
 		Suffix:           refDesc(d.Suffix),
 		Gender:           refDesc(d.Gender),
 		Pronoun:          refDesc(d.Pronoun),
-		Inactive:         isInactive(d.Inactive),
+		Status:           inactiveDesc(d.Inactive),
 		InactiveReason:   refDesc(d.InactiveReason),
 		ProtectionType:   refDesc(d.ProtectionType),
 		OriginalSource:   refDesc(d.OriginalSource),
@@ -501,10 +501,9 @@ func (c *Constituent) AttachAliases(apiAliases []tessitura.APIAlias) {
 	}
 }
 
-// isInactive reads the Inactive boolean from the ConstituentInactiveSummary ref.
-func isInactive(r *tessitura.APIInactiveSummary) bool {
-	if r == nil || r.Inactive == nil {
-		return false
+func inactiveDesc(r *tessitura.APIInactiveSummary) *string {
+	if r == nil {
+		return nil
 	}
-	return *r.Inactive
+	return r.Description
 }

@@ -16,4 +16,5 @@ func init() {
 	constituentCmd.AddCommand(constituentSearchCmd)
 	constituentCmd.AddCommand(constituentCreateCmd)
 	constituentCmd.AddCommand(constituentUpdateCmd)
+	constituentCmd.AddCommand(constituentSetStatusCmd)
 }
