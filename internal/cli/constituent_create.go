@@ -17,6 +17,7 @@ var createFlags struct {
 	originalSourceId  int
 	postalCode        string
 	street            string
+	allowMarketing    bool
 }
 
 var constituentCreateCmd = &cobra.Command{
@@ -42,6 +43,7 @@ func init() {
 	f.IntVar(&createFlags.originalSourceId, "original-source-id", 0, "original source ID (required)")
 	f.StringVar(&createFlags.street, "street", "", "street address line 1")
 	f.StringVar(&createFlags.postalCode, "postal-code", "", "postal/ZIP code (max 10 chars)")
+	f.BoolVar(&createFlags.allowMarketing, "allow-marketing", false, "allow email marketing")
 
 	constituentCreateCmd.MarkFlagRequired("first")
 	constituentCreateCmd.MarkFlagRequired("last")
@@ -79,6 +81,7 @@ func runConstituentCreate(cmd *cobra.Command, args []string) error {
 		OriginalSourceId:  createFlags.originalSourceId,
 		Street:            createFlags.street,
 		PostalCode:        postalCode,
+		AllowMarketing:    createFlags.allowMarketing,
 	}
 
 	detail, err := client.CreateConstituent(cmd.Context(), params)

@@ -165,6 +165,7 @@ type CreateConstituentParams struct {
 	OriginalSourceId  int
 	Street            string
 	PostalCode        string
+	AllowMarketing    bool
 }
 
 // CreateConstituent creates a new constituent via POST /CRM/Constituents/Detail.
@@ -182,6 +183,7 @@ func (c *Client) CreateConstituent(ctx context.Context, params CreateConstituent
 				"ElectronicAddressType": map[string]int{"Id": 1},
 				"Address":              params.Email,
 				"PrimaryIndicator":     true,
+				"AllowMarketing":       params.AllowMarketing,
 			},
 		},
 	}
