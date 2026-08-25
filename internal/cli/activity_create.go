@@ -56,18 +56,20 @@ func normalizeDateTime(input string) (string, error) {
 	input = strings.TrimSpace(input)
 
 	if !strings.Contains(input, "T") {
-		d, err := time.ParseInLocation("2006-01-02", input, time.Now().Location())
+		d, err := time.Parse("2006-01-02", input)
 		if err != nil {
 			return "", fmt.Errorf("invalid date %q: expected YYYY-MM-DD", input)
 		}
 		return d.Format(time.RFC3339), nil
 	}
 
-	t, err := time.Parse(time.RFC3339, input)
-	if err != nil {
-		return "", fmt.Errorf("invalid datetime %q: expected ISO 8601 format", input)
+	for _, layout := range []string{time.RFC3339, "2006-01-02T15:04:05-0700"} {
+		t, err := time.Parse(layout, input)
+		if err == nil {
+			return t.Format(time.RFC3339), nil
+		}
 	}
-	return t.Format(time.RFC3339), nil
+	return "", fmt.Errorf("invalid datetime %q: expected ISO 8601 format", input)
 }
 
 func runActivityCreate(cmd *cobra.Command, args []string) error {
