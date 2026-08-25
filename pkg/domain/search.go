@@ -11,7 +11,7 @@ type ConstituentSearchResult struct {
 	Prefix          *string `json:"prefix"`
 	Suffix          *string `json:"suffix"`
 	ConstituentType *string `json:"constituentType"`
-	Inactive        bool    `json:"inactive"`
+	Active          bool    `json:"active"`
 	Street1         *string `json:"street1,omitempty"`
 	City            *string `json:"city,omitempty"`
 	State           *string `json:"state,omitempty"`
@@ -47,7 +47,7 @@ func searchResultFromAPI(s tessitura.APIConstituentSummary) ConstituentSearchRes
 		Prefix:          s.Prefix,
 		Suffix:          s.Suffix,
 		ConstituentType: s.TypeDescription,
-		Inactive:        s.Inactive != nil && *s.Inactive != "" && *s.Inactive != "0",
+		Active:          s.Inactive == nil || *s.Inactive == "" || *s.Inactive == "1",
 		Street1:         s.Street1,
 		City:            s.City,
 		State:           s.State,
