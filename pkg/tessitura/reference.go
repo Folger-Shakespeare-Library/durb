@@ -84,6 +84,209 @@ func (c *Client) GetMachineSettings(ctx context.Context) ([]APIMachineSetting, e
 	return items, nil
 }
 
+type APIConstituentType struct {
+	Id                               *int         `json:"Id"`
+	Description                      *string      `json:"Description"`
+	Inactive                         bool         `json:"Inactive"`
+	ConstituentGroup                 *APIRefItem  `json:"ConstituentGroup"`
+	DefaultIndicator                 *bool        `json:"DefaultIndicator"`
+	DefaultSalutationId              *int         `json:"DefaultSalutationId"`
+	DefaultAffiliatedConstituentTypeId *int       `json:"DefaultAffiliatedConstituentTypeId"`
+	DefaultAffiliationTypeId         *int         `json:"DefaultAffiliationTypeId"`
+	AddressTypeId                    *int         `json:"AddressTypeId"`
+	ElectronicAddressTypeId          *int         `json:"ElectronicAddressTypeId"`
+	PhoneTypeId                      *int         `json:"PhoneTypeId"`
+	LoginTypeId                      *int         `json:"LoginTypeId"`
+	GiftAidIndicator                 bool         `json:"GiftAidIndicator"`
+	CreatedBy                        *string      `json:"CreatedBy"`
+	CreatedDateTime                  *string      `json:"CreatedDateTime"`
+	CreateLocation                   *string      `json:"CreateLocation"`
+	UpdatedBy                        *string      `json:"UpdatedBy"`
+	UpdatedDateTime                  *string      `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetConstituentTypes(ctx context.Context) ([]APIConstituentType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ConstituentTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching constituent types: %w", err)
+	}
+	var items []APIConstituentType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing constituent types: %w", err)
+	}
+	return items, nil
+}
+
+type APIOriginalSource struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetOriginalSources(ctx context.Context) ([]APIOriginalSource, error) {
+	data, err := c.Get(ctx, "/ReferenceData/OriginalSources")
+	if err != nil {
+		return nil, fmt.Errorf("fetching original sources: %w", err)
+	}
+	var items []APIOriginalSource
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing original sources: %w", err)
+	}
+	return items, nil
+}
+
+type APISpecialActivityType struct {
+	Id              *int        `json:"Id"`
+	Description     *string     `json:"Description"`
+	Inactive        bool        `json:"Inactive"`
+	ControlGroup    *APIRefItem `json:"ControlGroup"`
+	CreatedBy       *string     `json:"CreatedBy"`
+	CreatedDateTime *string     `json:"CreatedDateTime"`
+	CreateLocation  *string     `json:"CreateLocation"`
+	UpdatedBy       *string     `json:"UpdatedBy"`
+	UpdatedDateTime *string     `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetSpecialActivityTypes(ctx context.Context) ([]APISpecialActivityType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/SpecialActivityTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching special activity types: %w", err)
+	}
+	var items []APISpecialActivityType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing special activity types: %w", err)
+	}
+	return items, nil
+}
+
+type APISpecialActivityStatus struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetSpecialActivityStatuses(ctx context.Context) ([]APISpecialActivityStatus, error) {
+	data, err := c.Get(ctx, "/ReferenceData/SpecialActivityStatuses")
+	if err != nil {
+		return nil, fmt.Errorf("fetching special activity statuses: %w", err)
+	}
+	var items []APISpecialActivityStatus
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing special activity statuses: %w", err)
+	}
+	return items, nil
+}
+
+type APIKeyword struct {
+	Id                         *int        `json:"Id"`
+	Description                *string     `json:"Description"`
+	Category                   *APIRefItem `json:"Category"`
+	ControlGroup               *APIRefItem `json:"ControlGroup"`
+	ConstituentType            *int        `json:"ConstituentType"`
+	DataType                   *string     `json:"DataType"`
+	KeywordUse                 *string     `json:"KeywordUse"`
+	MultipleValue              *bool       `json:"MultipleValue"`
+	CustomRequired             *bool       `json:"CustomRequired"`
+	CustomDefaultValue         *string     `json:"CustomDefaultValue"`
+	CustomLimit                *int        `json:"CustomLimit"`
+	CustomId                   *int        `json:"CustomId"`
+	EditMask                   *string     `json:"EditMask"`
+	ExtendedDescription        *string     `json:"ExtendedDescription"`
+	HelpText                   *string     `json:"HelpText"`
+	UseForSearch               *bool       `json:"UseForSearch"`
+	SortOrder                  *int        `json:"SortOrder"`
+	ValuesCodedIndicator       *bool       `json:"ValuesCodedIndicator"`
+	PrimaryGroupDefault        *string     `json:"PrimaryGroupDefault"`
+	EditIndicator              *bool       `json:"EditIndicator"`
+	FrequentUpdateDate         *string     `json:"FrequentUpdateDate"`
+	DetailTable                *string     `json:"DetailTable"`
+	DetailColumn               *string     `json:"DetailColumn"`
+	ParentTable                *string     `json:"ParentTable"`
+	ParentKeyColumn            *string     `json:"ParentKeyColumn"`
+	KeyColumn                  *string     `json:"KeyColumn"`
+	ReferenceTable             *string     `json:"ReferenceTable"`
+	ReferenceIdColumn          *string     `json:"ReferenceIdColumn"`
+	ReferenceDescriptionColumn *string     `json:"ReferenceDescriptionColumn"`
+	ReferenceSort              *string     `json:"ReferenceSort"`
+	ReferenceWhere             *string     `json:"ReferenceWhere"`
+	CreatedBy                  *string     `json:"CreatedBy"`
+	CreatedDateTime            *string     `json:"CreatedDateTime"`
+	CreateLocation             *string     `json:"CreateLocation"`
+	UpdatedBy                  *string     `json:"UpdatedBy"`
+	UpdatedDateTime            *string     `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetKeywords(ctx context.Context) ([]APIKeyword, error) {
+	data, err := c.Get(ctx, "/ReferenceData/Keywords")
+	if err != nil {
+		return nil, fmt.Errorf("fetching keywords: %w", err)
+	}
+	var items []APIKeyword
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing keywords: %w", err)
+	}
+	return items, nil
+}
+
+type APIInterestType struct {
+	Id              *int        `json:"Id"`
+	Description     *string     `json:"Description"`
+	Category        *APIRefItem `json:"Category"`
+	ControlGroup    *APIRefItem `json:"ControlGroup"`
+	UsedIn          *string     `json:"UsedIn"`
+	SearchIndicator bool        `json:"SearchIndicator"`
+	CreatedBy       *string     `json:"CreatedBy"`
+	CreatedDateTime *string     `json:"CreatedDateTime"`
+	CreateLocation  *string     `json:"CreateLocation"`
+	UpdatedBy       *string     `json:"UpdatedBy"`
+	UpdatedDateTime *string     `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetInterestTypes(ctx context.Context) ([]APIInterestType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/InterestTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching interest types: %w", err)
+	}
+	var items []APIInterestType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing interest types: %w", err)
+	}
+	return items, nil
+}
+
+type APIInactiveReason struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetInactiveReasons(ctx context.Context) ([]APIInactiveReason, error) {
+	data, err := c.Get(ctx, "/ReferenceData/InactiveReasons")
+	if err != nil {
+		return nil, fmt.Errorf("fetching inactive reasons: %w", err)
+	}
+	var items []APIInactiveReason
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing inactive reasons: %w", err)
+	}
+	return items, nil
+}
+
 func (c *Client) GetConstituentInactiveReasons(ctx context.Context) ([]APIRefItem, error) {
 	data, err := c.Get(ctx, "/ReferenceData/InactiveReasons")
 	if err != nil {

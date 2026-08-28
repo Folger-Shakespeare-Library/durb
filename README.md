@@ -32,8 +32,15 @@ tess report request get <id> [id...]
 tess report request list [--include-inactive]
 tess report request results [--report-id <id>] [--page <n>] ...
 
+tess ref activity-statuses list
+tess ref activity-types list
 tess ref constituent-inactives list
+tess ref constituent-types list
+tess ref inactive-reasons list
+tess ref interest-types list
+tess ref keywords list
 tess ref machine-settings list
+tess ref original-sources list
 tess ref seat-statuses list
 ```
 
@@ -406,18 +413,46 @@ results is printed to standard error.
 ## REFERENCE DATA
 
 ```
+tess ref activity-statuses list
+tess ref activity-types list
 tess ref constituent-inactives list
+tess ref constituent-types list
+tess ref inactive-reasons list
+tess ref interest-types list
+tess ref keywords list
 tess ref machine-settings list
+tess ref original-sources list
 tess ref seat-statuses list
 ```
 
 List reference (lookup table) data from Tessitura.
 
+**tess ref activity-statuses list** returns available special activity
+statuses. Used with `activity create --status-id`.
+
+**tess ref activity-types list** returns available special activity
+types. Used with `activity create --activity-type-id`.
+
 **tess ref constituent-inactives list** returns available inactive status
 types for constituents (`id`, `description`, `inactive`).
 
+**tess ref constituent-types list** returns available constituent types.
+Used with `constituent create --constituent-type-id`.
+
+**tess ref inactive-reasons list** returns available inactive reasons for
+constituents. Used with `constituent set-status --reason`.
+
+**tess ref interest-types list** returns available interest types. Used
+with `interest enable/disable --interest-type-ids`.
+
+**tess ref keywords list** returns available keywords (attribute types in
+Tessitura). Used with `attribute set --attribute-type-id`.
+
 **tess ref machine-settings list** returns machine settings (workstation
 name, card reader configuration, merchant IDs, audit fields).
+
+**tess ref original-sources list** returns available original sources.
+Used with `constituent create --original-source-id`.
 
 **tess ref seat-statuses list** returns seat statuses (`id`,
 `description`, `statusCode`, `statusLegend`, `statusPriority`,

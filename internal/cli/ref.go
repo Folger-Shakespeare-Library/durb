@@ -11,7 +11,14 @@ var refCmd = &cobra.Command{
 }
 
 func init() {
+	refCmd.AddCommand(refActivityStatusesCmd)
+	refCmd.AddCommand(refActivityTypesCmd)
 	refCmd.AddCommand(refConstituentInactivesCmd)
+	refCmd.AddCommand(refConstituentTypesCmd)
+	refCmd.AddCommand(refInactiveReasonsCmd)
+	refCmd.AddCommand(refInterestTypesCmd)
+	refCmd.AddCommand(refKeywordsCmd)
 	refCmd.AddCommand(refMachineSettingsCmd)
+	refCmd.AddCommand(refOriginalSourcesCmd)
 	refCmd.AddCommand(refSeatStatusesCmd)
 }

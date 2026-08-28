@@ -35,9 +35,16 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `interest_enable.go` — `tess crm interest enable`
   - `interest_disable.go` — `tess crm interest disable`
   - `interest_list.go` — `tess crm interest list`
-  - `ref.go` — `tess ref` subcommand group; registers constituent-inactives, seat-statuses
+  - `ref.go` — `tess ref` subcommand group; registers activity-statuses, activity-types, constituent-inactives, constituent-types, inactive-reasons, interest-types, keywords, machine-settings, original-sources, seat-statuses
+  - `ref_activity_statuses.go` — `tess ref activity-statuses list`
+  - `ref_activity_types.go` — `tess ref activity-types list`
   - `ref_constituent_inactives.go` — `tess ref constituent-inactives list`
+  - `ref_constituent_types.go` — `tess ref constituent-types list`
+  - `ref_inactive_reasons.go` — `tess ref inactive-reasons list`
+  - `ref_interest_types.go` — `tess ref interest-types list`
+  - `ref_keywords.go` — `tess ref keywords list`
   - `ref_machine_settings.go` — `tess ref machine-settings list`
+  - `ref_original_sources.go` — `tess ref original-sources list`
   - `ref_seat_statuses.go` — `tess ref seat-statuses list`
   - `report.go` — `tess report` subcommand group; registers get/list/request
   - `report_get.go` — `tess report get`
@@ -59,7 +66,7 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `attributes.go` — `APIAttribute`, `GetAttributes`, `CreateAttribute`, `UpdateAttribute`, `DeleteAttribute`
   - `interests.go` — `APIInterest`, `GetInterests`, `CreateInterest`, `UpdateInterest`
   - `electronic_addresses.go` — `GetElectronicAddresses`, `UpdateElectronicAddress`
-  - `reference.go` — `APIRefItem`, `APISeatStatus`, `APIMachineSetting`, `GetConstituentInactiveStatuses`, `GetConstituentInactiveReasons`, `GetMachineSettings`, `GetSeatStatuses`
+  - `reference.go` — `APIRefItem`, `APISeatStatus`, `APIMachineSetting`, `APIConstituentType`, `APIOriginalSource`, `APISpecialActivityType`, `APISpecialActivityStatus`, `APIKeyword`, `APIInterestType`, `APIInactiveReason`; `GetConstituentInactiveStatuses`, `GetConstituentInactiveReasons`, `GetConstituentTypes`, `GetOriginalSources`, `GetSpecialActivityTypes`, `GetSpecialActivityStatuses`, `GetKeywords`, `GetInterestTypes`, `GetInactiveReasons`, `GetMachineSettings`, `GetSeatStatuses`
   - `reports.go` — `APIReport`, `APIReportDetail`, `APIReportParameter`, `ReportResult`; `GetReports`, `GetReport`, `GetReportsBatch`
   - `report_requests.go` — `APIReportRequest`, `APIReportRequestDetail`, `APIReportResult`, `ReportRequestResult`, `ReportResultsParams`; `GetReportRequests`, `GetReportRequest`, `GetReportRequestsBatch`, `GetReportResults`
 - `pkg/domain/` — clean domain types mapped from raw API responses (all consumer code uses these)
@@ -206,11 +213,32 @@ Disables one or more interests on a constituent.
 Lists all interest assignments for a constituent.
 - `--constituent-id` — constituent ID (required)
 
+### `tess ref activity-statuses list`
+Lists available special activity statuses. Used with `activity create --status-id`.
+
+### `tess ref activity-types list`
+Lists available special activity types. Used with `activity create --activity-type-id`.
+
 ### `tess ref constituent-inactives list`
 Lists available inactive status types for constituents.
 
+### `tess ref constituent-types list`
+Lists available constituent types. Used with `constituent create --constituent-type-id`.
+
+### `tess ref inactive-reasons list`
+Lists available inactive reasons for constituents. Used with `constituent set-status --reason`.
+
+### `tess ref interest-types list`
+Lists available interest types. Used with `interest enable/disable --interest-type-ids`.
+
+### `tess ref keywords list`
+Lists available keywords (attribute types in Tessitura). Used with `attribute set --attribute-type-id`.
+
 ### `tess ref machine-settings list`
 Lists machine settings (workstation name, card reader configuration, merchant IDs, audit fields). Uses the full `/ReferenceData/MachineSettings` endpoint (not Summary, which returns empty descriptions).
+
+### `tess ref original-sources list`
+Lists available original sources. Used with `constituent create --original-source-id`.
 
 ### `tess ref seat-statuses list`
 Lists available seat statuses.
