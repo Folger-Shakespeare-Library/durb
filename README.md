@@ -32,6 +32,11 @@ tess report request get <id> [id...]
 tess report request list [--include-inactive]
 tess report request results [--report-id <id>] [--page <n>] ...
 
+tess txn pricing-rule-messages list
+tess txn pricing-rules list
+tess txn pricing-rule-set-pricing-rules list
+tess txn pricing-rule-sets list
+
 tess ref activity-statuses list
 tess ref activity-types list
 tess ref address-types list
@@ -507,6 +512,44 @@ report request, schedule, and report definition data. Paginated.
 
 If more results exist beyond the current page, the count of remaining
 results is printed to standard error.
+
+## TRANSACTION DATA
+
+### tess txn pricing-rule-messages list
+
+```
+tess txn pricing-rule-messages list
+```
+
+List pricing rule messages with message type and pricing rule references.
+
+### tess txn pricing-rules list
+
+```
+tess txn pricing-rules list
+```
+
+List pricing rules with full configuration including discount settings,
+qualifying/result criteria, constituent filters, rule category/type,
+and embedded messages.
+
+### tess txn pricing-rule-set-pricing-rules list
+
+```
+tess txn pricing-rule-set-pricing-rules list
+```
+
+List pricing rule set to pricing rule mappings with rank and pricing
+rule summary references.
+
+### tess txn pricing-rule-sets list
+
+```
+tess txn pricing-rule-sets list
+```
+
+List pricing rule sets with control group references and embedded rule
+mappings.
 
 ## REFERENCE DATA
 

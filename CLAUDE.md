@@ -14,7 +14,7 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
 
 - `cmd/tess/main.go` — entrypoint; sets version via ldflags
 - `internal/cli/` — cobra command definitions
-  - `root.go` — root `tess` command; registers `config`, `crm`, `ref`, `report`
+  - `root.go` — root `tess` command; registers `config`, `crm`, `ref`, `report`, `txn`
   - `config.go` — `tess config` subcommand group (init, show, path, use, list)
   - `crm.go` — `tess crm` subcommand group; registers activity, attribute, constituent, interest
   - `constituent.go` — `tess crm constituent` subcommand group (alias: `con`); registers get/search/create/update/set-status
@@ -151,6 +151,11 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `report_request_get.go` — `tess report request get`
   - `report_request_list.go` — `tess report request list`
   - `report_request_results.go` — `tess report request results`
+  - `txn.go` — `tess txn` subcommand group; registers pricing-rule-messages, pricing-rules, pricing-rule-set-pricing-rules, pricing-rule-sets
+  - `txn_pricing_rule_messages.go` — `tess txn pricing-rule-messages list`
+  - `txn_pricing_rules.go` — `tess txn pricing-rules list`
+  - `txn_pricing_rule_set_pricing_rules.go` — `tess txn pricing-rule-set-pricing-rules list`
+  - `txn_pricing_rule_sets.go` — `tess txn pricing-rule-sets list`
 - `pkg/tessitura/` — raw Tessitura API client and response structs (mirrors the JSON shape; do not use directly in consumer code)
   - `client.go` — HTTP client, auth, `Get`/`Post`/`Put`/`Delete`/`Batch` methods
   - `constituents.go` — `ConstituentResult`, `CreateConstituentParams`, `GetConstituentDetail`, `GetConstituentFull`, `GetConstituentsBatch`, `CreateConstituent`, `SetConstituentStatus`
@@ -165,6 +170,7 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `interests.go` — `APIInterest`, `GetInterests`, `CreateInterest`, `UpdateInterest`
   - `electronic_addresses.go` — `GetElectronicAddresses`, `UpdateElectronicAddress`
   - `reference.go` — all reference data API structs and getter functions; types include `APIRefItem`, `APISeatStatus`, `APIMachineSetting`, `APIConstituentType`, `APIOriginalSource`, `APISpecialActivityType`, `APISpecialActivityStatus`, `APIKeyword`, `APIInterestType`, `APIInactiveReason`, `APIControlGroupRef`, `APIRelationshipCategoryRef`, `APIReportCategory`, `APIReportType`, `APISeason`, `APISeasonType`, `APIPerformanceSegmentType`, `APIPerformanceStatus`, `APIPerformanceType`, `APIPriceCategory`, `APIPriceCategorySummary`, `APIPriceLayerType`, `APIPriceTypeCategory`, `APIPriceTypeGroup`, `APIPriceTypeReason`, `APIPricingRuleCategory`, `APIPricingRuleMessageType`, `APIPricingRuleType`, `APIPaymentType`, `APIDeliveryMethod`, `APIDiscountType`, `APIEventLevel`, `APIFeeCategory`, `APIHoldCodeCategory`, `APIOrderCategory`, `APIPackageType`, `APISalesChannel`, `APINoteType`, `APIElectronicAddressType`, `APIContactPermissionCategory`, `APIContactPermissionType`, `APIAffiliationType`, `APIAssociationType`, `APIAliasType`, `APILoginType`, `APIGender`, `APIPronoun`, `APIPrefix`, `APISuffix`, `APICountry`, `APIState`, `APIAddressType`, `APILanguage`, `APIConstituencyType`, `APIConstituentGroup`, `APIKeywordCategory`, `APIInterestCategory`, `APIUserGroup`, `APIBusinessUnit`, `APITheater`, `APISection`, `APISeatCode`, `APIAppealCategory`, `APICampaignCategory`, `APIContributionDesignation`, `APIContributionImportSet`, `APIDesignationCode`, `APIDonationLevel`, `APIPhilanthropyType`, `APIPlanPriority`, `APIPlanSource`, `APIPlanStatus`, `APIPlanType`, `APIPlannedGivingCode`, `APIPlannedGivingFunding`, `APIPlannedGivingGiftType`, `APIPlannedGivingOnFile`, `APIPlannedGivingPurpose`, `APIPlannedGivingSource`, `APIPlannedGivingStatus`, `APIRecognitionType`, `APIMembershipBenefitFrequency`, `APIMembershipBenefitType`, `APIMembershipLevelCategory`, `APIMembershipLevelTrend`, `APIMembershipPeriod`, `APIMembershipStanding`, `APIMembershipStatus`, `APIConstituentProtectionType`, `APIConstituentTypeAffiliate`, `APIContactLogActivityType`, `APIContactPointCategory`, `APIContactPointCategoryPurpose`, `APIContactPointPurposeCategory`, `APIContactPointPurpose`, `APIContactType`, `APIKeywordConstituentType`, `APIMailIndicator`, `APINameStatus`, `APIPhoneIndicator`, `APIPhoneType`, `APIRelationshipCategory`, `APISubLineItemStatus`, `APIUpgradeCategory`, `APIMembershipBenefitType`, `APIMembershipLevelCategory`, `APIMembershipLevelTrend`, `APIMembershipPeriod`, `APIMembershipStanding`, `APIMembershipStatus`, `APIOrganizationRef`, `APICustomProcedureRef`, `APITNEWCustomizationPoint`, `APITNEWCustomizationPointRef`, `APITNEWCustomization`, `APITNEWDynamicEmailContent`, `APIWalletTemplateType`, `APIWalletTemplateTypeRef`, `APIWalletTemplate`, `APIWebContentType`, `APISalesLayoutButtonType`
+  - `pricing_rules.go` — TXN pricing rule API structs and getters; types include `APIPricingRuleMessage`, `APIPricingRule`, `APIPricingRuleSet`, `APIPricingRuleSetMap`, `APIPricingRuleSummary`, `APIPricingRuleCategorySummary`, `APIPricingRuleTypeSummary`, `APIPricingRuleMessageTypeSummary`, `APICriterionOperatorSummary`; `GetPricingRuleMessages`, `GetPricingRules`, `GetPricingRuleSetPricingRules`, `GetPricingRuleSets`
   - `reports.go` — `APIReport`, `APIReportDetail`, `APIReportParameter`, `ReportResult`; `GetReports`, `GetReport`, `GetReportsBatch`
   - `report_requests.go` — `APIReportRequest`, `APIReportRequestDetail`, `APIReportResult`, `ReportRequestResult`, `ReportResultsParams`; `GetReportRequests`, `GetReportRequest`, `GetReportRequestsBatch`, `GetReportResults`
 - `pkg/domain/` — clean domain types mapped from raw API responses (all consumer code uses these)
@@ -698,6 +704,18 @@ Lists scheduled report results — a combined entity merging `ReportRequest`, `R
 - `--page 2` / `--page-size 100` — pagination (default page size: 100)
 
 If more results exist beyond the current page, the remaining count is printed to stderr.
+
+### `tess txn pricing-rule-messages list`
+Lists pricing rule messages with message type and pricing rule references.
+
+### `tess txn pricing-rules list`
+Lists pricing rules with full configuration (discount settings, qualifying/result criteria, constituent filters, rule category/type, and embedded messages).
+
+### `tess txn pricing-rule-set-pricing-rules list`
+Lists pricing rule set to pricing rule mappings with rank and pricing rule summary references.
+
+### `tess txn pricing-rule-sets list`
+Lists pricing rule sets with control group references and embedded rule mappings.
 
 ## Building
 

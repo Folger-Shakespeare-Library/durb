@@ -23,6 +23,7 @@ func init() {
 	rootCmd.AddCommand(crmCmd)
 	rootCmd.AddCommand(refCmd)
 	rootCmd.AddCommand(reportCmd)
+	rootCmd.AddCommand(txnCmd)
 }
 
 func Execute() error {
