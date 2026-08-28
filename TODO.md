@@ -63,20 +63,20 @@ Extends the existing constituent model with contact-point, relationship, and cla
 
 #### Ticketing / Pricing (14)
 
-- [ ] DiscountTypes — types of ticket discounts
-- [ ] EventLevels — event level classifications
-- [ ] FeeCategories — categories for fees and surcharges
-- [ ] HoldCodeCategories — categories for hold codes on seats/inventory
-- [ ] PackageTypes — types of ticket packages
-- [ ] PerformanceSegmentTypes — segment type classifications for performances
-- [ ] PriceLayerTypes — price layer type definitions
-- [ ] PriceTypeReasons — reason codes for price types
-- [ ] PricingRuleCategories — categories for pricing rules
-- [ ] PricingRuleMessageTypes — message types shown by pricing rules
-- [ ] PricingRuleTypes — types of pricing rules
-- [ ] SeasonTypes — types/classifications for seasons
-- [ ] SubLineItemStatuses — status values for order sub-line items
-- [ ] UpgradeCategories — categories for seat/ticket upgrades
+- [x] DiscountTypes — types of ticket discounts
+- [x] EventLevels — event level classifications
+- [x] FeeCategories — categories for fees and surcharges
+- [x] HoldCodeCategories — categories for hold codes on seats/inventory
+- [x] PackageTypes — types of ticket packages
+- [x] PerformanceSegmentTypes — segment type classifications for performances
+- [x] PriceLayerTypes — price layer type definitions
+- [x] PriceTypeReasons — reason codes for price types
+- [x] PricingRuleCategories — categories for pricing rules
+- [x] PricingRuleMessageTypes — message types shown by pricing rules
+- [x] PricingRuleTypes — types of pricing rules
+- [x] SeasonTypes — types/classifications for seasons
+- [x] SubLineItemStatuses — status values for order sub-line items
+- [x] UpgradeCategories — categories for seat/ticket upgrades
 
 #### Marketing / E-commerce (4)
 

@@ -2295,3 +2295,346 @@ func (c *Client) GetRelationshipCategories(ctx context.Context) ([]APIRelationsh
 	}
 	return items, nil
 }
+
+type APIDiscountType struct {
+	Id                  *int    `json:"Id"`
+	Description         *string `json:"Description"`
+	Inactive            bool    `json:"Inactive"`
+	Amount              float64 `json:"Amount"`
+	PercentIndicator    bool    `json:"PercentIndicator"`
+	RespectMinimumPrice bool    `json:"RespectMinimumPrice"`
+	ShortDescription    *string `json:"ShortDescription"`
+	CreatedBy           *string `json:"CreatedBy"`
+	CreatedDateTime     *string `json:"CreatedDateTime"`
+	CreateLocation      *string `json:"CreateLocation"`
+	UpdatedBy           *string `json:"UpdatedBy"`
+	UpdatedDateTime     *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetDiscountTypes(ctx context.Context) ([]APIDiscountType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/DiscountTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching discount types: %w", err)
+	}
+	var items []APIDiscountType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing discount types: %w", err)
+	}
+	return items, nil
+}
+
+type APIEventLevel struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetEventLevels(ctx context.Context) ([]APIEventLevel, error) {
+	data, err := c.Get(ctx, "/ReferenceData/EventLevels")
+	if err != nil {
+		return nil, fmt.Errorf("fetching event levels: %w", err)
+	}
+	var items []APIEventLevel
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing event levels: %w", err)
+	}
+	return items, nil
+}
+
+type APIFeeCategory struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetFeeCategories(ctx context.Context) ([]APIFeeCategory, error) {
+	data, err := c.Get(ctx, "/ReferenceData/FeeCategories")
+	if err != nil {
+		return nil, fmt.Errorf("fetching fee categories: %w", err)
+	}
+	var items []APIFeeCategory
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing fee categories: %w", err)
+	}
+	return items, nil
+}
+
+type APIHoldCodeCategory struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        bool                `json:"Inactive"`
+	ControlGroup    *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetHoldCodeCategories(ctx context.Context) ([]APIHoldCodeCategory, error) {
+	data, err := c.Get(ctx, "/ReferenceData/HoldCodeCategories")
+	if err != nil {
+		return nil, fmt.Errorf("fetching hold code categories: %w", err)
+	}
+	var items []APIHoldCodeCategory
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing hold code categories: %w", err)
+	}
+	return items, nil
+}
+
+type APIPackageType struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPackageTypes(ctx context.Context) ([]APIPackageType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PackageTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching package types: %w", err)
+	}
+	var items []APIPackageType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing package types: %w", err)
+	}
+	return items, nil
+}
+
+type APIPerformanceSegmentType struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPerformanceSegmentTypes(ctx context.Context) ([]APIPerformanceSegmentType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PerformanceSegmentTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching performance segment types: %w", err)
+	}
+	var items []APIPerformanceSegmentType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing performance segment types: %w", err)
+	}
+	return items, nil
+}
+
+type APIPriceCategorySummary struct {
+	Id          int     `json:"Id"`
+	Description *string `json:"Description"`
+	Inactive    bool    `json:"Inactive"`
+	Rank        int     `json:"Rank"`
+}
+
+type APIPriceLayerType struct {
+	Id               *int                    `json:"Id"`
+	Description      *string                 `json:"Description"`
+	Inactive         *bool                   `json:"Inactive"`
+	ExcludeFromRules bool                    `json:"ExcludeFromRules"`
+	Rank             int                     `json:"Rank"`
+	PriceCategory    *APIPriceCategorySummary `json:"PriceCategory"`
+	CreatedBy        *string                 `json:"CreatedBy"`
+	CreatedDateTime  *string                 `json:"CreatedDateTime"`
+	CreateLocation   *string                 `json:"CreateLocation"`
+	UpdatedBy        *string                 `json:"UpdatedBy"`
+	UpdatedDateTime  *string                 `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPriceLayerTypes(ctx context.Context) ([]APIPriceLayerType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PriceLayerTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching price layer types: %w", err)
+	}
+	var items []APIPriceLayerType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing price layer types: %w", err)
+	}
+	return items, nil
+}
+
+type APIPriceTypeReason struct {
+	Id               *int    `json:"Id"`
+	Description      *string `json:"Description"`
+	Inactive         *bool   `json:"Inactive"`
+	ShortDescription *string `json:"ShortDescription"`
+	TicketText       *string `json:"TicketText"`
+	CreatedBy        *string `json:"CreatedBy"`
+	CreatedDateTime  *string `json:"CreatedDateTime"`
+	CreateLocation   *string `json:"CreateLocation"`
+	UpdatedBy        *string `json:"UpdatedBy"`
+	UpdatedDateTime  *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPriceTypeReasons(ctx context.Context) ([]APIPriceTypeReason, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PriceTypeReasons")
+	if err != nil {
+		return nil, fmt.Errorf("fetching price type reasons: %w", err)
+	}
+	var items []APIPriceTypeReason
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing price type reasons: %w", err)
+	}
+	return items, nil
+}
+
+type APIPricingRuleCategory struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        bool                `json:"Inactive"`
+	ControlGroup    *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPricingRuleCategories(ctx context.Context) ([]APIPricingRuleCategory, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PricingRuleCategories")
+	if err != nil {
+		return nil, fmt.Errorf("fetching pricing rule categories: %w", err)
+	}
+	var items []APIPricingRuleCategory
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing pricing rule categories: %w", err)
+	}
+	return items, nil
+}
+
+type APIPricingRuleMessageType struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPricingRuleMessageTypes(ctx context.Context) ([]APIPricingRuleMessageType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PricingRuleMessageTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching pricing rule message types: %w", err)
+	}
+	var items []APIPricingRuleMessageType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing pricing rule message types: %w", err)
+	}
+	return items, nil
+}
+
+type APIPricingRuleType struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPricingRuleTypes(ctx context.Context) ([]APIPricingRuleType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PricingRuleTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching pricing rule types: %w", err)
+	}
+	var items []APIPricingRuleType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing pricing rule types: %w", err)
+	}
+	return items, nil
+}
+
+type APISeasonType struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        *bool               `json:"Inactive"`
+	BusinessUnit    *APIControlGroupRef `json:"BusinessUnit"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetSeasonTypes(ctx context.Context) ([]APISeasonType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/SeasonTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching season types: %w", err)
+	}
+	var items []APISeasonType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing season types: %w", err)
+	}
+	return items, nil
+}
+
+type APISubLineItemStatus struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	Priority        int     `json:"Priority"`
+	StatusCode      *string `json:"StatusCode"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetSubLineItemStatuses(ctx context.Context) ([]APISubLineItemStatus, error) {
+	data, err := c.Get(ctx, "/ReferenceData/SubLineItemStatuses")
+	if err != nil {
+		return nil, fmt.Errorf("fetching sub-line item statuses: %w", err)
+	}
+	var items []APISubLineItemStatus
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing sub-line item statuses: %w", err)
+	}
+	return items, nil
+}
+
+type APIUpgradeCategory struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetUpgradeCategories(ctx context.Context) ([]APIUpgradeCategory, error) {
+	data, err := c.Get(ctx, "/ReferenceData/UpgradeCategories")
+	if err != nil {
+		return nil, fmt.Errorf("fetching upgrade categories: %w", err)
+	}
+	var items []APIUpgradeCategory
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing upgrade categories: %w", err)
+	}
+	return items, nil
+}

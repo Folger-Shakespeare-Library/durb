@@ -64,9 +64,13 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `ref_countries.go` — `tess ref countries list`
   - `ref_delivery_methods.go` — `tess ref delivery-methods list`
   - `ref_designation_codes.go` — `tess ref designation-codes list`
+  - `ref_discount_types.go` — `tess ref discount-types list`
   - `ref_donation_levels.go` — `tess ref donation-levels list`
   - `ref_electronic_address_types.go` — `tess ref electronic-address-types list`
+  - `ref_event_levels.go` — `tess ref event-levels list`
+  - `ref_fee_categories.go` — `tess ref fee-categories list`
   - `ref_genders.go` — `tess ref genders list`
+  - `ref_hold_code_categories.go` — `tess ref hold-code-categories list`
   - `ref_inactive_reasons.go` — `tess ref inactive-reasons list`
   - `ref_interest_categories.go` — `tess ref interest-categories list`
   - `ref_interest_types.go` — `tess ref interest-types list`
@@ -88,7 +92,9 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `ref_note_types.go` — `tess ref note-types list`
   - `ref_order_categories.go` — `tess ref order-categories list`
   - `ref_original_sources.go` — `tess ref original-sources list`
+  - `ref_package_types.go` — `tess ref package-types list`
   - `ref_payment_types.go` — `tess ref payment-types list`
+  - `ref_performance_segment_types.go` — `tess ref performance-segment-types list`
   - `ref_performance_statuses.go` — `tess ref performance-statuses list`
   - `ref_performance_types.go` — `tess ref performance-types list`
   - `ref_philanthropy_types.go` — `tess ref philanthropy-types list`
@@ -107,8 +113,13 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `ref_phone_types.go` — `tess ref phone-types list`
   - `ref_prefixes.go` — `tess ref prefixes list`
   - `ref_price_categories.go` — `tess ref price-categories list`
+  - `ref_price_layer_types.go` — `tess ref price-layer-types list`
   - `ref_price_type_categories.go` — `tess ref price-type-categories list`
   - `ref_price_type_groups.go` — `tess ref price-type-groups list`
+  - `ref_price_type_reasons.go` — `tess ref price-type-reasons list`
+  - `ref_pricing_rule_categories.go` — `tess ref pricing-rule-categories list`
+  - `ref_pricing_rule_message_types.go` — `tess ref pricing-rule-message-types list`
+  - `ref_pricing_rule_types.go` — `tess ref pricing-rule-types list`
   - `ref_pronouns.go` — `tess ref pronouns list`
   - `ref_recognition_types.go` — `tess ref recognition-types list`
   - `ref_relationship_categories.go` — `tess ref relationship-categories list`
@@ -117,11 +128,14 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `ref_sales_channels.go` — `tess ref sales-channels list`
   - `ref_seat_codes.go` — `tess ref seat-codes list`
   - `ref_seat_statuses.go` — `tess ref seat-statuses list`
+  - `ref_season_types.go` — `tess ref season-types list`
   - `ref_seasons.go` — `tess ref seasons list`
   - `ref_sections.go` — `tess ref sections list`
   - `ref_states.go` — `tess ref states list`
+  - `ref_sub_line_item_statuses.go` — `tess ref sub-line-item-statuses list`
   - `ref_suffixes.go` — `tess ref suffixes list`
   - `ref_theaters.go` — `tess ref theaters list`
+  - `ref_upgrade_categories.go` — `tess ref upgrade-categories list`
   - `ref_user_groups.go` — `tess ref user-groups list`
   - `report.go` — `tess report` subcommand group; registers get/list/request
   - `report_get.go` — `tess report get`
@@ -143,7 +157,7 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `attributes.go` — `APIAttribute`, `GetAttributes`, `CreateAttribute`, `UpdateAttribute`, `DeleteAttribute`
   - `interests.go` — `APIInterest`, `GetInterests`, `CreateInterest`, `UpdateInterest`
   - `electronic_addresses.go` — `GetElectronicAddresses`, `UpdateElectronicAddress`
-  - `reference.go` — all reference data API structs and getter functions; types include `APIRefItem`, `APISeatStatus`, `APIMachineSetting`, `APIConstituentType`, `APIOriginalSource`, `APISpecialActivityType`, `APISpecialActivityStatus`, `APIKeyword`, `APIInterestType`, `APIInactiveReason`, `APIControlGroupRef`, `APIRelationshipCategoryRef`, `APIReportCategory`, `APIReportType`, `APISeason`, `APIPerformanceStatus`, `APIPerformanceType`, `APIPriceCategory`, `APIPriceTypeCategory`, `APIPriceTypeGroup`, `APIPaymentType`, `APIDeliveryMethod`, `APIOrderCategory`, `APISalesChannel`, `APINoteType`, `APIElectronicAddressType`, `APIContactPermissionCategory`, `APIContactPermissionType`, `APIAffiliationType`, `APIAssociationType`, `APIAliasType`, `APILoginType`, `APIGender`, `APIPronoun`, `APIPrefix`, `APISuffix`, `APICountry`, `APIState`, `APIAddressType`, `APILanguage`, `APIConstituencyType`, `APIConstituentGroup`, `APIKeywordCategory`, `APIInterestCategory`, `APIUserGroup`, `APIBusinessUnit`, `APITheater`, `APISection`, `APISeatCode`, `APIAppealCategory`, `APICampaignCategory`, `APIContributionDesignation`, `APIContributionImportSet`, `APIDesignationCode`, `APIDonationLevel`, `APIPhilanthropyType`, `APIPlanPriority`, `APIPlanSource`, `APIPlanStatus`, `APIPlanType`, `APIPlannedGivingCode`, `APIPlannedGivingFunding`, `APIPlannedGivingGiftType`, `APIPlannedGivingOnFile`, `APIPlannedGivingPurpose`, `APIPlannedGivingSource`, `APIPlannedGivingStatus`, `APIRecognitionType`, `APIMembershipBenefitFrequency`, `APIMembershipBenefitType`, `APIMembershipLevelCategory`, `APIMembershipLevelTrend`, `APIMembershipPeriod`, `APIMembershipStanding`, `APIMembershipStatus`, `APIConstituentProtectionType`, `APIConstituentTypeAffiliate`, `APIContactLogActivityType`, `APIContactPointCategory`, `APIContactPointCategoryPurpose`, `APIContactPointPurposeCategory`, `APIContactPointPurpose`, `APIContactType`, `APIKeywordConstituentType`, `APIMailIndicator`, `APINameStatus`, `APIPhoneIndicator`, `APIPhoneType`, `APIRelationshipCategory`, `APIMembershipBenefitType`, `APIMembershipLevelCategory`, `APIMembershipLevelTrend`, `APIMembershipPeriod`, `APIMembershipStanding`, `APIMembershipStatus`
+  - `reference.go` — all reference data API structs and getter functions; types include `APIRefItem`, `APISeatStatus`, `APIMachineSetting`, `APIConstituentType`, `APIOriginalSource`, `APISpecialActivityType`, `APISpecialActivityStatus`, `APIKeyword`, `APIInterestType`, `APIInactiveReason`, `APIControlGroupRef`, `APIRelationshipCategoryRef`, `APIReportCategory`, `APIReportType`, `APISeason`, `APISeasonType`, `APIPerformanceSegmentType`, `APIPerformanceStatus`, `APIPerformanceType`, `APIPriceCategory`, `APIPriceCategorySummary`, `APIPriceLayerType`, `APIPriceTypeCategory`, `APIPriceTypeGroup`, `APIPriceTypeReason`, `APIPricingRuleCategory`, `APIPricingRuleMessageType`, `APIPricingRuleType`, `APIPaymentType`, `APIDeliveryMethod`, `APIDiscountType`, `APIEventLevel`, `APIFeeCategory`, `APIHoldCodeCategory`, `APIOrderCategory`, `APIPackageType`, `APISalesChannel`, `APINoteType`, `APIElectronicAddressType`, `APIContactPermissionCategory`, `APIContactPermissionType`, `APIAffiliationType`, `APIAssociationType`, `APIAliasType`, `APILoginType`, `APIGender`, `APIPronoun`, `APIPrefix`, `APISuffix`, `APICountry`, `APIState`, `APIAddressType`, `APILanguage`, `APIConstituencyType`, `APIConstituentGroup`, `APIKeywordCategory`, `APIInterestCategory`, `APIUserGroup`, `APIBusinessUnit`, `APITheater`, `APISection`, `APISeatCode`, `APIAppealCategory`, `APICampaignCategory`, `APIContributionDesignation`, `APIContributionImportSet`, `APIDesignationCode`, `APIDonationLevel`, `APIPhilanthropyType`, `APIPlanPriority`, `APIPlanSource`, `APIPlanStatus`, `APIPlanType`, `APIPlannedGivingCode`, `APIPlannedGivingFunding`, `APIPlannedGivingGiftType`, `APIPlannedGivingOnFile`, `APIPlannedGivingPurpose`, `APIPlannedGivingSource`, `APIPlannedGivingStatus`, `APIRecognitionType`, `APIMembershipBenefitFrequency`, `APIMembershipBenefitType`, `APIMembershipLevelCategory`, `APIMembershipLevelTrend`, `APIMembershipPeriod`, `APIMembershipStanding`, `APIMembershipStatus`, `APIConstituentProtectionType`, `APIConstituentTypeAffiliate`, `APIContactLogActivityType`, `APIContactPointCategory`, `APIContactPointCategoryPurpose`, `APIContactPointPurposeCategory`, `APIContactPointPurpose`, `APIContactType`, `APIKeywordConstituentType`, `APIMailIndicator`, `APINameStatus`, `APIPhoneIndicator`, `APIPhoneType`, `APIRelationshipCategory`, `APISubLineItemStatus`, `APIUpgradeCategory`, `APIMembershipBenefitType`, `APIMembershipLevelCategory`, `APIMembershipLevelTrend`, `APIMembershipPeriod`, `APIMembershipStanding`, `APIMembershipStatus`
   - `reports.go` — `APIReport`, `APIReportDetail`, `APIReportParameter`, `ReportResult`; `GetReports`, `GetReport`, `GetReportsBatch`
   - `report_requests.go` — `APIReportRequest`, `APIReportRequestDetail`, `APIReportResult`, `ReportRequestResult`, `ReportResultsParams`; `GetReportRequests`, `GetReportRequest`, `GetReportRequestsBatch`, `GetReportResults`
 - `pkg/domain/` — clean domain types mapped from raw API responses (all consumer code uses these)
@@ -400,14 +414,26 @@ Lists available ticket delivery methods.
 ### `tess ref designation-codes list`
 Lists available codes for directing contributions.
 
+### `tess ref discount-types list`
+Lists available types of ticket discounts.
+
 ### `tess ref donation-levels list`
 Lists available giving levels/tiers with recognition type references.
 
 ### `tess ref electronic-address-types list`
 Lists available electronic address types (email, phone, web type IDs).
 
+### `tess ref event-levels list`
+Lists available event level classifications.
+
+### `tess ref fee-categories list`
+Lists available categories for fees and surcharges.
+
 ### `tess ref genders list`
 Lists available genders with default prefix and pronoun references.
+
+### `tess ref hold-code-categories list`
+Lists available categories for hold codes on seats/inventory.
 
 ### `tess ref inactive-reasons list`
 Lists available inactive reasons for constituents. Used with `constituent set-status --reason`.
@@ -472,8 +498,14 @@ Lists available order categories for order classification.
 ### `tess ref original-sources list`
 Lists available original sources. Used with `constituent create --original-source-id`.
 
+### `tess ref package-types list`
+Lists available types of ticket packages.
+
 ### `tess ref payment-types list`
 Lists available payment types for payment method lookups.
+
+### `tess ref performance-segment-types list`
+Lists available segment type classifications for performances.
 
 ### `tess ref performance-statuses list`
 Lists available performance statuses for event classification.
@@ -529,11 +561,26 @@ Lists available name prefixes (Mr., Mrs., Dr., etc.).
 ### `tess ref price-categories list`
 Lists available price categories.
 
+### `tess ref price-layer-types list`
+Lists available price layer type definitions.
+
 ### `tess ref price-type-categories list`
 Lists available price type categories.
 
 ### `tess ref price-type-groups list`
 Lists available price type groups.
+
+### `tess ref price-type-reasons list`
+Lists available reason codes for price types.
+
+### `tess ref pricing-rule-categories list`
+Lists available categories for pricing rules.
+
+### `tess ref pricing-rule-message-types list`
+Lists available message types shown by pricing rules.
+
+### `tess ref pricing-rule-types list`
+Lists available types of pricing rules.
 
 ### `tess ref pronouns list`
 Lists available pronoun sets.
@@ -559,6 +606,9 @@ Lists available seat codes for venue configuration.
 ### `tess ref seat-statuses list`
 Lists available seat statuses.
 
+### `tess ref season-types list`
+Lists available types/classifications for seasons.
+
 ### `tess ref seasons list`
 Lists available seasons for reporting and ticketing.
 
@@ -568,11 +618,17 @@ Lists available venue sections.
 ### `tess ref states list`
 Lists available states and provinces with country references.
 
+### `tess ref sub-line-item-statuses list`
+Lists available status values for order sub-line items.
+
 ### `tess ref suffixes list`
 Lists available name suffixes (Jr., Sr., III, etc.).
 
 ### `tess ref theaters list`
 Lists available theaters (venues) with address and capacity data.
+
+### `tess ref upgrade-categories list`
+Lists available categories for seat/ticket upgrades.
 
 ### `tess ref user-groups list`
 Lists available user groups with division and permission data.

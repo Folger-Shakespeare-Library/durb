@@ -60,9 +60,13 @@ tess ref contribution-import-sets list
 tess ref countries list
 tess ref delivery-methods list
 tess ref designation-codes list
+tess ref discount-types list
 tess ref donation-levels list
 tess ref electronic-address-types list
+tess ref event-levels list
+tess ref fee-categories list
 tess ref genders list
+tess ref hold-code-categories list
 tess ref inactive-reasons list
 tess ref interest-categories list
 tess ref interest-types list
@@ -84,7 +88,9 @@ tess ref name-statuses list
 tess ref note-types list
 tess ref order-categories list
 tess ref original-sources list
+tess ref package-types list
 tess ref payment-types list
+tess ref performance-segment-types list
 tess ref performance-statuses list
 tess ref performance-types list
 tess ref philanthropy-types list
@@ -103,8 +109,13 @@ tess ref phone-indicators list
 tess ref phone-types list
 tess ref prefixes list
 tess ref price-categories list
+tess ref price-layer-types list
 tess ref price-type-categories list
 tess ref price-type-groups list
+tess ref price-type-reasons list
+tess ref pricing-rule-categories list
+tess ref pricing-rule-message-types list
+tess ref pricing-rule-types list
 tess ref pronouns list
 tess ref recognition-types list
 tess ref relationship-categories list
@@ -113,11 +124,14 @@ tess ref report-types list
 tess ref sales-channels list
 tess ref seat-codes list
 tess ref seat-statuses list
+tess ref season-types list
 tess ref seasons list
 tess ref sections list
 tess ref states list
+tess ref sub-line-item-statuses list
 tess ref suffixes list
 tess ref theaters list
+tess ref upgrade-categories list
 tess ref user-groups list
 ```
 
@@ -518,9 +532,13 @@ tess ref contribution-import-sets list
 tess ref countries list
 tess ref delivery-methods list
 tess ref designation-codes list
+tess ref discount-types list
 tess ref donation-levels list
 tess ref electronic-address-types list
+tess ref event-levels list
+tess ref fee-categories list
 tess ref genders list
+tess ref hold-code-categories list
 tess ref inactive-reasons list
 tess ref interest-categories list
 tess ref interest-types list
@@ -542,7 +560,9 @@ tess ref name-statuses list
 tess ref note-types list
 tess ref order-categories list
 tess ref original-sources list
+tess ref package-types list
 tess ref payment-types list
+tess ref performance-segment-types list
 tess ref performance-statuses list
 tess ref performance-types list
 tess ref philanthropy-types list
@@ -561,8 +581,13 @@ tess ref phone-indicators list
 tess ref phone-types list
 tess ref prefixes list
 tess ref price-categories list
+tess ref price-layer-types list
 tess ref price-type-categories list
 tess ref price-type-groups list
+tess ref price-type-reasons list
+tess ref pricing-rule-categories list
+tess ref pricing-rule-message-types list
+tess ref pricing-rule-types list
 tess ref pronouns list
 tess ref recognition-types list
 tess ref relationship-categories list
@@ -571,11 +596,14 @@ tess ref report-types list
 tess ref sales-channels list
 tess ref seat-codes list
 tess ref seat-statuses list
+tess ref season-types list
 tess ref seasons list
 tess ref sections list
 tess ref states list
+tess ref sub-line-item-statuses list
 tess ref suffixes list
 tess ref theaters list
+tess ref upgrade-categories list
 tess ref user-groups list
 ```
 
@@ -661,14 +689,26 @@ methods.
 **tess ref designation-codes list** returns available codes for directing
 contributions.
 
+**tess ref discount-types list** returns available types of ticket
+discounts.
+
 **tess ref donation-levels list** returns available giving levels/tiers
 with recognition type references.
 
 **tess ref electronic-address-types list** returns available electronic
 address types (email, phone, web type IDs).
 
+**tess ref event-levels list** returns available event level
+classifications.
+
+**tess ref fee-categories list** returns available categories for fees
+and surcharges.
+
 **tess ref genders list** returns available genders with default prefix
 and pronoun references.
+
+**tess ref hold-code-categories list** returns available categories for
+hold codes on seats/inventory.
 
 **tess ref inactive-reasons list** returns available inactive reasons for
 constituents. Used with `constituent set-status --reason`.
@@ -732,8 +772,14 @@ order classification.
 **tess ref original-sources list** returns available original sources.
 Used with `constituent create --original-source-id`.
 
+**tess ref package-types list** returns available types of ticket
+packages.
+
 **tess ref payment-types list** returns available payment types for
 payment method lookups.
+
+**tess ref performance-segment-types list** returns available segment
+type classifications for performances.
 
 **tess ref performance-statuses list** returns available performance
 statuses for event classification.
@@ -787,10 +833,25 @@ Dr., etc.).
 
 **tess ref price-categories list** returns available price categories.
 
+**tess ref price-layer-types list** returns available price layer type
+definitions.
+
 **tess ref price-type-categories list** returns available price type
 categories.
 
 **tess ref price-type-groups list** returns available price type groups.
+
+**tess ref price-type-reasons list** returns available reason codes for
+price types.
+
+**tess ref pricing-rule-categories list** returns available categories
+for pricing rules.
+
+**tess ref pricing-rule-message-types list** returns available message
+types shown by pricing rules.
+
+**tess ref pricing-rule-types list** returns available types of pricing
+rules.
 
 **tess ref pronouns list** returns available pronoun sets.
 
@@ -816,6 +877,9 @@ configuration.
 `description`, `statusCode`, `statusLegend`, `statusPriority`,
 `inactive`).
 
+**tess ref season-types list** returns available types/classifications
+for seasons.
+
 **tess ref seasons list** returns available seasons for reporting and
 ticketing.
 
@@ -824,11 +888,17 @@ ticketing.
 **tess ref states list** returns available states and provinces with
 country references.
 
+**tess ref sub-line-item-statuses list** returns available status values
+for order sub-line items.
+
 **tess ref suffixes list** returns available name suffixes (Jr., Sr.,
 III, etc.).
 
 **tess ref theaters list** returns available theaters (venues) with
 address and capacity data.
+
+**tess ref upgrade-categories list** returns available categories for
+seat/ticket upgrades.
 
 **tess ref user-groups list** returns available user groups with
 division and permission data.
