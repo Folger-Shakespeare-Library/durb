@@ -44,12 +44,6 @@ talks to the Tessitura REST API and prints JSON to standard output.
 The project name is Durb, short for d'Urbervilles (from *Tess of the
 d'Urbervilles*). The command name is `tess`.
 
-Tessitura's REST API maps closely to its database tables. A single logical
-record (a constituent with their addresses, phones, emails, affiliations, and
-notes) requires calls to several endpoints. `tess` assembles these into
-domain objects so that a `constituent get` returns one complete JSON document
-per person.
-
 All output is JSON. Single-record commands return a JSON object. Multi-record
 commands return a JSON array. Commands that accept multiple IDs always return
 an array, even for a single ID.
@@ -65,8 +59,6 @@ Or build from source:
 ```
 go build -o tess ./cmd/tess
 ```
-
-Releases are built by GoReleaser via GitHub Actions on tag push.
 
 ## CONFIGURATION
 
@@ -227,14 +219,18 @@ Create a new constituent. Returns the created record as JSON.
 All five flags above are required. There are no defaults for write
 operations. The sort name is auto-generated as `"LastName, FirstName"`.
 
-    --first <name>              first name (truncated to 20 characters)
-    --last <name>               last name (truncated to 55 characters)
+    --first <name>              first name
+    --last <name>               last name
     --email <addr>              email address
     --constituent-type-id <id>  constituent type (e.g. 1 = Individual)
     --original-source-id <id>   original source ID
     --street <addr>             street address line 1
-    --postal-code <code>        postal / ZIP code (truncated to 10 characters)
+    --postal-code <code>        postal / ZIP code
     --allow-marketing           allow email marketing (default false)
+
+**WARNING:** `--first` is silently truncated to 20 characters, `--last`
+to 55, and `--postal-code` to 10. No error or warning is emitted when
+truncation occurs.
 
 ### tess crm constituent update
 
