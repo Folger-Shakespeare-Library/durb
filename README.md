@@ -34,13 +34,33 @@ tess report request results [--report-id <id>] [--page <n>] ...
 
 tess ref activity-statuses list
 tess ref activity-types list
+tess ref affiliation-types list
+tess ref alias-types list
+tess ref association-types list
 tess ref constituent-inactives list
 tess ref constituent-types list
+tess ref contact-permission-categories list
+tess ref contact-permission-types list
+tess ref delivery-methods list
+tess ref electronic-address-types list
 tess ref inactive-reasons list
 tess ref interest-types list
 tess ref keywords list
+tess ref login-types list
 tess ref machine-settings list
+tess ref note-types list
+tess ref order-categories list
 tess ref original-sources list
+tess ref payment-types list
+tess ref performance-statuses list
+tess ref performance-types list
+tess ref price-categories list
+tess ref price-type-categories list
+tess ref price-type-groups list
+tess ref report-categories list
+tess ref report-types list
+tess ref sales-channels list
+tess ref seasons list
 tess ref seat-statuses list
 ```
 
@@ -415,13 +435,33 @@ results is printed to standard error.
 ```
 tess ref activity-statuses list
 tess ref activity-types list
+tess ref affiliation-types list
+tess ref alias-types list
+tess ref association-types list
 tess ref constituent-inactives list
 tess ref constituent-types list
+tess ref contact-permission-categories list
+tess ref contact-permission-types list
+tess ref delivery-methods list
+tess ref electronic-address-types list
 tess ref inactive-reasons list
 tess ref interest-types list
 tess ref keywords list
+tess ref login-types list
 tess ref machine-settings list
+tess ref note-types list
+tess ref order-categories list
 tess ref original-sources list
+tess ref payment-types list
+tess ref performance-statuses list
+tess ref performance-types list
+tess ref price-categories list
+tess ref price-type-categories list
+tess ref price-type-groups list
+tess ref report-categories list
+tess ref report-types list
+tess ref sales-channels list
+tess ref seasons list
 tess ref seat-statuses list
 ```
 
@@ -433,11 +473,32 @@ statuses. Used with `activity create --status-id`.
 **tess ref activity-types list** returns available special activity
 types. Used with `activity create --activity-type-id`.
 
+**tess ref affiliation-types list** returns available affiliation types
+for classifying constituent affiliations (org/household memberships).
+
+**tess ref alias-types list** returns available alias types for
+classifying constituent aliases.
+
+**tess ref association-types list** returns available association types
+for classifying constituent associations.
+
 **tess ref constituent-inactives list** returns available inactive status
 types for constituents (`id`, `description`, `inactive`).
 
 **tess ref constituent-types list** returns available constituent types.
 Used with `constituent create --constituent-type-id`.
+
+**tess ref contact-permission-categories list** returns available contact
+permission categories for marketing consent groupings.
+
+**tess ref contact-permission-types list** returns available contact
+permission types for marketing consent configuration.
+
+**tess ref delivery-methods list** returns available ticket delivery
+methods.
+
+**tess ref electronic-address-types list** returns available electronic
+address types (email, phone, web type IDs).
 
 **tess ref inactive-reasons list** returns available inactive reasons for
 constituents. Used with `constituent set-status --reason`.
@@ -448,11 +509,48 @@ with `interest enable/disable --interest-type-ids`.
 **tess ref keywords list** returns available keywords (attribute types in
 Tessitura). Used with `attribute set --attribute-type-id`.
 
+**tess ref login-types list** returns available login types for
+classifying constituent web logins.
+
 **tess ref machine-settings list** returns machine settings (workstation
 name, card reader configuration, merchant IDs, audit fields).
 
+**tess ref note-types list** returns available note types for classifying
+constituent notes.
+
+**tess ref order-categories list** returns available order categories for
+order classification.
+
 **tess ref original-sources list** returns available original sources.
 Used with `constituent create --original-source-id`.
+
+**tess ref payment-types list** returns available payment types for
+payment method lookups.
+
+**tess ref performance-statuses list** returns available performance
+statuses for event classification.
+
+**tess ref performance-types list** returns available performance types
+for event classification.
+
+**tess ref price-categories list** returns available price categories.
+
+**tess ref price-type-categories list** returns available price type
+categories.
+
+**tess ref price-type-groups list** returns available price type groups.
+
+**tess ref report-categories list** returns available report categories.
+Used with `report list --category-ids`.
+
+**tess ref report-types list** returns available report types. Used with
+`report list --type-ids`.
+
+**tess ref sales-channels list** returns available sales channels (box
+office, online, phone).
+
+**tess ref seasons list** returns available seasons for reporting and
+ticketing.
 
 **tess ref seat-statuses list** returns seat statuses (`id`,
 `description`, `statusCode`, `statusLegend`, `statusPriority`,

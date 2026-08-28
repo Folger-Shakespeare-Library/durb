@@ -18,19 +18,19 @@ These are referenced by ID in existing commands. A `ref` lookup avoids guessing 
 
 ### Medium — useful for future commands or common lookups
 
-- [ ] ReportCategories — `report list --category-ids`
-- [ ] ReportTypes — `report list --type-ids`
-- [ ] Seasons — season references for reporting and ticketing
-- [ ] PerformanceStatuses / PerformanceTypes — event classification
-- [ ] PriceCategories / PriceTypeCategories / PriceTypeGroups — pricing
-- [ ] PaymentTypes — payment method lookups
-- [ ] DeliveryMethods — ticket delivery options
-- [ ] OrderCategories — order classification
-- [ ] SalesChannels — box office vs. online vs. phone
-- [ ] NoteTypes — classify constituent notes
-- [ ] ElectronicAddressTypes — email/phone/web type IDs
-- [ ] ContactPermissionTypes / ContactPermissionCategories — marketing consent
-- [ ] AffiliationTypes / AssociationTypes / AliasTypes / LoginTypes — classify related records
+- [x] ReportCategories — `report list --category-ids`
+- [x] ReportTypes — `report list --type-ids`
+- [x] Seasons — season references for reporting and ticketing
+- [x] PerformanceStatuses / PerformanceTypes — event classification
+- [x] PriceCategories / PriceTypeCategories / PriceTypeGroups — pricing
+- [x] PaymentTypes — payment method lookups
+- [x] DeliveryMethods — ticket delivery options
+- [x] OrderCategories — order classification
+- [x] SalesChannels — box office vs. online vs. phone
+- [x] NoteTypes — classify constituent notes
+- [x] ElectronicAddressTypes — email/phone/web type IDs
+- [x] ContactPermissionTypes / ContactPermissionCategories — marketing consent
+- [x] AffiliationTypes / AssociationTypes / AliasTypes / LoginTypes — classify related records
 
 ### Low — rarely needed or installation-specific
 

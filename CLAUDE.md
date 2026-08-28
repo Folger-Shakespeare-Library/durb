@@ -35,16 +35,36 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `interest_enable.go` — `tess crm interest enable`
   - `interest_disable.go` — `tess crm interest disable`
   - `interest_list.go` — `tess crm interest list`
-  - `ref.go` — `tess ref` subcommand group; registers activity-statuses, activity-types, constituent-inactives, constituent-types, inactive-reasons, interest-types, keywords, machine-settings, original-sources, seat-statuses
+  - `ref.go` — `tess ref` subcommand group; registers all ref subcommands
   - `ref_activity_statuses.go` — `tess ref activity-statuses list`
   - `ref_activity_types.go` — `tess ref activity-types list`
+  - `ref_affiliation_types.go` — `tess ref affiliation-types list`
+  - `ref_alias_types.go` — `tess ref alias-types list`
+  - `ref_association_types.go` — `tess ref association-types list`
   - `ref_constituent_inactives.go` — `tess ref constituent-inactives list`
   - `ref_constituent_types.go` — `tess ref constituent-types list`
+  - `ref_contact_permission_categories.go` — `tess ref contact-permission-categories list`
+  - `ref_contact_permission_types.go` — `tess ref contact-permission-types list`
+  - `ref_delivery_methods.go` — `tess ref delivery-methods list`
+  - `ref_electronic_address_types.go` — `tess ref electronic-address-types list`
   - `ref_inactive_reasons.go` — `tess ref inactive-reasons list`
   - `ref_interest_types.go` — `tess ref interest-types list`
   - `ref_keywords.go` — `tess ref keywords list`
+  - `ref_login_types.go` — `tess ref login-types list`
   - `ref_machine_settings.go` — `tess ref machine-settings list`
+  - `ref_note_types.go` — `tess ref note-types list`
+  - `ref_order_categories.go` — `tess ref order-categories list`
   - `ref_original_sources.go` — `tess ref original-sources list`
+  - `ref_payment_types.go` — `tess ref payment-types list`
+  - `ref_performance_statuses.go` — `tess ref performance-statuses list`
+  - `ref_performance_types.go` — `tess ref performance-types list`
+  - `ref_price_categories.go` — `tess ref price-categories list`
+  - `ref_price_type_categories.go` — `tess ref price-type-categories list`
+  - `ref_price_type_groups.go` — `tess ref price-type-groups list`
+  - `ref_report_categories.go` — `tess ref report-categories list`
+  - `ref_report_types.go` — `tess ref report-types list`
+  - `ref_sales_channels.go` — `tess ref sales-channels list`
+  - `ref_seasons.go` — `tess ref seasons list`
   - `ref_seat_statuses.go` — `tess ref seat-statuses list`
   - `report.go` — `tess report` subcommand group; registers get/list/request
   - `report_get.go` — `tess report get`
@@ -66,7 +86,7 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `attributes.go` — `APIAttribute`, `GetAttributes`, `CreateAttribute`, `UpdateAttribute`, `DeleteAttribute`
   - `interests.go` — `APIInterest`, `GetInterests`, `CreateInterest`, `UpdateInterest`
   - `electronic_addresses.go` — `GetElectronicAddresses`, `UpdateElectronicAddress`
-  - `reference.go` — `APIRefItem`, `APISeatStatus`, `APIMachineSetting`, `APIConstituentType`, `APIOriginalSource`, `APISpecialActivityType`, `APISpecialActivityStatus`, `APIKeyword`, `APIInterestType`, `APIInactiveReason`; `GetConstituentInactiveStatuses`, `GetConstituentInactiveReasons`, `GetConstituentTypes`, `GetOriginalSources`, `GetSpecialActivityTypes`, `GetSpecialActivityStatuses`, `GetKeywords`, `GetInterestTypes`, `GetInactiveReasons`, `GetMachineSettings`, `GetSeatStatuses`
+  - `reference.go` — `APIRefItem`, `APISeatStatus`, `APIMachineSetting`, `APIConstituentType`, `APIOriginalSource`, `APISpecialActivityType`, `APISpecialActivityStatus`, `APIKeyword`, `APIInterestType`, `APIInactiveReason`, `APIControlGroupRef`, `APIRelationshipCategoryRef`, `APIReportCategory`, `APIReportType`, `APISeason`, `APIPerformanceStatus`, `APIPerformanceType`, `APIPriceCategory`, `APIPriceTypeCategory`, `APIPriceTypeGroup`, `APIPaymentType`, `APIDeliveryMethod`, `APIOrderCategory`, `APISalesChannel`, `APINoteType`, `APIElectronicAddressType`, `APIContactPermissionCategory`, `APIContactPermissionType`, `APIAffiliationType`, `APIAssociationType`, `APIAliasType`, `APILoginType`; `GetConstituentInactiveStatuses`, `GetConstituentInactiveReasons`, `GetConstituentTypes`, `GetOriginalSources`, `GetSpecialActivityTypes`, `GetSpecialActivityStatuses`, `GetKeywords`, `GetInterestTypes`, `GetInactiveReasons`, `GetMachineSettings`, `GetSeatStatuses`, `GetReportCategories`, `GetReportTypes`, `GetSeasons`, `GetPerformanceStatuses`, `GetPerformanceTypes`, `GetPriceCategories`, `GetPriceTypeCategories`, `GetPriceTypeGroups`, `GetPaymentTypes`, `GetDeliveryMethods`, `GetOrderCategories`, `GetSalesChannels`, `GetNoteTypes`, `GetElectronicAddressTypes`, `GetContactPermissionCategories`, `GetContactPermissionTypes`, `GetAffiliationTypes`, `GetAssociationTypes`, `GetAliasTypes`, `GetLoginTypes`
   - `reports.go` — `APIReport`, `APIReportDetail`, `APIReportParameter`, `ReportResult`; `GetReports`, `GetReport`, `GetReportsBatch`
   - `report_requests.go` — `APIReportRequest`, `APIReportRequestDetail`, `APIReportResult`, `ReportRequestResult`, `ReportResultsParams`; `GetReportRequests`, `GetReportRequest`, `GetReportRequestsBatch`, `GetReportResults`
 - `pkg/domain/` — clean domain types mapped from raw API responses (all consumer code uses these)
@@ -219,11 +239,32 @@ Lists available special activity statuses. Used with `activity create --status-i
 ### `tess ref activity-types list`
 Lists available special activity types. Used with `activity create --activity-type-id`.
 
+### `tess ref affiliation-types list`
+Lists available affiliation types for classifying constituent affiliations.
+
+### `tess ref alias-types list`
+Lists available alias types for classifying constituent aliases.
+
+### `tess ref association-types list`
+Lists available association types for classifying constituent associations.
+
 ### `tess ref constituent-inactives list`
 Lists available inactive status types for constituents.
 
 ### `tess ref constituent-types list`
 Lists available constituent types. Used with `constituent create --constituent-type-id`.
+
+### `tess ref contact-permission-categories list`
+Lists available contact permission categories for marketing consent groupings.
+
+### `tess ref contact-permission-types list`
+Lists available contact permission types for marketing consent configuration.
+
+### `tess ref delivery-methods list`
+Lists available ticket delivery methods.
+
+### `tess ref electronic-address-types list`
+Lists available electronic address types (email, phone, web type IDs).
 
 ### `tess ref inactive-reasons list`
 Lists available inactive reasons for constituents. Used with `constituent set-status --reason`.
@@ -234,11 +275,50 @@ Lists available interest types. Used with `interest enable/disable --interest-ty
 ### `tess ref keywords list`
 Lists available keywords (attribute types in Tessitura). Used with `attribute set --attribute-type-id`.
 
+### `tess ref login-types list`
+Lists available login types for classifying constituent web logins.
+
 ### `tess ref machine-settings list`
 Lists machine settings (workstation name, card reader configuration, merchant IDs, audit fields). Uses the full `/ReferenceData/MachineSettings` endpoint (not Summary, which returns empty descriptions).
 
+### `tess ref note-types list`
+Lists available note types for classifying constituent notes.
+
+### `tess ref order-categories list`
+Lists available order categories for order classification.
+
 ### `tess ref original-sources list`
 Lists available original sources. Used with `constituent create --original-source-id`.
+
+### `tess ref payment-types list`
+Lists available payment types for payment method lookups.
+
+### `tess ref performance-statuses list`
+Lists available performance statuses for event classification.
+
+### `tess ref performance-types list`
+Lists available performance types for event classification.
+
+### `tess ref price-categories list`
+Lists available price categories.
+
+### `tess ref price-type-categories list`
+Lists available price type categories.
+
+### `tess ref price-type-groups list`
+Lists available price type groups.
+
+### `tess ref report-categories list`
+Lists available report categories. Used with `report list --category-ids`.
+
+### `tess ref report-types list`
+Lists available report types. Used with `report list --type-ids`.
+
+### `tess ref sales-channels list`
+Lists available sales channels (box office, online, phone).
+
+### `tess ref seasons list`
+Lists available seasons for reporting and ticketing.
 
 ### `tess ref seat-statuses list`
 Lists available seat statuses.
