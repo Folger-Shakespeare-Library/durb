@@ -1,6 +1,6 @@
 # Durb
 
-`tess` — read and write Tessitura records
+`tess` - read and write Tessitura records
 
 The command is `tess`, short for Tessitura. The project name
 Durb is short for d'Urbervilles, from *Tess of the d'Urbervilles*.
@@ -54,7 +54,7 @@ Additional data requires `--with`:
     --with notes            constituent notes
     --with all              all of the above
 
-All `get` commands — constituent, report, and report request —
+All `get` commands (constituent, report, and report request)
 accept multiple IDs as arguments and read IDs from standard
 input, one per line:
 
@@ -65,7 +65,7 @@ input, one per line:
 ### Search
 
 `tess crm constituent search` operates in one of three modes,
-and the modes are mutually exclusive — mixing them is an error.
+and the modes are mutually exclusive. Mixing them is an error.
 
 **Free text** uses a positional argument:
 
@@ -100,7 +100,7 @@ households). Results are deduplicated by constituent ID.
     tess crm constituent set-status --id 12345 --status Inactive --reason Deceased
 
 `--status` and `--reason` take human-readable descriptions, not
-numeric codes — `tess` resolves them against Tessitura's reference
+numeric codes. `tess` resolves them against Tessitura's reference
 data by case-insensitive match. A `--reason` is required when
 setting a constituent inactive.
 
@@ -111,7 +111,7 @@ These are records attached to a constituent by `--constituent-id`.
 `tess crm attribute set` is an upsert: if the constituent already
 has an attribute of the given type, it updates the value; otherwise
 it creates one. `tess crm interest enable` and `disable` work the
-same way — they will not create duplicate records.
+same way and will not create duplicate records.
 
     tess crm attribute set --constituent-id 12345 \
         --attribute-type-id 7 --value "Yes"
@@ -134,7 +134,7 @@ type and datetime already exists, it returns the existing record.
 `tess report get` returns the report definition with its
 parameters. `tess report list` shows active reports only by
 default; the API has no server-side inactive filter, so `tess`
-filters client-side — pass `--include-inactive` to see all.
+filters client-side. Pass `--include-inactive` to see all.
 
     tess report request get 12345
     tess report request list
