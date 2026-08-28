@@ -34,18 +34,27 @@ tess report request results [--report-id <id>] [--page <n>] ...
 
 tess ref activity-statuses list
 tess ref activity-types list
+tess ref address-types list
 tess ref affiliation-types list
 tess ref alias-types list
 tess ref association-types list
+tess ref business-units list
+tess ref constituency-types list
+tess ref constituent-groups list
 tess ref constituent-inactives list
 tess ref constituent-types list
 tess ref contact-permission-categories list
 tess ref contact-permission-types list
+tess ref countries list
 tess ref delivery-methods list
 tess ref electronic-address-types list
+tess ref genders list
 tess ref inactive-reasons list
+tess ref interest-categories list
 tess ref interest-types list
+tess ref keyword-categories list
 tess ref keywords list
+tess ref languages list
 tess ref login-types list
 tess ref machine-settings list
 tess ref note-types list
@@ -54,14 +63,22 @@ tess ref original-sources list
 tess ref payment-types list
 tess ref performance-statuses list
 tess ref performance-types list
+tess ref prefixes list
 tess ref price-categories list
 tess ref price-type-categories list
 tess ref price-type-groups list
+tess ref pronouns list
 tess ref report-categories list
 tess ref report-types list
 tess ref sales-channels list
-tess ref seasons list
+tess ref seat-codes list
 tess ref seat-statuses list
+tess ref seasons list
+tess ref sections list
+tess ref states list
+tess ref suffixes list
+tess ref theaters list
+tess ref user-groups list
 ```
 
 ## DESCRIPTION
@@ -435,18 +452,27 @@ results is printed to standard error.
 ```
 tess ref activity-statuses list
 tess ref activity-types list
+tess ref address-types list
 tess ref affiliation-types list
 tess ref alias-types list
 tess ref association-types list
+tess ref business-units list
+tess ref constituency-types list
+tess ref constituent-groups list
 tess ref constituent-inactives list
 tess ref constituent-types list
 tess ref contact-permission-categories list
 tess ref contact-permission-types list
+tess ref countries list
 tess ref delivery-methods list
 tess ref electronic-address-types list
+tess ref genders list
 tess ref inactive-reasons list
+tess ref interest-categories list
 tess ref interest-types list
+tess ref keyword-categories list
 tess ref keywords list
+tess ref languages list
 tess ref login-types list
 tess ref machine-settings list
 tess ref note-types list
@@ -455,14 +481,22 @@ tess ref original-sources list
 tess ref payment-types list
 tess ref performance-statuses list
 tess ref performance-types list
+tess ref prefixes list
 tess ref price-categories list
 tess ref price-type-categories list
 tess ref price-type-groups list
+tess ref pronouns list
 tess ref report-categories list
 tess ref report-types list
 tess ref sales-channels list
-tess ref seasons list
+tess ref seat-codes list
 tess ref seat-statuses list
+tess ref seasons list
+tess ref sections list
+tess ref states list
+tess ref suffixes list
+tess ref theaters list
+tess ref user-groups list
 ```
 
 List reference (lookup table) data from Tessitura.
@@ -473,6 +507,8 @@ statuses. Used with `activity create --status-id`.
 **tess ref activity-types list** returns available special activity
 types. Used with `activity create --activity-type-id`.
 
+**tess ref address-types list** returns available address types.
+
 **tess ref affiliation-types list** returns available affiliation types
 for classifying constituent affiliations (org/household memberships).
 
@@ -481,6 +517,14 @@ classifying constituent aliases.
 
 **tess ref association-types list** returns available association types
 for classifying constituent associations.
+
+**tess ref business-units list** returns available business units.
+
+**tess ref constituency-types list** returns available constituency
+types for constituent classification.
+
+**tess ref constituent-groups list** returns available constituent
+groups (individuals, organizations, households).
 
 **tess ref constituent-inactives list** returns available inactive status
 types for constituents (`id`, `description`, `inactive`).
@@ -494,20 +538,33 @@ permission categories for marketing consent groupings.
 **tess ref contact-permission-types list** returns available contact
 permission types for marketing consent configuration.
 
+**tess ref countries list** returns available countries.
+
 **tess ref delivery-methods list** returns available ticket delivery
 methods.
 
 **tess ref electronic-address-types list** returns available electronic
 address types (email, phone, web type IDs).
 
+**tess ref genders list** returns available genders with default prefix
+and pronoun references.
+
 **tess ref inactive-reasons list** returns available inactive reasons for
 constituents. Used with `constituent set-status --reason`.
+
+**tess ref interest-categories list** returns available interest
+categories (metadata for interest types).
 
 **tess ref interest-types list** returns available interest types. Used
 with `interest enable/disable --interest-type-ids`.
 
+**tess ref keyword-categories list** returns available keyword categories
+(metadata for attribute types).
+
 **tess ref keywords list** returns available keywords (attribute types in
 Tessitura). Used with `attribute set --attribute-type-id`.
+
+**tess ref languages list** returns available language codes.
 
 **tess ref login-types list** returns available login types for
 classifying constituent web logins.
@@ -533,12 +590,17 @@ statuses for event classification.
 **tess ref performance-types list** returns available performance types
 for event classification.
 
+**tess ref prefixes list** returns available name prefixes (Mr., Mrs.,
+Dr., etc.).
+
 **tess ref price-categories list** returns available price categories.
 
 **tess ref price-type-categories list** returns available price type
 categories.
 
 **tess ref price-type-groups list** returns available price type groups.
+
+**tess ref pronouns list** returns available pronoun sets.
 
 **tess ref report-categories list** returns available report categories.
 Used with `report list --category-ids`.
@@ -549,12 +611,29 @@ Used with `report list --category-ids`.
 **tess ref sales-channels list** returns available sales channels (box
 office, online, phone).
 
-**tess ref seasons list** returns available seasons for reporting and
-ticketing.
+**tess ref seat-codes list** returns available seat codes for venue
+configuration.
 
 **tess ref seat-statuses list** returns seat statuses (`id`,
 `description`, `statusCode`, `statusLegend`, `statusPriority`,
 `inactive`).
+
+**tess ref seasons list** returns available seasons for reporting and
+ticketing.
+
+**tess ref sections list** returns available venue sections.
+
+**tess ref states list** returns available states and provinces with
+country references.
+
+**tess ref suffixes list** returns available name suffixes (Jr., Sr.,
+III, etc.).
+
+**tess ref theaters list** returns available theaters (venues) with
+address and capacity data.
+
+**tess ref user-groups list** returns available user groups with
+division and permission data.
 
 ## ENVIRONMENT
 

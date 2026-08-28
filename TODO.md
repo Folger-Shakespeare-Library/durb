@@ -34,12 +34,12 @@ These are referenced by ID in existing commands. A `ref` lookup avoids guessing 
 
 ### Low — rarely needed or installation-specific
 
-- [ ] Genders / Pronouns / Prefixes / Suffixes — demographic data
-- [ ] Countries / States / AddressTypes — address lookups
-- [ ] Languages — language codes
-- [ ] ConstituencyTypes / ConstituentGroups — constituent classification
-- [ ] KeywordCategories / InterestCategories — metadata for attribute/interest types
-- [ ] UserGroups / BusinessUnits — org structure
-- [ ] Theaters / Sections / SeatCodes — venue configuration
+- [x] Genders / Pronouns / Prefixes / Suffixes — demographic data
+- [x] Countries / States / AddressTypes — address lookups
+- [x] Languages — language codes
+- [x] ConstituencyTypes / ConstituentGroups — constituent classification
+- [x] KeywordCategories / InterestCategories — metadata for attribute/interest types
+- [x] UserGroups / BusinessUnits — org structure
+- [x] Theaters / Sections / SeatCodes — venue configuration
 
 Everything else (200+ resources) is deeply administrative or tied to features not yet in the CLI.

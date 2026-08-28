@@ -824,3 +824,484 @@ func (c *Client) GetLoginTypes(ctx context.Context) ([]APILoginType, error) {
 	}
 	return items, nil
 }
+
+type APIPrefixRef struct {
+	Id          *int    `json:"Id"`
+	Description *string `json:"Description"`
+	Inactive    *bool   `json:"Inactive"`
+}
+
+type APIPronounRef struct {
+	Id          *int    `json:"Id"`
+	Description *string `json:"Description"`
+	Inactive    bool    `json:"Inactive"`
+}
+
+type APIGender struct {
+	Id               *int           `json:"Id"`
+	Description      *string        `json:"Description"`
+	Inactive         bool           `json:"Inactive"`
+	ShortDescription *string        `json:"ShortDescription"`
+	DefaultPrefix    *APIPrefixRef  `json:"DefaultPrefix"`
+	DefaultPronoun   *APIPronounRef `json:"DefaultPronoun"`
+	CreatedBy        *string        `json:"CreatedBy"`
+	CreatedDateTime  *string        `json:"CreatedDateTime"`
+	CreateLocation   *string        `json:"CreateLocation"`
+	UpdatedBy        *string        `json:"UpdatedBy"`
+	UpdatedDateTime  *string        `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetGenders(ctx context.Context) ([]APIGender, error) {
+	data, err := c.Get(ctx, "/ReferenceData/Genders")
+	if err != nil {
+		return nil, fmt.Errorf("fetching genders: %w", err)
+	}
+	var items []APIGender
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing genders: %w", err)
+	}
+	return items, nil
+}
+
+type APIPronoun struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPronouns(ctx context.Context) ([]APIPronoun, error) {
+	data, err := c.Get(ctx, "/ReferenceData/Pronouns")
+	if err != nil {
+		return nil, fmt.Errorf("fetching pronouns: %w", err)
+	}
+	var items []APIPronoun
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing pronouns: %w", err)
+	}
+	return items, nil
+}
+
+type APIPrefix struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPrefixes(ctx context.Context) ([]APIPrefix, error) {
+	data, err := c.Get(ctx, "/ReferenceData/Prefixes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching prefixes: %w", err)
+	}
+	var items []APIPrefix
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing prefixes: %w", err)
+	}
+	return items, nil
+}
+
+type APISuffix struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetSuffixes(ctx context.Context) ([]APISuffix, error) {
+	data, err := c.Get(ctx, "/ReferenceData/Suffixes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching suffixes: %w", err)
+	}
+	var items []APISuffix
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing suffixes: %w", err)
+	}
+	return items, nil
+}
+
+type APICountry struct {
+	Id                   *int    `json:"Id"`
+	Description          *string `json:"Description"`
+	Inactive             *bool   `json:"Inactive"`
+	ShortDescription     *string `json:"ShortDescription"`
+	IsoAlpha2Code        *string `json:"IsoAlpha2Code"`
+	IsoAlpha3Code        *string `json:"IsoAlpha3Code"`
+	PhoneCode            *int    `json:"PhoneCode"`
+	DecimalSeparator     *string `json:"DecimalSeparator"`
+	PhoneEditString      *string `json:"PhoneEditString"`
+	PhoneMask            *string `json:"PhoneMask"`
+	MobileEditString     *string `json:"MobileEditString"`
+	MobileMask           *string `json:"MobileMask"`
+	PostalCodeEditString *string `json:"PostalCodeEditString"`
+	PostalCodeMask       *string `json:"PostalCodeMask"`
+	PostalCodeValidLengths *string `json:"PostalCodeValidLengths"`
+	RequireCity          bool    `json:"RequireCity"`
+	RequirePostalCode    bool    `json:"RequirePostalCode"`
+	UseAvs               bool    `json:"UseAvs"`
+	UseStateField        *string `json:"UseStateField"`
+	CreatedBy            *string `json:"CreatedBy"`
+	CreatedDateTime      *string `json:"CreatedDateTime"`
+	CreateLocation       *string `json:"CreateLocation"`
+	UpdatedBy            *string `json:"UpdatedBy"`
+	UpdatedDateTime      *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetCountries(ctx context.Context) ([]APICountry, error) {
+	data, err := c.Get(ctx, "/ReferenceData/Countries")
+	if err != nil {
+		return nil, fmt.Errorf("fetching countries: %w", err)
+	}
+	var items []APICountry
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing countries: %w", err)
+	}
+	return items, nil
+}
+
+type APICountryRef struct {
+	Id          *int    `json:"Id"`
+	Description *string `json:"Description"`
+	Inactive    *bool   `json:"Inactive"`
+}
+
+type APIState struct {
+	Id              *int           `json:"Id"`
+	Description     *string        `json:"Description"`
+	Inactive        *bool          `json:"Inactive"`
+	StateCode       *string        `json:"StateCode"`
+	Country         *APICountryRef `json:"Country"`
+	CreatedBy       *string        `json:"CreatedBy"`
+	CreatedDateTime *string        `json:"CreatedDateTime"`
+	CreateLocation  *string        `json:"CreateLocation"`
+	UpdatedBy       *string        `json:"UpdatedBy"`
+	UpdatedDateTime *string        `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetStates(ctx context.Context) ([]APIState, error) {
+	data, err := c.Get(ctx, "/ReferenceData/States")
+	if err != nil {
+		return nil, fmt.Errorf("fetching states: %w", err)
+	}
+	var items []APIState
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing states: %w", err)
+	}
+	return items, nil
+}
+
+type APIAddressType struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        *bool               `json:"Inactive"`
+	ControlGroup    *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetAddressTypes(ctx context.Context) ([]APIAddressType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/AddressTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching address types: %w", err)
+	}
+	var items []APIAddressType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing address types: %w", err)
+	}
+	return items, nil
+}
+
+type APILanguage struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetLanguages(ctx context.Context) ([]APILanguage, error) {
+	data, err := c.Get(ctx, "/ReferenceData/Languages")
+	if err != nil {
+		return nil, fmt.Errorf("fetching languages: %w", err)
+	}
+	var items []APILanguage
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing languages: %w", err)
+	}
+	return items, nil
+}
+
+type APIConstituencyType struct {
+	Id                *int                `json:"Id"`
+	Description       *string             `json:"Description"`
+	Inactive          *bool               `json:"Inactive"`
+	ShortDescription  *string             `json:"ShortDescription"`
+	Rank              *int                `json:"Rank"`
+	UsedForMemberships bool               `json:"UsedForMemberships"`
+	ControlGroup      *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy         *string             `json:"CreatedBy"`
+	CreatedDateTime   *string             `json:"CreatedDateTime"`
+	CreateLocation    *string             `json:"CreateLocation"`
+	UpdatedBy         *string             `json:"UpdatedBy"`
+	UpdatedDateTime   *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetConstituencyTypes(ctx context.Context) ([]APIConstituencyType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ConstituencyTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching constituency types: %w", err)
+	}
+	var items []APIConstituencyType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing constituency types: %w", err)
+	}
+	return items, nil
+}
+
+type APIConstituentGroup struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetConstituentGroups(ctx context.Context) ([]APIConstituentGroup, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ConstituentGroups")
+	if err != nil {
+		return nil, fmt.Errorf("fetching constituent groups: %w", err)
+	}
+	var items []APIConstituentGroup
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing constituent groups: %w", err)
+	}
+	return items, nil
+}
+
+type APIKeywordCategory struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetKeywordCategories(ctx context.Context) ([]APIKeywordCategory, error) {
+	data, err := c.Get(ctx, "/ReferenceData/KeywordCategories")
+	if err != nil {
+		return nil, fmt.Errorf("fetching keyword categories: %w", err)
+	}
+	var items []APIKeywordCategory
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing keyword categories: %w", err)
+	}
+	return items, nil
+}
+
+type APIInterestCategory struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetInterestCategories(ctx context.Context) ([]APIInterestCategory, error) {
+	data, err := c.Get(ctx, "/ReferenceData/InterestCategories")
+	if err != nil {
+		return nil, fmt.Errorf("fetching interest categories: %w", err)
+	}
+	var items []APIInterestCategory
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing interest categories: %w", err)
+	}
+	return items, nil
+}
+
+type APIDivisionRef struct {
+	Id          *string `json:"Id"`
+	Name        *string `json:"Name"`
+	Description *string `json:"Description"`
+}
+
+type APIOriginalSourceRef struct {
+	Id          *int    `json:"Id"`
+	Description *string `json:"Description"`
+	Inactive    *bool   `json:"Inactive"`
+}
+
+type APIUserGroup struct {
+	Id                                 *string               `json:"Id"`
+	Name                               *string               `json:"Name"`
+	Description                        *string               `json:"Description"`
+	IsAdmin                            bool                  `json:"IsAdmin"`
+	AllowApp                           bool                  `json:"AllowApp"`
+	AllowTablet                        bool                  `json:"AllowTablet"`
+	AllowTessituraWeb                  bool                  `json:"AllowTessituraWeb"`
+	AllowAccessControl                 bool                  `json:"AllowAccessControl"`
+	DefaultConstituentHeaderFormatId   *int                  `json:"DefaultConstituentHeaderFormatId"`
+	Division                           *APIDivisionRef       `json:"Division"`
+	DefaultOriginalSource              *APIOriginalSourceRef `json:"DefaultOriginalSource"`
+	CreatedBy                          *string               `json:"CreatedBy"`
+	CreatedDateTime                    *string               `json:"CreatedDateTime"`
+	CreateLocation                     *string               `json:"CreateLocation"`
+	UpdatedBy                          *string               `json:"UpdatedBy"`
+	UpdatedDateTime                    *string               `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetUserGroups(ctx context.Context) ([]APIUserGroup, error) {
+	data, err := c.Get(ctx, "/ReferenceData/UserGroups")
+	if err != nil {
+		return nil, fmt.Errorf("fetching user groups: %w", err)
+	}
+	var items []APIUserGroup
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing user groups: %w", err)
+	}
+	return items, nil
+}
+
+type APIBusinessUnit struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetBusinessUnits(ctx context.Context) ([]APIBusinessUnit, error) {
+	data, err := c.Get(ctx, "/ReferenceData/BusinessUnits")
+	if err != nil {
+		return nil, fmt.Errorf("fetching business units: %w", err)
+	}
+	var items []APIBusinessUnit
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing business units: %w", err)
+	}
+	return items, nil
+}
+
+type APITheater struct {
+	Id                   *int    `json:"Id"`
+	Description          *string `json:"Description"`
+	Inactive             *bool   `json:"Inactive"`
+	Street               *string `json:"Street"`
+	City                 *string `json:"City"`
+	State                *string `json:"State"`
+	PostalCode           *string `json:"PostalCode"`
+	Phone                *string `json:"Phone"`
+	DrivingDirections    *string `json:"DrivingDirections"`
+	DataWindowDefinition *string `json:"DataWindowDefinition"`
+	MaximumNumberOfSeats *int    `json:"MaximumNumberOfSeats"`
+	CreatedBy            *string `json:"CreatedBy"`
+	CreatedDateTime      *string `json:"CreatedDateTime"`
+	CreateLocation       *string `json:"CreateLocation"`
+	UpdatedBy            *string `json:"UpdatedBy"`
+	UpdatedDateTime      *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetTheaters(ctx context.Context) ([]APITheater, error) {
+	data, err := c.Get(ctx, "/ReferenceData/Theaters")
+	if err != nil {
+		return nil, fmt.Errorf("fetching theaters: %w", err)
+	}
+	var items []APITheater
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing theaters: %w", err)
+	}
+	return items, nil
+}
+
+type APISection struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	ShortDesc       *string `json:"ShortDesc"`
+	PrintDesc       *string `json:"PrintDesc"`
+	PrintSequence   int     `json:"PrintSequence"`
+	SectionLegend   *string `json:"SectionLegend"`
+	AdditionalText  *string `json:"AdditionalText"`
+	AdditionalText2 *string `json:"AdditionalText2"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetSections(ctx context.Context) ([]APISection, error) {
+	data, err := c.Get(ctx, "/ReferenceData/Sections")
+	if err != nil {
+		return nil, fmt.Errorf("fetching sections: %w", err)
+	}
+	var items []APISection
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing sections: %w", err)
+	}
+	return items, nil
+}
+
+type APISeatWebSymbolRef struct {
+	Id          *int    `json:"Id"`
+	Description *string `json:"Description"`
+	Inactive    bool    `json:"Inactive"`
+	IconName    *string `json:"IconName"`
+}
+
+type APISeatCode struct {
+	Id               *int                 `json:"Id"`
+	Description      *string              `json:"Description"`
+	Inactive         bool                 `json:"Inactive"`
+	DisplayLetter    *string              `json:"DisplayLetter"`
+	AliasDescription *string              `json:"AliasDescription"`
+	TicketText       *string              `json:"TicketText"`
+	Context          *string              `json:"Context"`
+	IsSeat           *int                 `json:"IsSeat"`
+	BackColor        *int                 `json:"BackColor"`
+	ForeColor        *int                 `json:"ForeColor"`
+	SeatWebSymbol    *APISeatWebSymbolRef `json:"SeatWebSymbol"`
+	CreatedBy        *string              `json:"CreatedBy"`
+	CreatedDateTime  *string              `json:"CreatedDateTime"`
+	CreateLocation   *string              `json:"CreateLocation"`
+	UpdatedBy        *string              `json:"UpdatedBy"`
+	UpdatedDateTime  *string              `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetSeatCodes(ctx context.Context) ([]APISeatCode, error) {
+	data, err := c.Get(ctx, "/ReferenceData/SeatCodes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching seat codes: %w", err)
+	}
+	var items []APISeatCode
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing seat codes: %w", err)
+	}
+	return items, nil
+}
