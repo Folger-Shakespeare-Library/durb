@@ -124,6 +124,7 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
 - **Domain objects over table endpoints:** The Tessitura API maps to database tables. Durb adds a domain-object layer (`pkg/domain/`) that consolidates related endpoints — e.g., a `Constituent` that folds in addresses, emails, phones from multiple API calls. Raw API types live in `pkg/tessitura/`; all consumer code uses `pkg/domain/` types.
 - **Constituent first:** Primary domain object. Expand to others as needed.
 - **JSON output only** for now.
+- **Full records, no summaries:** Use the full endpoints, not `/Summary` variants. Always return the complete API response — do not filter, abbreviate, or reshape fields. Consumers pipe through `jq`.
 - **Auth:** Tessitura uses 4-part basic auth: base64(`username:usergroup:location:password`). Config supports multiple named profiles.
 - **Profile resolution:** `--profile` flag > `TESSITURA_PROFILE` env var > `default_profile` in config > `"default"`. Individual fields can be overridden with `TESSITURA_HOSTNAME`, `TESSITURA_USERNAME`, `TESSITURA_USER_GROUP`, `TESSITURA_LOCATION`, `TESSITURA_PASSWORD`.
 - **Config file permissions:** On non-Windows, enforces `0600` permissions on the config file.
