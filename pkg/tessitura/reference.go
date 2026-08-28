@@ -2638,3 +2638,239 @@ func (c *Client) GetUpgradeCategories(ctx context.Context) ([]APIUpgradeCategory
 	}
 	return items, nil
 }
+
+type APIOrganizationRef struct {
+	Id          *int    `json:"Id"`
+	Description *string `json:"Description"`
+	Inactive    bool    `json:"Inactive"`
+}
+
+type APICustomProcedureRef struct {
+	Id            *int                `json:"Id"`
+	Description   *string             `json:"Description"`
+	ProcedureName *string             `json:"ProcedureName"`
+	ControlGroup  *APIControlGroupRef `json:"ControlGroup"`
+	Inactive      bool                `json:"Inactive"`
+}
+
+type APITNEWCustomizationPoint struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetTNEWCustomizationPoints(ctx context.Context) ([]APITNEWCustomizationPoint, error) {
+	data, err := c.Get(ctx, "/ReferenceData/TNEWCustomizationPoints")
+	if err != nil {
+		return nil, fmt.Errorf("fetching TNEW customization points: %w", err)
+	}
+	var items []APITNEWCustomizationPoint
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing TNEW customization points: %w", err)
+	}
+	return items, nil
+}
+
+type APITNEWCustomizationPointRef struct {
+	Id          *int    `json:"Id"`
+	Description *string `json:"Description"`
+}
+
+type APITNEWCustomization struct {
+	Id                 *int                          `json:"Id"`
+	Description        *string                       `json:"Description"`
+	Organization       *APIOrganizationRef           `json:"Organization"`
+	CustomizationPoint *APITNEWCustomizationPointRef `json:"CustomizationPoint"`
+	ExecutionType      *string                       `json:"ExecutionType"`
+	Rank               int                           `json:"Rank"`
+	Slug               *string                       `json:"Slug"`
+	WebServiceUrl      *string                       `json:"WebServiceUrl"`
+	CustomProcedure    *APICustomProcedureRef        `json:"CustomProcedure"`
+	DisableCheckout    bool                          `json:"DisableCheckout"`
+	Inactive           bool                          `json:"Inactive"`
+	CreatedBy          *string                       `json:"CreatedBy"`
+	CreatedDateTime    *string                       `json:"CreatedDateTime"`
+	CreateLocation     *string                       `json:"CreateLocation"`
+	UpdatedBy          *string                       `json:"UpdatedBy"`
+	UpdatedDateTime    *string                       `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetTNEWCustomizations(ctx context.Context) ([]APITNEWCustomization, error) {
+	data, err := c.Get(ctx, "/ReferenceData/TNEWCustomizations")
+	if err != nil {
+		return nil, fmt.Errorf("fetching TNEW customizations: %w", err)
+	}
+	var items []APITNEWCustomization
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing TNEW customizations: %w", err)
+	}
+	return items, nil
+}
+
+type APITNEWDynamicEmailContent struct {
+	Id                     *int                `json:"Id"`
+	Content                *string             `json:"Content"`
+	ContentEncoding        *string             `json:"ContentEncoding"`
+	ContribType            *int                `json:"ContribType"`
+	Package                *int                `json:"Package"`
+	Performance            *int                `json:"Performance"`
+	PriceType              *int                `json:"PriceType"`
+	Production             *int                `json:"Production"`
+	ProductionSeason       *int                `json:"ProductionSeason"`
+	MembershipLevel        *int                `json:"MembershipLevel"`
+	MembershipOrganization *int                `json:"MembershipOrganization"`
+	Organization           *APIOrganizationRef `json:"Organization"`
+	CreatedBy              *string             `json:"CreatedBy"`
+	CreatedDateTime        *string             `json:"CreatedDateTime"`
+	CreateLocation         *string             `json:"CreateLocation"`
+	UpdatedBy              *string             `json:"UpdatedBy"`
+	UpdatedDateTime        *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetTNEWDynamicEmailContents(ctx context.Context) ([]APITNEWDynamicEmailContent, error) {
+	data, err := c.Get(ctx, "/ReferenceData/TNEWDynamicEmailContents")
+	if err != nil {
+		return nil, fmt.Errorf("fetching TNEW dynamic email contents: %w", err)
+	}
+	var items []APITNEWDynamicEmailContent
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing TNEW dynamic email contents: %w", err)
+	}
+	return items, nil
+}
+
+type APIWalletTemplateType struct {
+	Id                                   *int    `json:"Id"`
+	Description                          *string `json:"Description"`
+	PasskitTemplateId                    *string `json:"PasskitTemplateId"`
+	TicketDesignId                       int     `json:"TicketDesignId"`
+	DefaultTicketNotYetAvailableMessage  *string `json:"DefaultTicketNotYetAvailableMessage"`
+	DefaultWalletNotYetAccessibleMessage *string `json:"DefaultWalletNotYetAccessibleMessage"`
+	DefaultTicketNearbyMessage           *string `json:"DefaultTicketNearbyMessage"`
+	DefaultTicketAddedMessage            *string `json:"DefaultTicketAddedMessage"`
+	CreatedBy                            *string `json:"CreatedBy"`
+	CreatedDateTime                      *string `json:"CreatedDateTime"`
+	CreateLocation                       *string `json:"CreateLocation"`
+	UpdatedBy                            *string `json:"UpdatedBy"`
+	UpdatedDateTime                      *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetWalletTemplateTypes(ctx context.Context) ([]APIWalletTemplateType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/WalletTemplateTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching wallet template types: %w", err)
+	}
+	var items []APIWalletTemplateType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing wallet template types: %w", err)
+	}
+	return items, nil
+}
+
+type APIWalletTemplateTypeRef struct {
+	Id          *int    `json:"Id"`
+	Description *string `json:"Description"`
+}
+
+type APIWalletTemplate struct {
+	Id                           *int                      `json:"Id"`
+	Description                  *string                   `json:"Description"`
+	BackgroundColor              *string                   `json:"BackgroundColor"`
+	LabelColor                   *string                   `json:"LabelColor"`
+	TextColor                    *string                   `json:"TextColor"`
+	GpsCoordinates               *string                   `json:"GpsCoordinates"`
+	OrganizationName             *string                   `json:"OrganizationName"`
+	OrgLogoUrlApple              *string                   `json:"OrgLogoUrlApple"`
+	OrgLogoUrlGoogle             *string                   `json:"OrgLogoUrlGoogle"`
+	Link1Title                   *string                   `json:"Link1Title"`
+	Link1Url                     *string                   `json:"Link1Url"`
+	Link2Title                   *string                   `json:"Link2Title"`
+	Link2Url                     *string                   `json:"Link2Url"`
+	Link3Title                   *string                   `json:"Link3Title"`
+	Link3Url                     *string                   `json:"Link3Url"`
+	TicketNotYetAvailableMessage *string                   `json:"TicketNotYetAvailableMessage"`
+	TicketNearbyMessage          *string                   `json:"TicketNearbyMessage"`
+	TicketAddedMessage           *string                   `json:"TicketAddedMessage"`
+	WalletNotAccessible          *string                   `json:"WalletNotAccessible"`
+	AllowPartialPaidOrders       bool                      `json:"AllowPartialPaidOrders"`
+	ControlGroup                 *APIControlGroupRef       `json:"ControlGroup"`
+	WalletTemplateType           *APIWalletTemplateTypeRef `json:"WalletTemplateType"`
+	CreatedBy                    *string                   `json:"CreatedBy"`
+	CreateLocation               *string                   `json:"CreateLocation"`
+	UpdatedBy                    *string                   `json:"UpdatedBy"`
+	UpdatedDateTime              *string                   `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetWalletTemplates(ctx context.Context) ([]APIWalletTemplate, error) {
+	data, err := c.Get(ctx, "/ReferenceData/WalletTemplates")
+	if err != nil {
+		return nil, fmt.Errorf("fetching wallet templates: %w", err)
+	}
+	var items []APIWalletTemplate
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing wallet templates: %w", err)
+	}
+	return items, nil
+}
+
+type APIWebContentType struct {
+	Id                           *int                `json:"Id"`
+	Description                  *string             `json:"Description"`
+	EditMask                     *string             `json:"EditMask"`
+	FullTextSearchIndicator      *bool               `json:"FullTextSearchIndicator"`
+	Inactive                     bool                `json:"Inactive"`
+	LastContentUseUpdateDateTime *string             `json:"LastContentUseUpdateDateTime"`
+	Limit                        *int                `json:"Limit"`
+	ReferenceDescriptionColumn   *string             `json:"ReferenceDescriptionColumn"`
+	ReferenceIdColumn            *string             `json:"ReferenceIdColumn"`
+	ReferenceSort                *string             `json:"ReferenceSort"`
+	ReferenceTable               *string             `json:"ReferenceTable"`
+	ReferenceWhere               *string             `json:"ReferenceWhere"`
+	UseWebApi                    *bool               `json:"UseWebApi"`
+	ControlGroup                 *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy                    *string             `json:"CreatedBy"`
+	CreatedDateTime              *string             `json:"CreatedDateTime"`
+	CreateLocation               *string             `json:"CreateLocation"`
+	UpdatedBy                    *string             `json:"UpdatedBy"`
+	UpdatedDateTime              *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetWebContentTypes(ctx context.Context) ([]APIWebContentType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/WebContentTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching web content types: %w", err)
+	}
+	var items []APIWebContentType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing web content types: %w", err)
+	}
+	return items, nil
+}
+
+type APISalesLayoutButtonType struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	WebAppOnly      bool    `json:"WebAppOnly"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetSalesLayoutButtonTypes(ctx context.Context) ([]APISalesLayoutButtonType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/SalesLayoutButtonTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching sales layout button types: %w", err)
+	}
+	var items []APISalesLayoutButtonType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing sales layout button types: %w", err)
+	}
+	return items, nil
+}

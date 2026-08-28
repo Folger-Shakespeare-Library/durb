@@ -202,13 +202,13 @@ Installation-specific or tied to desktop/web UI configuration.
 
 #### Web / TNEW / Wallet (7)
 
-- [ ] TNEWCustomizationPoints
-- [ ] TNEWCustomizations
-- [ ] TNEWDynamicEmailContents
-- [ ] WalletTemplateTypes
-- [ ] WalletTemplates
-- [ ] WebContentTypes
-- [ ] SalesLayoutButtonTypes
+- [x] TNEWCustomizationPoints
+- [x] TNEWCustomizations
+- [x] TNEWDynamicEmailContents
+- [x] WalletTemplateTypes
+- [x] WalletTemplates
+- [x] WebContentTypes
+- [x] SalesLayoutButtonTypes
 
 #### Help System (6)
 

@@ -122,6 +122,7 @@ tess ref relationship-categories list
 tess ref report-categories list
 tess ref report-types list
 tess ref sales-channels list
+tess ref sales-layout-button-types list
 tess ref seat-codes list
 tess ref seat-statuses list
 tess ref season-types list
@@ -131,8 +132,14 @@ tess ref states list
 tess ref sub-line-item-statuses list
 tess ref suffixes list
 tess ref theaters list
+tess ref tnew-customization-points list
+tess ref tnew-customizations list
+tess ref tnew-dynamic-email-contents list
 tess ref upgrade-categories list
 tess ref user-groups list
+tess ref wallet-template-types list
+tess ref wallet-templates list
+tess ref web-content-types list
 ```
 
 ## DESCRIPTION
@@ -594,6 +601,7 @@ tess ref relationship-categories list
 tess ref report-categories list
 tess ref report-types list
 tess ref sales-channels list
+tess ref sales-layout-button-types list
 tess ref seat-codes list
 tess ref seat-statuses list
 tess ref season-types list
@@ -603,8 +611,14 @@ tess ref states list
 tess ref sub-line-item-statuses list
 tess ref suffixes list
 tess ref theaters list
+tess ref tnew-customization-points list
+tess ref tnew-customizations list
+tess ref tnew-dynamic-email-contents list
 tess ref upgrade-categories list
 tess ref user-groups list
+tess ref wallet-template-types list
+tess ref wallet-templates list
+tess ref web-content-types list
 ```
 
 List reference (lookup table) data from Tessitura.
@@ -870,6 +884,9 @@ Used with `report list --category-ids`.
 **tess ref sales-channels list** returns available sales channels (box
 office, online, phone).
 
+**tess ref sales-layout-button-types list** returns available button
+types for sales layout configuration.
+
 **tess ref seat-codes list** returns available seat codes for venue
 configuration.
 
@@ -897,11 +914,30 @@ III, etc.).
 **tess ref theaters list** returns available theaters (venues) with
 address and capacity data.
 
+**tess ref tnew-customization-points list** returns available TNEW
+customization points.
+
+**tess ref tnew-customizations list** returns available TNEW
+customizations with organization, customization point, and custom
+procedure references.
+
+**tess ref tnew-dynamic-email-contents list** returns available TNEW
+dynamic email content definitions.
+
 **tess ref upgrade-categories list** returns available categories for
 seat/ticket upgrades.
 
 **tess ref user-groups list** returns available user groups with
 division and permission data.
+
+**tess ref wallet-template-types list** returns available wallet
+template type definitions with passkit and ticket design references.
+
+**tess ref wallet-templates list** returns available wallet templates
+with branding, links, and control group references.
+
+**tess ref web-content-types list** returns available web content type
+definitions with reference table configuration.
 
 ## ENVIRONMENT
 
