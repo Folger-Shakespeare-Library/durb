@@ -10,25 +10,25 @@ These support fundraising, membership, and ticketing workflows that are natural 
 
 #### Fundraising / Development (19)
 
-- [ ] AppealCategories — categories for fundraising appeals
-- [ ] CampaignCategories — categories for fundraising campaigns
-- [ ] ContributionDesignations — contribution designation codes
-- [ ] ContributionImportSets — import set definitions for contributions
-- [ ] DesignationCodes — codes for directing contributions
-- [ ] DonationLevels — giving levels/tiers
-- [ ] PhilanthropyTypes — types of philanthropic activity
-- [ ] PlanPriorities — priority levels for development plans
-- [ ] PlanSources — sources for development plans
-- [ ] PlanStatuses — status values for development plans
-- [ ] PlanTypes — types of development/solicitation plans
-- [ ] PlannedGivingCodes — codes for planned giving
-- [ ] PlannedGivingFundings — funding types for planned gifts
-- [ ] PlannedGivingGiftTypes — types of planned gifts
-- [ ] PlannedGivingOnFiles — on-file statuses for planned gifts
-- [ ] PlannedGivingPurposes — purposes for planned gifts
-- [ ] PlannedGivingSources — sources for planned gifts
-- [ ] PlannedGivingStatuses — statuses for planned gifts
-- [ ] RecognitionTypes — donor recognition type definitions
+- [x] AppealCategories — categories for fundraising appeals
+- [x] CampaignCategories — categories for fundraising campaigns
+- [x] ContributionDesignations — contribution designation codes
+- [x] ContributionImportSets — import set definitions for contributions
+- [x] DesignationCodes — codes for directing contributions
+- [x] DonationLevels — giving levels/tiers
+- [x] PhilanthropyTypes — types of philanthropic activity
+- [x] PlanPriorities — priority levels for development plans
+- [x] PlanSources — sources for development plans
+- [x] PlanStatuses — status values for development plans
+- [x] PlanTypes — types of development/solicitation plans
+- [x] PlannedGivingCodes — codes for planned giving
+- [x] PlannedGivingFundings — funding types for planned gifts
+- [x] PlannedGivingGiftTypes — types of planned gifts
+- [x] PlannedGivingOnFiles — on-file statuses for planned gifts
+- [x] PlannedGivingPurposes — purposes for planned gifts
+- [x] PlannedGivingSources — sources for planned gifts
+- [x] PlannedGivingStatuses — statuses for planned gifts
+- [x] RecognitionTypes — donor recognition type definitions
 
 #### Membership (7)
 

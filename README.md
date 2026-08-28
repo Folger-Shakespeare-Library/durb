@@ -37,16 +37,22 @@ tess ref activity-types list
 tess ref address-types list
 tess ref affiliation-types list
 tess ref alias-types list
+tess ref appeal-categories list
 tess ref association-types list
 tess ref business-units list
+tess ref campaign-categories list
 tess ref constituency-types list
 tess ref constituent-groups list
 tess ref constituent-inactives list
 tess ref constituent-types list
 tess ref contact-permission-categories list
 tess ref contact-permission-types list
+tess ref contribution-designations list
+tess ref contribution-import-sets list
 tess ref countries list
 tess ref delivery-methods list
+tess ref designation-codes list
+tess ref donation-levels list
 tess ref electronic-address-types list
 tess ref genders list
 tess ref inactive-reasons list
@@ -63,11 +69,24 @@ tess ref original-sources list
 tess ref payment-types list
 tess ref performance-statuses list
 tess ref performance-types list
+tess ref philanthropy-types list
+tess ref plan-priorities list
+tess ref plan-sources list
+tess ref plan-statuses list
+tess ref plan-types list
+tess ref planned-giving-codes list
+tess ref planned-giving-fundings list
+tess ref planned-giving-gift-types list
+tess ref planned-giving-on-files list
+tess ref planned-giving-purposes list
+tess ref planned-giving-sources list
+tess ref planned-giving-statuses list
 tess ref prefixes list
 tess ref price-categories list
 tess ref price-type-categories list
 tess ref price-type-groups list
 tess ref pronouns list
+tess ref recognition-types list
 tess ref report-categories list
 tess ref report-types list
 tess ref sales-channels list
@@ -455,16 +474,22 @@ tess ref activity-types list
 tess ref address-types list
 tess ref affiliation-types list
 tess ref alias-types list
+tess ref appeal-categories list
 tess ref association-types list
 tess ref business-units list
+tess ref campaign-categories list
 tess ref constituency-types list
 tess ref constituent-groups list
 tess ref constituent-inactives list
 tess ref constituent-types list
 tess ref contact-permission-categories list
 tess ref contact-permission-types list
+tess ref contribution-designations list
+tess ref contribution-import-sets list
 tess ref countries list
 tess ref delivery-methods list
+tess ref designation-codes list
+tess ref donation-levels list
 tess ref electronic-address-types list
 tess ref genders list
 tess ref inactive-reasons list
@@ -481,11 +506,24 @@ tess ref original-sources list
 tess ref payment-types list
 tess ref performance-statuses list
 tess ref performance-types list
+tess ref philanthropy-types list
+tess ref plan-priorities list
+tess ref plan-sources list
+tess ref plan-statuses list
+tess ref plan-types list
+tess ref planned-giving-codes list
+tess ref planned-giving-fundings list
+tess ref planned-giving-gift-types list
+tess ref planned-giving-on-files list
+tess ref planned-giving-purposes list
+tess ref planned-giving-sources list
+tess ref planned-giving-statuses list
 tess ref prefixes list
 tess ref price-categories list
 tess ref price-type-categories list
 tess ref price-type-groups list
 tess ref pronouns list
+tess ref recognition-types list
 tess ref report-categories list
 tess ref report-types list
 tess ref sales-channels list
@@ -515,10 +553,16 @@ for classifying constituent affiliations (org/household memberships).
 **tess ref alias-types list** returns available alias types for
 classifying constituent aliases.
 
+**tess ref appeal-categories list** returns available categories for
+fundraising appeals.
+
 **tess ref association-types list** returns available association types
 for classifying constituent associations.
 
 **tess ref business-units list** returns available business units.
+
+**tess ref campaign-categories list** returns available categories for
+fundraising campaigns.
 
 **tess ref constituency-types list** returns available constituency
 types for constituent classification.
@@ -538,10 +582,22 @@ permission categories for marketing consent groupings.
 **tess ref contact-permission-types list** returns available contact
 permission types for marketing consent configuration.
 
+**tess ref contribution-designations list** returns available
+contribution designation codes for directing contributions.
+
+**tess ref contribution-import-sets list** returns import set
+definitions for contribution imports.
+
 **tess ref countries list** returns available countries.
 
 **tess ref delivery-methods list** returns available ticket delivery
 methods.
+
+**tess ref designation-codes list** returns available codes for directing
+contributions.
+
+**tess ref donation-levels list** returns available giving levels/tiers
+with recognition type references.
 
 **tess ref electronic-address-types list** returns available electronic
 address types (email, phone, web type IDs).
@@ -590,6 +646,42 @@ statuses for event classification.
 **tess ref performance-types list** returns available performance types
 for event classification.
 
+**tess ref philanthropy-types list** returns available types of
+philanthropic activity.
+
+**tess ref plan-priorities list** returns available priority levels for
+development plans.
+
+**tess ref plan-sources list** returns available sources for development
+plans.
+
+**tess ref plan-statuses list** returns available status values for
+development plans.
+
+**tess ref plan-types list** returns available types of
+development/solicitation plans.
+
+**tess ref planned-giving-codes list** returns available codes for
+planned giving.
+
+**tess ref planned-giving-fundings list** returns available funding types
+for planned gifts.
+
+**tess ref planned-giving-gift-types list** returns available types of
+planned gifts.
+
+**tess ref planned-giving-on-files list** returns available on-file
+statuses for planned gifts.
+
+**tess ref planned-giving-purposes list** returns available purposes for
+planned gifts.
+
+**tess ref planned-giving-sources list** returns available sources for
+planned gifts.
+
+**tess ref planned-giving-statuses list** returns available statuses for
+planned gifts.
+
 **tess ref prefixes list** returns available name prefixes (Mr., Mrs.,
 Dr., etc.).
 
@@ -601,6 +693,9 @@ categories.
 **tess ref price-type-groups list** returns available price type groups.
 
 **tess ref pronouns list** returns available pronoun sets.
+
+**tess ref recognition-types list** returns available donor recognition
+type definitions.
 
 **tess ref report-categories list** returns available report categories.
 Used with `report list --category-ids`.

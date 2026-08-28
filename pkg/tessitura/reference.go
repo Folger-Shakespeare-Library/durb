@@ -1305,3 +1305,479 @@ func (c *Client) GetSeatCodes(ctx context.Context) ([]APISeatCode, error) {
 	}
 	return items, nil
 }
+
+type APIAppealCategory struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetAppealCategories(ctx context.Context) ([]APIAppealCategory, error) {
+	data, err := c.Get(ctx, "/ReferenceData/AppealCategories")
+	if err != nil {
+		return nil, fmt.Errorf("fetching appeal categories: %w", err)
+	}
+	var items []APIAppealCategory
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing appeal categories: %w", err)
+	}
+	return items, nil
+}
+
+type APICampaignCategory struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetCampaignCategories(ctx context.Context) ([]APICampaignCategory, error) {
+	data, err := c.Get(ctx, "/ReferenceData/CampaignCategories")
+	if err != nil {
+		return nil, fmt.Errorf("fetching campaign categories: %w", err)
+	}
+	var items []APICampaignCategory
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing campaign categories: %w", err)
+	}
+	return items, nil
+}
+
+type APIContributionDesignation struct {
+	Id               *int                `json:"Id"`
+	Description      *string             `json:"Description"`
+	Inactive         *bool               `json:"Inactive"`
+	LetterText       *string             `json:"LetterText"`
+	AliasDescription *string             `json:"AliasDescription"`
+	ControlGroup     *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy        *string             `json:"CreatedBy"`
+	CreatedDateTime  *string             `json:"CreatedDateTime"`
+	CreateLocation   *string             `json:"CreateLocation"`
+	UpdatedBy        *string             `json:"UpdatedBy"`
+	UpdatedDateTime  *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetContributionDesignations(ctx context.Context) ([]APIContributionDesignation, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ContributionDesignations")
+	if err != nil {
+		return nil, fmt.Errorf("fetching contribution designations: %w", err)
+	}
+	var items []APIContributionDesignation
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing contribution designations: %w", err)
+	}
+	return items, nil
+}
+
+type APIContributionImportSet struct {
+	Id                              *int        `json:"Id"`
+	Description                     *string     `json:"Description"`
+	Inactive                        bool        `json:"Inactive"`
+	AccountMatchKeyword             *APIRefItem `json:"AccountMatchKeyword"`
+	AcknowledgementLetterMode       *int        `json:"AcknowledgementLetterMode"`
+	BatchType                       *APIRefItem `json:"BatchType"`
+	BillingSchedule                 *APIRefItem `json:"BillingSchedule"`
+	BillingType                     *APIRefItem `json:"BillingType"`
+	Campaign                        *APIRefItem `json:"Campaign"`
+	SalesChannel                    *APIRefItem `json:"SalesChannel"`
+	ContributionDateTime            *string     `json:"ContributionDateTime"`
+	ContributionPayMode             int         `json:"ContributionPayMode"`
+	CreatePotentialDuplicate        bool        `json:"CreatePotentialDuplicate"`
+	CrediteeMode                    *int        `json:"CrediteeMode"`
+	CrediteeType                    *APIRefItem `json:"CrediteeType"`
+	DefaultCountryCode              *string     `json:"DefaultCountryCode"`
+	DefaultConstituentType          *APIRefItem `json:"DefaultConstituentType"`
+	DefaultHouseholdConstituentType *APIRefItem `json:"DefaultHouseholdConstituentType"`
+	DefaultOriginalSource           *APIRefItem `json:"DefaultOriginalSource"`
+	Designation                     *APIRefItem `json:"Designation"`
+	FilePath                        *string     `json:"FilePath"`
+	FormatFile                      *string     `json:"FormatFile"`
+	Fund                            *APIRefItem `json:"Fund"`
+	ImportRefNoLocation             *int        `json:"ImportRefNoLocation"`
+	PaymentMethod                   *APIRefItem `json:"PaymentMethod"`
+	Source                          *APIRefItem `json:"Source"`
+	StripPhoneFormatting            bool        `json:"StripPhoneFormatting"`
+	TransactAsHousehold             bool        `json:"TransactAsHousehold"`
+	TransactAsHouseholdCreditee     bool        `json:"TransactAsHouseholdCreditee"`
+	Worker                          *APIRefItem `json:"Worker"`
+	CreatedBy                       *string     `json:"CreatedBy"`
+	CreatedDateTime                 *string     `json:"CreatedDateTime"`
+	CreateLocation                  *string     `json:"CreateLocation"`
+	UpdatedBy                       *string     `json:"UpdatedBy"`
+	UpdatedDateTime                 *string     `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetContributionImportSets(ctx context.Context) ([]APIContributionImportSet, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ContributionImportSets")
+	if err != nil {
+		return nil, fmt.Errorf("fetching contribution import sets: %w", err)
+	}
+	var items []APIContributionImportSet
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing contribution import sets: %w", err)
+	}
+	return items, nil
+}
+
+type APIDesignationCode struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetDesignationCodes(ctx context.Context) ([]APIDesignationCode, error) {
+	data, err := c.Get(ctx, "/ReferenceData/DesignationCodes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching designation codes: %w", err)
+	}
+	var items []APIDesignationCode
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing designation codes: %w", err)
+	}
+	return items, nil
+}
+
+type APIRecognitionType struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	ControlGroup    *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetRecognitionTypes(ctx context.Context) ([]APIRecognitionType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/RecognitionTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching recognition types: %w", err)
+	}
+	var items []APIRecognitionType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing recognition types: %w", err)
+	}
+	return items, nil
+}
+
+type APIDonationLevel struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        *bool               `json:"Inactive"`
+	RecognitionType *APIRecognitionType `json:"RecognitionType"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetDonationLevels(ctx context.Context) ([]APIDonationLevel, error) {
+	data, err := c.Get(ctx, "/ReferenceData/DonationLevels")
+	if err != nil {
+		return nil, fmt.Errorf("fetching donation levels: %w", err)
+	}
+	var items []APIDonationLevel
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing donation levels: %w", err)
+	}
+	return items, nil
+}
+
+type APIPhilanthropyType struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        bool                `json:"Inactive"`
+	ControlGroup    *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPhilanthropyTypes(ctx context.Context) ([]APIPhilanthropyType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PhilanthropyTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching philanthropy types: %w", err)
+	}
+	var items []APIPhilanthropyType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing philanthropy types: %w", err)
+	}
+	return items, nil
+}
+
+type APIPlanPriority struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        *bool               `json:"Inactive"`
+	Ranking         *int                `json:"Ranking"`
+	ControlGroup    *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPlanPriorities(ctx context.Context) ([]APIPlanPriority, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PlanPriorities")
+	if err != nil {
+		return nil, fmt.Errorf("fetching plan priorities: %w", err)
+	}
+	var items []APIPlanPriority
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing plan priorities: %w", err)
+	}
+	return items, nil
+}
+
+type APIPlanSource struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        *bool               `json:"Inactive"`
+	ControlGroup    *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPlanSources(ctx context.Context) ([]APIPlanSource, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PlanSources")
+	if err != nil {
+		return nil, fmt.Errorf("fetching plan sources: %w", err)
+	}
+	var items []APIPlanSource
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing plan sources: %w", err)
+	}
+	return items, nil
+}
+
+type APIPlanStatus struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        *bool               `json:"Inactive"`
+	Rank            int                 `json:"Rank"`
+	ControlGroup    *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPlanStatuses(ctx context.Context) ([]APIPlanStatus, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PlanStatuses")
+	if err != nil {
+		return nil, fmt.Errorf("fetching plan statuses: %w", err)
+	}
+	var items []APIPlanStatus
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing plan statuses: %w", err)
+	}
+	return items, nil
+}
+
+type APIPlanType struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        *bool               `json:"Inactive"`
+	ControlGroup    *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPlanTypes(ctx context.Context) ([]APIPlanType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PlanTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching plan types: %w", err)
+	}
+	var items []APIPlanType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing plan types: %w", err)
+	}
+	return items, nil
+}
+
+type APIPlannedGivingCode struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPlannedGivingCodes(ctx context.Context) ([]APIPlannedGivingCode, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PlannedGivingCodes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching planned giving codes: %w", err)
+	}
+	var items []APIPlannedGivingCode
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing planned giving codes: %w", err)
+	}
+	return items, nil
+}
+
+type APIPlannedGivingFunding struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPlannedGivingFundings(ctx context.Context) ([]APIPlannedGivingFunding, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PlannedGivingFundings")
+	if err != nil {
+		return nil, fmt.Errorf("fetching planned giving fundings: %w", err)
+	}
+	var items []APIPlannedGivingFunding
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing planned giving fundings: %w", err)
+	}
+	return items, nil
+}
+
+type APIPlannedGivingGiftType struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        bool                `json:"Inactive"`
+	ControlGroup    *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPlannedGivingGiftTypes(ctx context.Context) ([]APIPlannedGivingGiftType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PlannedGivingGiftTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching planned giving gift types: %w", err)
+	}
+	var items []APIPlannedGivingGiftType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing planned giving gift types: %w", err)
+	}
+	return items, nil
+}
+
+type APIPlannedGivingOnFile struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPlannedGivingOnFiles(ctx context.Context) ([]APIPlannedGivingOnFile, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PlannedGivingOnFiles")
+	if err != nil {
+		return nil, fmt.Errorf("fetching planned giving on-file statuses: %w", err)
+	}
+	var items []APIPlannedGivingOnFile
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing planned giving on-file statuses: %w", err)
+	}
+	return items, nil
+}
+
+type APIPlannedGivingPurpose struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPlannedGivingPurposes(ctx context.Context) ([]APIPlannedGivingPurpose, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PlannedGivingPurposes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching planned giving purposes: %w", err)
+	}
+	var items []APIPlannedGivingPurpose
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing planned giving purposes: %w", err)
+	}
+	return items, nil
+}
+
+type APIPlannedGivingSource struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPlannedGivingSources(ctx context.Context) ([]APIPlannedGivingSource, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PlannedGivingSources")
+	if err != nil {
+		return nil, fmt.Errorf("fetching planned giving sources: %w", err)
+	}
+	var items []APIPlannedGivingSource
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing planned giving sources: %w", err)
+	}
+	return items, nil
+}
+
+type APIPlannedGivingStatus struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        bool    `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPlannedGivingStatuses(ctx context.Context) ([]APIPlannedGivingStatus, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PlannedGivingStatuses")
+	if err != nil {
+		return nil, fmt.Errorf("fetching planned giving statuses: %w", err)
+	}
+	var items []APIPlannedGivingStatus
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing planned giving statuses: %w", err)
+	}
+	return items, nil
+}
