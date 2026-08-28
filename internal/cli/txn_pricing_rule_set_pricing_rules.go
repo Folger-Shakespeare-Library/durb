@@ -20,7 +20,10 @@ var txnPricingRuleSetPricingRulesListCmd = &cobra.Command{
 	RunE:  runTxnPricingRuleSetPricingRulesList,
 }
 
+var txnPricingRuleSetPricingRulesListSetID int
+
 func init() {
+	txnPricingRuleSetPricingRulesListCmd.Flags().IntVar(&txnPricingRuleSetPricingRulesListSetID, "pricing-rule-set-id", 0, "filter by pricing rule set ID")
 	txnPricingRuleSetPricingRulesCmd.AddCommand(txnPricingRuleSetPricingRulesListCmd)
 }
 
@@ -30,7 +33,12 @@ func runTxnPricingRuleSetPricingRulesList(cmd *cobra.Command, args []string) err
 		return err
 	}
 
-	items, err := client.GetPricingRuleSetPricingRules(cmd.Context())
+	var pricingRuleSetID *int
+	if cmd.Flags().Changed("pricing-rule-set-id") {
+		pricingRuleSetID = &txnPricingRuleSetPricingRulesListSetID
+	}
+
+	items, err := client.GetPricingRuleSetPricingRules(cmd.Context(), pricingRuleSetID)
 	if err != nil {
 		return err
 	}

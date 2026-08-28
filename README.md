@@ -32,9 +32,9 @@ tess report request get <id> [id...]
 tess report request list [--include-inactive]
 tess report request results [--report-id <id>] [--page <n>] ...
 
-tess txn pricing-rule-messages list
-tess txn pricing-rules list
-tess txn pricing-rule-set-pricing-rules list
+tess txn pricing-rule-messages list [--pricing-rule-id <id>]
+tess txn pricing-rules list [--performance-ids <ids>] [--package-ids <ids>] [--order-date <date>] [--mode-of-sale-id <id>]
+tess txn pricing-rule-set-pricing-rules list [--pricing-rule-set-id <id>]
 tess txn pricing-rule-sets list
 
 tess ref activity-statuses list
@@ -518,29 +518,38 @@ results is printed to standard error.
 ### tess txn pricing-rule-messages list
 
 ```
-tess txn pricing-rule-messages list
+tess txn pricing-rule-messages list [--pricing-rule-id <id>]
 ```
 
 List pricing rule messages with message type and pricing rule references.
 
+    --pricing-rule-id <id>      filter by pricing rule ID
+
 ### tess txn pricing-rules list
 
 ```
-tess txn pricing-rules list
+tess txn pricing-rules list [flags]
 ```
 
 List pricing rules with full configuration including discount settings,
 qualifying/result criteria, constituent filters, rule category/type,
 and embedded messages.
 
+    --performance-ids <ids>     filter by performance IDs (comma-delimited)
+    --package-ids <ids>         filter by package IDs (comma-delimited)
+    --order-date <date>         filter by order date
+    --mode-of-sale-id <id>      filter by mode of sale ID
+
 ### tess txn pricing-rule-set-pricing-rules list
 
 ```
-tess txn pricing-rule-set-pricing-rules list
+tess txn pricing-rule-set-pricing-rules list [flags]
 ```
 
 List pricing rule set to pricing rule mappings with rank and pricing
 rule summary references.
+
+    --pricing-rule-set-id <id>  filter by pricing rule set ID
 
 ### tess txn pricing-rule-sets list
 

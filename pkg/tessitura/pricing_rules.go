@@ -45,8 +45,12 @@ type APIPricingRuleMessage struct {
 	UpdatedDateTime       *string                          `json:"UpdatedDateTime"`
 }
 
-func (c *Client) GetPricingRuleMessages(ctx context.Context) ([]APIPricingRuleMessage, error) {
-	data, err := c.Get(ctx, "/TXN/PricingRuleMessage")
+func (c *Client) GetPricingRuleMessages(ctx context.Context, pricingRuleID *int) ([]APIPricingRuleMessage, error) {
+	path := "/TXN/PricingRuleMessage"
+	if pricingRuleID != nil {
+		path = fmt.Sprintf("%s?pricingRuleId=%d", path, *pricingRuleID)
+	}
+	data, err := c.Get(ctx, path)
 	if err != nil {
 		return nil, fmt.Errorf("fetching pricing rule messages: %w", err)
 	}
@@ -127,8 +131,34 @@ type APIPricingRule struct {
 	UpdatedDateTime                                *string                       `json:"UpdatedDateTime"`
 }
 
-func (c *Client) GetPricingRules(ctx context.Context) ([]APIPricingRule, error) {
-	data, err := c.Get(ctx, "/TXN/PricingRules")
+type GetPricingRulesParams struct {
+	PerformanceIDs string
+	PackageIDs     string
+	OrderDate      string
+	ModeOfSaleID   *int
+}
+
+func (c *Client) GetPricingRules(ctx context.Context, params *GetPricingRulesParams) ([]APIPricingRule, error) {
+	path := "/TXN/PricingRules"
+	if params != nil {
+		sep := "?"
+		if params.PerformanceIDs != "" {
+			path += sep + "performanceIds=" + params.PerformanceIDs
+			sep = "&"
+		}
+		if params.PackageIDs != "" {
+			path += sep + "packageIds=" + params.PackageIDs
+			sep = "&"
+		}
+		if params.OrderDate != "" {
+			path += sep + "orderDate=" + params.OrderDate
+			sep = "&"
+		}
+		if params.ModeOfSaleID != nil {
+			path += fmt.Sprintf("%smodeOfSaleId=%d", sep, *params.ModeOfSaleID)
+		}
+	}
+	data, err := c.Get(ctx, path)
 	if err != nil {
 		return nil, fmt.Errorf("fetching pricing rules: %w", err)
 	}
@@ -161,8 +191,12 @@ type APIPricingRuleSetMap struct {
 	UpdatedDateTime *string              `json:"UpdatedDateTime"`
 }
 
-func (c *Client) GetPricingRuleSetPricingRules(ctx context.Context) ([]APIPricingRuleSetMap, error) {
-	data, err := c.Get(ctx, "/TXN/PricingRuleSetPricingRules")
+func (c *Client) GetPricingRuleSetPricingRules(ctx context.Context, pricingRuleSetID *int) ([]APIPricingRuleSetMap, error) {
+	path := "/TXN/PricingRuleSetPricingRules"
+	if pricingRuleSetID != nil {
+		path = fmt.Sprintf("%s?pricingRuleSetId=%d", path, *pricingRuleSetID)
+	}
+	data, err := c.Get(ctx, path)
 	if err != nil {
 		return nil, fmt.Errorf("fetching pricing rule set pricing rules: %w", err)
 	}

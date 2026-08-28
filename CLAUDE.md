@@ -707,12 +707,18 @@ If more results exist beyond the current page, the remaining count is printed to
 
 ### `tess txn pricing-rule-messages list`
 Lists pricing rule messages with message type and pricing rule references.
+- `--pricing-rule-id` — filter by pricing rule ID
 
 ### `tess txn pricing-rules list`
 Lists pricing rules with full configuration (discount settings, qualifying/result criteria, constituent filters, rule category/type, and embedded messages).
+- `--performance-ids` — filter by performance IDs (comma-delimited)
+- `--package-ids` — filter by package IDs (comma-delimited)
+- `--order-date` — filter by order date
+- `--mode-of-sale-id` — filter by mode of sale ID
 
 ### `tess txn pricing-rule-set-pricing-rules list`
 Lists pricing rule set to pricing rule mappings with rank and pricing rule summary references.
+- `--pricing-rule-set-id` — filter by pricing rule set ID
 
 ### `tess txn pricing-rule-sets list`
 Lists pricing rule sets with control group references and embedded rule mappings.
