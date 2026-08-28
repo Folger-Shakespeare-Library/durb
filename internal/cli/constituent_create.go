@@ -58,29 +58,24 @@ func runConstituentCreate(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	firstName := createFlags.firstName
-	if len(firstName) > 20 {
-		firstName = firstName[:20]
+	if len(createFlags.firstName) > 20 {
+		return fmt.Errorf("--first exceeds maximum length of 20 characters (%d given)", len(createFlags.firstName))
 	}
-
-	lastName := createFlags.lastName
-	if len(lastName) > 55 {
-		lastName = lastName[:55]
+	if len(createFlags.lastName) > 55 {
+		return fmt.Errorf("--last exceeds maximum length of 55 characters (%d given)", len(createFlags.lastName))
 	}
-
-	postalCode := createFlags.postalCode
-	if len(postalCode) > 10 {
-		postalCode = postalCode[:10]
+	if len(createFlags.postalCode) > 10 {
+		return fmt.Errorf("--postal-code exceeds maximum length of 10 characters (%d given)", len(createFlags.postalCode))
 	}
 
 	params := tessitura.CreateConstituentParams{
-		FirstName:         firstName,
-		LastName:          lastName,
+		FirstName:         createFlags.firstName,
+		LastName:          createFlags.lastName,
 		Email:             createFlags.email,
 		ConstituentTypeId: createFlags.constituentTypeId,
 		OriginalSourceId:  createFlags.originalSourceId,
 		Street:            createFlags.street,
-		PostalCode:        postalCode,
+		PostalCode:        createFlags.postalCode,
 		AllowMarketing:    createFlags.allowMarketing,
 	}
 

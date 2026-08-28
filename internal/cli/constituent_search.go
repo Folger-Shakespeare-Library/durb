@@ -123,6 +123,17 @@ func runConstituentSearch(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("cannot combine free-text, basic (--last-name, etc.), and advanced (--email, --phone, etc.) searches — these use different search modes")
 	}
 
+	// Warn when values exceed Tessitura's field limits (the API truncates silently).
+	if len(params.FirstName) > 20 {
+		fmt.Fprintf(cmd.ErrOrStderr(), "Warning: --first-name will be truncated to 20 characters by the API\n")
+	}
+	if len(params.LastName) > 55 {
+		fmt.Fprintf(cmd.ErrOrStderr(), "Warning: --last-name will be truncated to 55 characters by the API\n")
+	}
+	if len(params.PostalCode) > 10 {
+		fmt.Fprintf(cmd.ErrOrStderr(), "Warning: --postal-code will be truncated to 10 characters by the API\n")
+	}
+
 	client, err := loadClient()
 	if err != nil {
 		return err
