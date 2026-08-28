@@ -119,21 +119,10 @@ If more results exist beyond the current page, the remaining count is printed to
 ## Building
 
 ```bash
-# Current platform
-make build        # outputs ./tess
-
-# All platforms (outputs to dist/)
-make all
-
-# Release archives
-make release
-```
-
-Or directly:
-
-```bash
 go build -o tess ./cmd/tess
 ```
+
+Releases are handled by GoReleaser via GitHub Actions on tag push.
 
 ## Schema maintenance
 

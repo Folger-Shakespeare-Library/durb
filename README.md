@@ -13,17 +13,10 @@ The Tessitura API maps directly to database tables, spreading a single concept l
 ## Install
 
 ```bash
-# Current platform
-make build        # outputs ./tess
-
-# All platforms (outputs to dist/)
-make all
-
-# Release archives
-make release
+go install github.com/Folger-Shakespeare-Library/durb/cmd/tess@latest
 ```
 
-Or directly:
+Or build from source:
 
 ```bash
 go build -o tess ./cmd/tess
