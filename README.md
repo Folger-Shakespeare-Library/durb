@@ -2,7 +2,8 @@
 
 `tess` — read and write Tessitura records
 
-Named for *Tess of the d'Urbervilles*.
+The command is `tess`, short for Tessitura. The project name
+Durb is short for d'Urbervilles, from *Tess of the d'Urbervilles*.
 
     go install github.com/Folger-Shakespeare-Library/durb/cmd/tess@latest
 
