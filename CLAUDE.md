@@ -37,6 +37,7 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `interest_list.go` — `tess crm interest list`
   - `ref.go` — `tess ref` subcommand group; registers constituent-inactives, seat-statuses
   - `ref_constituent_inactives.go` — `tess ref constituent-inactives list`
+  - `ref_machine_settings.go` — `tess ref machine-settings list`
   - `ref_seat_statuses.go` — `tess ref seat-statuses list`
   - `report.go` — `tess report` subcommand group; registers get/list/request
   - `report_get.go` — `tess report get`
@@ -58,7 +59,7 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `attributes.go` — `APIAttribute`, `GetAttributes`, `CreateAttribute`, `UpdateAttribute`, `DeleteAttribute`
   - `interests.go` — `APIInterest`, `GetInterests`, `CreateInterest`, `UpdateInterest`
   - `electronic_addresses.go` — `GetElectronicAddresses`, `UpdateElectronicAddress`
-  - `reference.go` — `APIRefItem`, `APISeatStatus`, `GetConstituentInactiveStatuses`, `GetConstituentInactiveReasons`, `GetSeatStatuses`
+  - `reference.go` — `APIRefItem`, `APISeatStatus`, `APIMachineSetting`, `GetConstituentInactiveStatuses`, `GetConstituentInactiveReasons`, `GetMachineSettings`, `GetSeatStatuses`
   - `reports.go` — `APIReport`, `APIReportDetail`, `APIReportParameter`, `ReportResult`; `GetReports`, `GetReport`, `GetReportsBatch`
   - `report_requests.go` — `APIReportRequest`, `APIReportRequestDetail`, `APIReportResult`, `ReportRequestResult`, `ReportResultsParams`; `GetReportRequests`, `GetReportRequest`, `GetReportRequestsBatch`, `GetReportResults`
 - `pkg/domain/` — clean domain types mapped from raw API responses (all consumer code uses these)
@@ -69,6 +70,10 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
 - `pkg/config/` — config management; config path is `$XDG_CONFIG_HOME/tess/config.json` (defaults to `~/.config/tess/config.json`)
 - `schemas/constituent.schema.json` — JSON Schema for the `Constituent` domain object (**must be updated when domain fields change**)
 - `swagger.json` — Tessitura API swagger file (v16.0.27.97921)
+
+## Standing orders
+
+- When a new command is added, update both CLAUDE.md and README.md to reflect it.
 
 ## Key design decisions
 
@@ -203,6 +208,9 @@ Lists all interest assignments for a constituent.
 
 ### `tess ref constituent-inactives list`
 Lists available inactive status types for constituents.
+
+### `tess ref machine-settings list`
+Lists machine settings (workstation name, card reader configuration, merchant IDs, audit fields). Uses the full `/ReferenceData/MachineSettings` endpoint (not Summary, which returns empty descriptions).
 
 ### `tess ref seat-statuses list`
 Lists available seat statuses.

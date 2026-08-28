@@ -33,6 +33,7 @@ tess report request list [--include-inactive]
 tess report request results [--report-id <id>] [--page <n>] ...
 
 tess ref constituent-inactives list
+tess ref machine-settings list
 tess ref seat-statuses list
 ```
 
@@ -228,9 +229,8 @@ operations. The sort name is auto-generated as `"LastName, FirstName"`.
     --postal-code <code>        postal / ZIP code
     --allow-marketing           allow email marketing (default false)
 
-**WARNING:** `--first` is silently truncated to 20 characters, `--last`
-to 55, and `--postal-code` to 10. No error or warning is emitted when
-truncation occurs.
+`--first` is limited to 20 characters, `--last` to 55, and
+`--postal-code` to 10. Exceeding these limits is a hard error.
 
 ### tess crm constituent update
 
@@ -407,6 +407,7 @@ results is printed to standard error.
 
 ```
 tess ref constituent-inactives list
+tess ref machine-settings list
 tess ref seat-statuses list
 ```
 
@@ -414,6 +415,9 @@ List reference (lookup table) data from Tessitura.
 
 **tess ref constituent-inactives list** returns available inactive status
 types for constituents (`id`, `description`, `inactive`).
+
+**tess ref machine-settings list** returns machine settings (workstation
+name, card reader configuration, merchant IDs, audit fields).
 
 **tess ref seat-statuses list** returns seat statuses (`id`,
 `description`, `statusCode`, `statusLegend`, `statusPriority`,

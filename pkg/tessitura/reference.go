@@ -45,6 +45,45 @@ func (c *Client) GetSeatStatuses(ctx context.Context) ([]APISeatStatus, error) {
 	return items, nil
 }
 
+type APICardReaderTypeSummary struct {
+	Id          *int    `json:"Id"`
+	Description *string `json:"Description"`
+}
+
+type APIMachineSetting struct {
+	Id                                    *int                     `json:"Id"`
+	WorkstationName                       *string                  `json:"WorkstationName"`
+	Inactive                              bool                     `json:"Inactive"`
+	CardReaderHost                        *string                  `json:"CardReaderHost"`
+	CardReaderPort                        *int                     `json:"CardReaderPort"`
+	CardReaderType                        *APICardReaderTypeSummary `json:"CardReaderType"`
+	PXStation                             *string                  `json:"PXStation"`
+	MerchantId                            *string                  `json:"MerchantId"`
+	PXUserName                            *string                  `json:"PXUserName"`
+	PXUserKey                             *string                  `json:"PXUserKey"`
+	TnspaySoftwareTerminal                *bool                    `json:"TnspaySoftwareTerminal"`
+	TriposLane                            *int                     `json:"TriposLane"`
+	TessituraMerchantServicesPosDevice      *string                `json:"TessituraMerchantServicesPosDevice"`
+	TessituraMerchantServicesPosDeviceModel *string                `json:"TessituraMerchantServicesPosDeviceModel"`
+	CreateLocation                        *string                  `json:"CreateLocation"`
+	CreatedBy                             *string                  `json:"CreatedBy"`
+	CreatedDateTime                       *string                  `json:"CreatedDateTime"`
+	UpdatedBy                             *string                  `json:"UpdatedBy"`
+	UpdatedDateTime                       *string                  `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetMachineSettings(ctx context.Context) ([]APIMachineSetting, error) {
+	data, err := c.Get(ctx, "/ReferenceData/MachineSettings")
+	if err != nil {
+		return nil, fmt.Errorf("fetching machine settings: %w", err)
+	}
+	var items []APIMachineSetting
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing machine settings: %w", err)
+	}
+	return items, nil
+}
+
 func (c *Client) GetConstituentInactiveReasons(ctx context.Context) ([]APIRefItem, error) {
 	data, err := c.Get(ctx, "/ReferenceData/InactiveReasons")
 	if err != nil {
