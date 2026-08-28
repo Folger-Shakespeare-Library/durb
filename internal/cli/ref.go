@@ -12,4 +12,5 @@ var refCmd = &cobra.Command{
 
 func init() {
 	refCmd.AddCommand(refConstituentInactivesCmd)
+	refCmd.AddCommand(refSeatStatusesCmd)
 }
