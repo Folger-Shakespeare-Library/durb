@@ -1,107 +1,163 @@
 # Durb
 
-A CLI for the Tessitura REST API. Consolidates table-oriented API endpoints into domain objects. All output is JSON.
+`tess` — read and write Tessitura records
 
-Named for d'Urbervilles — *Tess of the d'Urbervilles*, matching the Tessitura/Tess name.
+Named for *Tess of the d'Urbervilles*.
 
-## Install
-
-```bash
-go install github.com/Folger-Shakespeare-Library/durb/cmd/tess@latest
-```
+    go install github.com/Folger-Shakespeare-Library/durb/cmd/tess@latest
 
 ## Configuration
 
-```bash
-tess configure
-```
+Run `tess config init --profile default` to store credentials.
+You will be prompted for the Tessitura hostname, username, user
+group, location, and password.
 
-Prompts for hostname, username, user group, location, and password. Credentials are stored in `~/.tess/config.json` with mode `0600`. On Linux and macOS, `tess` refuses to run if the config file is group- or world-readable.
+Credentials are saved to `~/.config/tess/config.json` (or
+`$XDG_CONFIG_HOME/tess/config.json`). The file is created mode
+0600 and `tess` will refuse to start if it is group- or
+world-readable.
 
-## Commands
+Multiple profiles can coexist in the same config file. The
+active profile is determined by, in order:
 
-### tess constituent get \<id\> [id...]
+1. The `--profile` flag
+2. `TESSITURA_PROFILE` environment variable
+3. The `default_profile` field in config.json
+4. The literal name `"default"`
 
-Fetch constituents by ID. Accepts multiple IDs or reads them from stdin.
+Individual fields can be overridden with `TESSITURA_HOSTNAME`,
+`TESSITURA_USERNAME`, `TESSITURA_USER_GROUP`, `TESSITURA_LOCATION`,
+and `TESSITURA_PASSWORD`. This is the easiest way to use `tess`
+in CI or scripts without a config file on disk.
 
-Addresses, emails, phones, digital addresses, and salutations are always included. Optional attachments via `--with`:
+Other config commands:
 
-    affiliations    organization/household memberships
-    aliases         alternative names
-    associations    relationships to other constituents
-    logins          web login credentials
-    notes           constituent notes
-    all             all of the above
+    tess config show       print the active profile (password masked)
+    tess config path       print the config file path
+    tess config list       list all profiles (* marks active)
+    tess config use NAME   set the default profile
 
-```bash
-tess constituent get 12345 --with affiliations,notes
-tess constituent search "Smith" | jq -r '.[].id' | tess constituent get --with all
-```
+## Constituents
 
-### tess constituent search [query]
+`tess crm constituent get` returns a constituent record. The
+response always includes addresses, emails, phones, digital
+addresses, and salutations. Records from affiliated constituents
+are filtered out.
 
-Search constituents. Returns summary records.
+Additional data requires `--with`:
 
-    --last-name, --first-name, --street, --postal-code, --id
-    --email, --phone, --order-no, --web-login, --customer-service-no
-    --groups individuals,organizations,households
-    --include-affiliations
+    --with affiliations     organization and household memberships
+    --with aliases          alternative names
+    --with associations     relationships to other constituents
+    --with logins           web login credentials
+    --with notes            constituent notes
+    --with all              all of the above
 
-The advanced flags (`--email`, `--phone`, `--order-no`, `--web-login`, `--customer-service-no`) are mutually exclusive with each other and with free-text search.
+All `get` commands — constituent, report, and report request —
+accept multiple IDs as arguments and read IDs from standard
+input, one per line:
 
-### tess report get \<id\> [id...]
+    tess crm constituent search --last-name Smith \
+      | jq -r '.[].id' \
+      | tess crm constituent get --with all
 
-Fetch reports by ID. Merges the base report and detail endpoint (parameters, indicators) in a single batched call. Accepts multiple IDs or stdin.
+### Search
 
-### tess report list
+`tess crm constituent search` operates in one of three modes,
+and the modes are mutually exclusive — mixing them is an error.
 
-List reports. Active only by default.
+**Free text** uses a positional argument:
 
-    --type-ids 6          filter by report type (comma-delimited)
-    --category-ids 9,12   filter by category (comma-delimited)
-    --include-inactive
+    tess crm constituent search "Jane Smith"
 
-### tess report request get \<id\> [id...]
+**Structured search** uses named flags that can be combined:
+`--last-name`, `--first-name`, `--street`, `--postal-code`, `--id`.
 
-Fetch report requests by ID. Includes parameter values via batched call. Accepts multiple IDs or stdin.
+    tess crm constituent search --last-name Smith --first-name Jane
 
-### tess report request list
+**Advanced search** uses a single lookup field: `--email`,
+`--phone`, `--order-no`, `--web-login`, or `--customer-service-no`.
+Only one may be specified. `--op` sets the comparison (Equals,
+Like, LessThan, GreaterThan; default Equals).
 
-List report requests. Active only by default.
+    tess crm constituent search --email jane@example.com
 
-    --include-inactive    include completed and cancelled
+`--groups` filters by type (individuals, organizations,
+households). Results are deduplicated by constituent ID.
 
-### tess report request results
+### Create
 
-Paginated view combining request, schedule, and report data.
+    tess crm constituent create --first Jane --last Smith \
+        --email jane@example.com --constituent-type-id 1 \
+        --original-source-id 10
 
-    --report-id perfseatingbook
-    --schedule-name "Daily Seating"
-    --start-date 2025-06-01    --end-date 2025-06-30
-    --my-reports-only          --recent-only
-    --include-public           --include-errors    --include-deleted
-    --page 2                   --page-size 50
+`--first` is silently truncated to 20 characters, `--last` to
+55, and `--postal-code` to 10.
 
-When more results exist, the remaining count is printed to stderr.
+### Set-status
 
-## Aliases
+    tess crm constituent set-status --id 12345 --status Inactive --reason Deceased
 
-    constituent → con
-    configure   → config
+`--status` and `--reason` take human-readable descriptions, not
+numeric codes — `tess` resolves them against Tessitura's reference
+data by case-insensitive match. A `--reason` is required when
+setting a constituent inactive.
 
-## Examples
+## Activities, Attributes, and Interests
 
-```bash
-tess con get 12345 | jq '.[0].displayName'
-tess con get 12345 | jq '.[0].emails[].address'
-tess con search --last-name Smith | jq -r '.[].id' | tess con get --with all
-tess report list --category-ids 9 | jq -r '.[].id' | tess report get
-```
+These are records attached to a constituent by `--constituent-id`.
 
-## Compatibility
+`tess crm attribute set` is an upsert: if the constituent already
+has an attribute of the given type, it updates the value; otherwise
+it creates one. `tess crm interest enable` and `disable` work the
+same way — they will not create duplicate records.
 
-Tested against Tessitura API v16.0.27.97921.
+    tess crm attribute set --constituent-id 12345 \
+        --attribute-type-id 7 --value "Yes"
+    tess crm interest enable --constituent-id 12345 \
+        --interest-type-ids 1,5,12
 
-## License
+`tess crm activity create` creates an activity record. The
+`--unique` flag makes it idempotent: if an activity with the same
+type and datetime already exists, it returns the existing record.
 
-[GNU General Public License v3.0](LICENSE)
+    tess crm activity create --constituent-id 12345 \
+        --activity-type-id 3 --status-id 1 \
+        --datetime 2025-06-15 --unique
+
+## Reports
+
+    tess report get perfseatingbook
+    tess report list --category-ids 9
+
+`tess report get` returns the report definition with its
+parameters. `tess report list` shows active reports only by
+default; the API has no server-side inactive filter, so `tess`
+filters client-side — pass `--include-inactive` to see all.
+
+    tess report request get 12345
+    tess report request list
+    tess report request results --report-id perfseatingbook \
+        --start-date 2025-06-01 --end-date 2025-06-30
+
+`tess report request results` is paginated (`--page`,
+`--page-size`, default 100).
+
+## Reference Data
+
+    tess ref constituent-inactives list
+    tess ref seat-statuses list
+
+## All Commands
+
+    tess config init | show | path | list | use
+    tess crm constituent get | search | create | update | set-status
+    tess crm activity create | list | delete
+    tess crm attribute set | list | delete
+    tess crm interest enable | disable | list
+    tess report get | list
+    tess report request get | list | results
+    tess ref constituent-inactives list
+    tess ref seat-statuses list
+
+Run `tess <command> --help` for flags and usage.
