@@ -1,4 +1,4 @@
-# tess
+# Durb
 
 A CLI for the Tessitura REST API. Consolidates table-oriented API endpoints into domain objects. All output is JSON.
 
