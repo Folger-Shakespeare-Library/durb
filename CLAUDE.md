@@ -48,9 +48,17 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `ref_constituency_types.go` — `tess ref constituency-types list`
   - `ref_constituent_groups.go` — `tess ref constituent-groups list`
   - `ref_constituent_inactives.go` — `tess ref constituent-inactives list`
+  - `ref_constituent_protection_types.go` — `tess ref constituent-protection-types list`
+  - `ref_constituent_type_affiliates.go` — `tess ref constituent-type-affiliates list`
   - `ref_constituent_types.go` — `tess ref constituent-types list`
+  - `ref_contact_log_activity_types.go` — `tess ref contact-log-activity-types list`
   - `ref_contact_permission_categories.go` — `tess ref contact-permission-categories list`
   - `ref_contact_permission_types.go` — `tess ref contact-permission-types list`
+  - `ref_contact_point_categories.go` — `tess ref contact-point-categories list`
+  - `ref_contact_point_category_purposes.go` — `tess ref contact-point-category-purposes list`
+  - `ref_contact_point_purpose_categories.go` — `tess ref contact-point-purpose-categories list`
+  - `ref_contact_point_purposes.go` — `tess ref contact-point-purposes list`
+  - `ref_contact_types.go` — `tess ref contact-types list`
   - `ref_contribution_designations.go` — `tess ref contribution-designations list`
   - `ref_contribution_import_sets.go` — `tess ref contribution-import-sets list`
   - `ref_countries.go` — `tess ref countries list`
@@ -63,10 +71,12 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `ref_interest_categories.go` — `tess ref interest-categories list`
   - `ref_interest_types.go` — `tess ref interest-types list`
   - `ref_keyword_categories.go` — `tess ref keyword-categories list`
+  - `ref_keyword_constituent_types.go` — `tess ref keyword-constituent-types list`
   - `ref_keywords.go` — `tess ref keywords list`
   - `ref_languages.go` — `tess ref languages list`
   - `ref_login_types.go` — `tess ref login-types list`
   - `ref_machine_settings.go` — `tess ref machine-settings list`
+  - `ref_mail_indicators.go` — `tess ref mail-indicators list`
   - `ref_membership_benefit_frequencies.go` — `tess ref membership-benefit-frequencies list`
   - `ref_membership_benefit_types.go` — `tess ref membership-benefit-types list`
   - `ref_membership_level_categories.go` — `tess ref membership-level-categories list`
@@ -74,6 +84,7 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `ref_membership_periods.go` — `tess ref membership-periods list`
   - `ref_membership_standings.go` — `tess ref membership-standings list`
   - `ref_membership_statuses.go` — `tess ref membership-statuses list`
+  - `ref_name_statuses.go` — `tess ref name-statuses list`
   - `ref_note_types.go` — `tess ref note-types list`
   - `ref_order_categories.go` — `tess ref order-categories list`
   - `ref_original_sources.go` — `tess ref original-sources list`
@@ -92,12 +103,15 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `ref_planned_giving_purposes.go` — `tess ref planned-giving-purposes list`
   - `ref_planned_giving_sources.go` — `tess ref planned-giving-sources list`
   - `ref_planned_giving_statuses.go` — `tess ref planned-giving-statuses list`
+  - `ref_phone_indicators.go` — `tess ref phone-indicators list`
+  - `ref_phone_types.go` — `tess ref phone-types list`
   - `ref_prefixes.go` — `tess ref prefixes list`
   - `ref_price_categories.go` — `tess ref price-categories list`
   - `ref_price_type_categories.go` — `tess ref price-type-categories list`
   - `ref_price_type_groups.go` — `tess ref price-type-groups list`
   - `ref_pronouns.go` — `tess ref pronouns list`
   - `ref_recognition_types.go` — `tess ref recognition-types list`
+  - `ref_relationship_categories.go` — `tess ref relationship-categories list`
   - `ref_report_categories.go` — `tess ref report-categories list`
   - `ref_report_types.go` — `tess ref report-types list`
   - `ref_sales_channels.go` — `tess ref sales-channels list`
@@ -129,7 +143,7 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `attributes.go` — `APIAttribute`, `GetAttributes`, `CreateAttribute`, `UpdateAttribute`, `DeleteAttribute`
   - `interests.go` — `APIInterest`, `GetInterests`, `CreateInterest`, `UpdateInterest`
   - `electronic_addresses.go` — `GetElectronicAddresses`, `UpdateElectronicAddress`
-  - `reference.go` — all reference data API structs and getter functions; types include `APIRefItem`, `APISeatStatus`, `APIMachineSetting`, `APIConstituentType`, `APIOriginalSource`, `APISpecialActivityType`, `APISpecialActivityStatus`, `APIKeyword`, `APIInterestType`, `APIInactiveReason`, `APIControlGroupRef`, `APIRelationshipCategoryRef`, `APIReportCategory`, `APIReportType`, `APISeason`, `APIPerformanceStatus`, `APIPerformanceType`, `APIPriceCategory`, `APIPriceTypeCategory`, `APIPriceTypeGroup`, `APIPaymentType`, `APIDeliveryMethod`, `APIOrderCategory`, `APISalesChannel`, `APINoteType`, `APIElectronicAddressType`, `APIContactPermissionCategory`, `APIContactPermissionType`, `APIAffiliationType`, `APIAssociationType`, `APIAliasType`, `APILoginType`, `APIGender`, `APIPronoun`, `APIPrefix`, `APISuffix`, `APICountry`, `APIState`, `APIAddressType`, `APILanguage`, `APIConstituencyType`, `APIConstituentGroup`, `APIKeywordCategory`, `APIInterestCategory`, `APIUserGroup`, `APIBusinessUnit`, `APITheater`, `APISection`, `APISeatCode`, `APIAppealCategory`, `APICampaignCategory`, `APIContributionDesignation`, `APIContributionImportSet`, `APIDesignationCode`, `APIDonationLevel`, `APIPhilanthropyType`, `APIPlanPriority`, `APIPlanSource`, `APIPlanStatus`, `APIPlanType`, `APIPlannedGivingCode`, `APIPlannedGivingFunding`, `APIPlannedGivingGiftType`, `APIPlannedGivingOnFile`, `APIPlannedGivingPurpose`, `APIPlannedGivingSource`, `APIPlannedGivingStatus`, `APIRecognitionType`, `APIMembershipBenefitFrequency`, `APIMembershipBenefitType`, `APIMembershipLevelCategory`, `APIMembershipLevelTrend`, `APIMembershipPeriod`, `APIMembershipStanding`, `APIMembershipStatus`
+  - `reference.go` — all reference data API structs and getter functions; types include `APIRefItem`, `APISeatStatus`, `APIMachineSetting`, `APIConstituentType`, `APIOriginalSource`, `APISpecialActivityType`, `APISpecialActivityStatus`, `APIKeyword`, `APIInterestType`, `APIInactiveReason`, `APIControlGroupRef`, `APIRelationshipCategoryRef`, `APIReportCategory`, `APIReportType`, `APISeason`, `APIPerformanceStatus`, `APIPerformanceType`, `APIPriceCategory`, `APIPriceTypeCategory`, `APIPriceTypeGroup`, `APIPaymentType`, `APIDeliveryMethod`, `APIOrderCategory`, `APISalesChannel`, `APINoteType`, `APIElectronicAddressType`, `APIContactPermissionCategory`, `APIContactPermissionType`, `APIAffiliationType`, `APIAssociationType`, `APIAliasType`, `APILoginType`, `APIGender`, `APIPronoun`, `APIPrefix`, `APISuffix`, `APICountry`, `APIState`, `APIAddressType`, `APILanguage`, `APIConstituencyType`, `APIConstituentGroup`, `APIKeywordCategory`, `APIInterestCategory`, `APIUserGroup`, `APIBusinessUnit`, `APITheater`, `APISection`, `APISeatCode`, `APIAppealCategory`, `APICampaignCategory`, `APIContributionDesignation`, `APIContributionImportSet`, `APIDesignationCode`, `APIDonationLevel`, `APIPhilanthropyType`, `APIPlanPriority`, `APIPlanSource`, `APIPlanStatus`, `APIPlanType`, `APIPlannedGivingCode`, `APIPlannedGivingFunding`, `APIPlannedGivingGiftType`, `APIPlannedGivingOnFile`, `APIPlannedGivingPurpose`, `APIPlannedGivingSource`, `APIPlannedGivingStatus`, `APIRecognitionType`, `APIMembershipBenefitFrequency`, `APIMembershipBenefitType`, `APIMembershipLevelCategory`, `APIMembershipLevelTrend`, `APIMembershipPeriod`, `APIMembershipStanding`, `APIMembershipStatus`, `APIConstituentProtectionType`, `APIConstituentTypeAffiliate`, `APIContactLogActivityType`, `APIContactPointCategory`, `APIContactPointCategoryPurpose`, `APIContactPointPurposeCategory`, `APIContactPointPurpose`, `APIContactType`, `APIKeywordConstituentType`, `APIMailIndicator`, `APINameStatus`, `APIPhoneIndicator`, `APIPhoneType`, `APIRelationshipCategory`, `APIMembershipBenefitType`, `APIMembershipLevelCategory`, `APIMembershipLevelTrend`, `APIMembershipPeriod`, `APIMembershipStanding`, `APIMembershipStatus`
   - `reports.go` — `APIReport`, `APIReportDetail`, `APIReportParameter`, `ReportResult`; `GetReports`, `GetReport`, `GetReportsBatch`
   - `report_requests.go` — `APIReportRequest`, `APIReportRequestDetail`, `APIReportResult`, `ReportRequestResult`, `ReportResultsParams`; `GetReportRequests`, `GetReportRequest`, `GetReportRequestsBatch`, `GetReportResults`
 - `pkg/domain/` — clean domain types mapped from raw API responses (all consumer code uses these)
@@ -338,14 +352,38 @@ Lists available constituent groups (individuals, organizations, households).
 ### `tess ref constituent-inactives list`
 Lists available inactive status types for constituents.
 
+### `tess ref constituent-protection-types list`
+Lists available protection type classifications for constituents.
+
+### `tess ref constituent-type-affiliates list`
+Lists available affiliate definitions for constituent types.
+
 ### `tess ref constituent-types list`
 Lists available constituent types. Used with `constituent create --constituent-type-id`.
+
+### `tess ref contact-log-activity-types list`
+Lists available activity types for contact logs.
 
 ### `tess ref contact-permission-categories list`
 Lists available contact permission categories for marketing consent groupings.
 
 ### `tess ref contact-permission-types list`
 Lists available contact permission types for marketing consent configuration.
+
+### `tess ref contact-point-categories list`
+Lists available contact point categories.
+
+### `tess ref contact-point-category-purposes list`
+Lists available contact point category-to-purpose mappings.
+
+### `tess ref contact-point-purpose-categories list`
+Lists available contact point purpose-to-category mappings.
+
+### `tess ref contact-point-purposes list`
+Lists available contact point purposes.
+
+### `tess ref contact-types list`
+Lists available contact types.
 
 ### `tess ref contribution-designations list`
 Lists available contribution designation codes for directing contributions.
@@ -383,6 +421,9 @@ Lists available interest types. Used with `interest enable/disable --interest-ty
 ### `tess ref keyword-categories list`
 Lists available keyword categories (metadata for attribute types).
 
+### `tess ref keyword-constituent-types list`
+Lists available keyword-to-constituent-type mappings.
+
 ### `tess ref keywords list`
 Lists available keywords (attribute types in Tessitura). Used with `attribute set --attribute-type-id`.
 
@@ -391,6 +432,9 @@ Lists available language codes.
 
 ### `tess ref login-types list`
 Lists available login types for classifying constituent web logins.
+
+### `tess ref mail-indicators list`
+Lists available mail indicator preferences.
 
 ### `tess ref machine-settings list`
 Lists machine settings (workstation name, card reader configuration, merchant IDs, audit fields). Uses the full `/ReferenceData/MachineSettings` endpoint (not Summary, which returns empty descriptions).
@@ -415,6 +459,9 @@ Lists available standing types for memberships.
 
 ### `tess ref membership-statuses list`
 Lists available status values for memberships.
+
+### `tess ref name-statuses list`
+Lists available name statuses for constituents.
 
 ### `tess ref note-types list`
 Lists available note types for classifying constituent notes.
@@ -470,6 +517,12 @@ Lists available sources for planned gifts.
 ### `tess ref planned-giving-statuses list`
 Lists available statuses for planned gifts.
 
+### `tess ref phone-indicators list`
+Lists available phone indicator preferences.
+
+### `tess ref phone-types list`
+Lists available phone types.
+
 ### `tess ref prefixes list`
 Lists available name prefixes (Mr., Mrs., Dr., etc.).
 
@@ -487,6 +540,9 @@ Lists available pronoun sets.
 
 ### `tess ref recognition-types list`
 Lists available donor recognition type definitions.
+
+### `tess ref relationship-categories list`
+Lists available relationship categories for constituents.
 
 ### `tess ref report-categories list`
 Lists available report categories. Used with `report list --category-ids`.

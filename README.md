@@ -44,9 +44,17 @@ tess ref campaign-categories list
 tess ref constituency-types list
 tess ref constituent-groups list
 tess ref constituent-inactives list
+tess ref constituent-protection-types list
+tess ref constituent-type-affiliates list
 tess ref constituent-types list
+tess ref contact-log-activity-types list
 tess ref contact-permission-categories list
 tess ref contact-permission-types list
+tess ref contact-point-categories list
+tess ref contact-point-category-purposes list
+tess ref contact-point-purpose-categories list
+tess ref contact-point-purposes list
+tess ref contact-types list
 tess ref contribution-designations list
 tess ref contribution-import-sets list
 tess ref countries list
@@ -59,10 +67,12 @@ tess ref inactive-reasons list
 tess ref interest-categories list
 tess ref interest-types list
 tess ref keyword-categories list
+tess ref keyword-constituent-types list
 tess ref keywords list
 tess ref languages list
 tess ref login-types list
 tess ref machine-settings list
+tess ref mail-indicators list
 tess ref membership-benefit-frequencies list
 tess ref membership-benefit-types list
 tess ref membership-level-categories list
@@ -70,6 +80,7 @@ tess ref membership-level-trends list
 tess ref membership-periods list
 tess ref membership-standings list
 tess ref membership-statuses list
+tess ref name-statuses list
 tess ref note-types list
 tess ref order-categories list
 tess ref original-sources list
@@ -88,12 +99,15 @@ tess ref planned-giving-on-files list
 tess ref planned-giving-purposes list
 tess ref planned-giving-sources list
 tess ref planned-giving-statuses list
+tess ref phone-indicators list
+tess ref phone-types list
 tess ref prefixes list
 tess ref price-categories list
 tess ref price-type-categories list
 tess ref price-type-groups list
 tess ref pronouns list
 tess ref recognition-types list
+tess ref relationship-categories list
 tess ref report-categories list
 tess ref report-types list
 tess ref sales-channels list
@@ -488,9 +502,17 @@ tess ref campaign-categories list
 tess ref constituency-types list
 tess ref constituent-groups list
 tess ref constituent-inactives list
+tess ref constituent-protection-types list
+tess ref constituent-type-affiliates list
 tess ref constituent-types list
+tess ref contact-log-activity-types list
 tess ref contact-permission-categories list
 tess ref contact-permission-types list
+tess ref contact-point-categories list
+tess ref contact-point-category-purposes list
+tess ref contact-point-purpose-categories list
+tess ref contact-point-purposes list
+tess ref contact-types list
 tess ref contribution-designations list
 tess ref contribution-import-sets list
 tess ref countries list
@@ -503,10 +525,12 @@ tess ref inactive-reasons list
 tess ref interest-categories list
 tess ref interest-types list
 tess ref keyword-categories list
+tess ref keyword-constituent-types list
 tess ref keywords list
 tess ref languages list
 tess ref login-types list
 tess ref machine-settings list
+tess ref mail-indicators list
 tess ref membership-benefit-frequencies list
 tess ref membership-benefit-types list
 tess ref membership-level-categories list
@@ -514,6 +538,7 @@ tess ref membership-level-trends list
 tess ref membership-periods list
 tess ref membership-standings list
 tess ref membership-statuses list
+tess ref name-statuses list
 tess ref note-types list
 tess ref order-categories list
 tess ref original-sources list
@@ -532,12 +557,15 @@ tess ref planned-giving-on-files list
 tess ref planned-giving-purposes list
 tess ref planned-giving-sources list
 tess ref planned-giving-statuses list
+tess ref phone-indicators list
+tess ref phone-types list
 tess ref prefixes list
 tess ref price-categories list
 tess ref price-type-categories list
 tess ref price-type-groups list
 tess ref pronouns list
 tess ref recognition-types list
+tess ref relationship-categories list
 tess ref report-categories list
 tess ref report-types list
 tess ref sales-channels list
@@ -587,14 +615,37 @@ groups (individuals, organizations, households).
 **tess ref constituent-inactives list** returns available inactive status
 types for constituents (`id`, `description`, `inactive`).
 
+**tess ref constituent-protection-types list** returns available
+protection type classifications for constituents.
+
+**tess ref constituent-type-affiliates list** returns available affiliate
+definitions for constituent types.
+
 **tess ref constituent-types list** returns available constituent types.
 Used with `constituent create --constituent-type-id`.
+
+**tess ref contact-log-activity-types list** returns available activity
+types for contact logs.
 
 **tess ref contact-permission-categories list** returns available contact
 permission categories for marketing consent groupings.
 
 **tess ref contact-permission-types list** returns available contact
 permission types for marketing consent configuration.
+
+**tess ref contact-point-categories list** returns available contact
+point categories.
+
+**tess ref contact-point-category-purposes list** returns available
+contact point category-to-purpose mappings.
+
+**tess ref contact-point-purpose-categories list** returns available
+contact point purpose-to-category mappings.
+
+**tess ref contact-point-purposes list** returns available contact point
+purposes.
+
+**tess ref contact-types list** returns available contact types.
 
 **tess ref contribution-designations list** returns available
 contribution designation codes for directing contributions.
@@ -631,6 +682,9 @@ with `interest enable/disable --interest-type-ids`.
 **tess ref keyword-categories list** returns available keyword categories
 (metadata for attribute types).
 
+**tess ref keyword-constituent-types list** returns available
+keyword-to-constituent-type mappings.
+
 **tess ref keywords list** returns available keywords (attribute types in
 Tessitura). Used with `attribute set --attribute-type-id`.
 
@@ -641,6 +695,9 @@ classifying constituent web logins.
 
 **tess ref machine-settings list** returns machine settings (workstation
 name, card reader configuration, merchant IDs, audit fields).
+
+**tess ref mail-indicators list** returns available mail indicator
+preferences.
 
 **tess ref membership-benefit-frequencies list** returns available
 frequency options for membership benefits.
@@ -662,6 +719,9 @@ memberships.
 
 **tess ref membership-statuses list** returns available status values for
 memberships.
+
+**tess ref name-statuses list** returns available name statuses for
+constituents.
 
 **tess ref note-types list** returns available note types for classifying
 constituent notes.
@@ -717,6 +777,11 @@ planned gifts.
 **tess ref planned-giving-statuses list** returns available statuses for
 planned gifts.
 
+**tess ref phone-indicators list** returns available phone indicator
+preferences.
+
+**tess ref phone-types list** returns available phone types.
+
 **tess ref prefixes list** returns available name prefixes (Mr., Mrs.,
 Dr., etc.).
 
@@ -731,6 +796,9 @@ categories.
 
 **tess ref recognition-types list** returns available donor recognition
 type definitions.
+
+**tess ref relationship-categories list** returns available relationship
+categories for constituents.
 
 **tess ref report-categories list** returns available report categories.
 Used with `report list --category-ids`.

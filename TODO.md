@@ -44,20 +44,20 @@ These support fundraising, membership, and ticketing workflows that are natural 
 
 Extends the existing constituent model with contact-point, relationship, and classification lookups.
 
-- [ ] ConstituentProtectionTypes — protection type classifications
-- [ ] ConstituentTypeAffiliates — affiliate definitions for constituent types
-- [ ] ContactLogActivityTypes — activity types for contact logs
-- [ ] ContactPointCategories — categories for contact points
-- [ ] ContactPointCategoryPurposes — contact point category-to-purpose mappings
-- [ ] ContactPointPurposeCategories — purpose-to-category mappings
-- [ ] ContactPointPurposes — purposes for contact points
-- [ ] ContactTypes — types of contacts
-- [ ] KeywordConstituentTypes — keyword-to-constituent-type mappings
-- [ ] MailIndicators — mail indicator preferences
-- [ ] NameStatuses — status values for constituent names
-- [ ] PhoneIndicators — phone indicator preferences
-- [ ] PhoneTypes — types of phone numbers
-- [ ] RelationshipCategories — categories for constituent relationships
+- [x] ConstituentProtectionTypes — protection type classifications
+- [x] ConstituentTypeAffiliates — affiliate definitions for constituent types
+- [x] ContactLogActivityTypes — activity types for contact logs
+- [x] ContactPointCategories — categories for contact points
+- [x] ContactPointCategoryPurposes — contact point category-to-purpose mappings
+- [x] ContactPointPurposeCategories — purpose-to-category mappings
+- [x] ContactPointPurposes — purposes for contact points
+- [x] ContactTypes — types of contacts
+- [x] KeywordConstituentTypes — keyword-to-constituent-type mappings
+- [x] MailIndicators — mail indicator preferences
+- [x] NameStatuses — status values for constituent names
+- [x] PhoneIndicators — phone indicator preferences
+- [x] PhoneTypes — types of phone numbers
+- [x] RelationshipCategories — categories for constituent relationships
 
 ### Medium — supports ticketing, pricing, and marketing workflows
 

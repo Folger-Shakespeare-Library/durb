@@ -1944,3 +1944,354 @@ func (c *Client) GetMembershipStatuses(ctx context.Context) ([]APIMembershipStat
 	}
 	return items, nil
 }
+
+type APIConstituentProtectionType struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        bool                `json:"Inactive"`
+	ControlGroup    *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetConstituentProtectionTypes(ctx context.Context) ([]APIConstituentProtectionType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ConstituentProtectionTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching constituent protection types: %w", err)
+	}
+	var items []APIConstituentProtectionType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing constituent protection types: %w", err)
+	}
+	return items, nil
+}
+
+type APIConstituentTypeAffiliate struct {
+	Id               *int                      `json:"Id"`
+	ConstituentType  *APIConstituentTypeSummary `json:"ConstituentType"`
+	AffiliationType  *APIAffiliationTypeSummary `json:"AffiliationType"`
+	HouseholdPrimary *bool                     `json:"HouseholdPrimary"`
+	ShowWithGroup    *bool                     `json:"ShowWithGroup"`
+	Rank             *int                      `json:"Rank"`
+	CreatedBy        *string                   `json:"CreatedBy"`
+	CreatedDateTime  *string                   `json:"CreatedDateTime"`
+	CreateLocation   *string                   `json:"CreateLocation"`
+	UpdatedBy        *string                   `json:"UpdatedBy"`
+	UpdatedDateTime  *string                   `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetConstituentTypeAffiliates(ctx context.Context) ([]APIConstituentTypeAffiliate, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ConstituentTypeAffiliates")
+	if err != nil {
+		return nil, fmt.Errorf("fetching constituent type affiliates: %w", err)
+	}
+	var items []APIConstituentTypeAffiliate
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing constituent type affiliates: %w", err)
+	}
+	return items, nil
+}
+
+type APIContactLogActivityType struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetContactLogActivityTypes(ctx context.Context) ([]APIContactLogActivityType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ContactLogActivityTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching contact log activity types: %w", err)
+	}
+	var items []APIContactLogActivityType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing contact log activity types: %w", err)
+	}
+	return items, nil
+}
+
+type APIContactPointCategory struct {
+	Id                *int    `json:"Id"`
+	Description       *string `json:"Description"`
+	ContactPointKey   *string `json:"ContactPointKey"`
+	ContactPointTable *string `json:"ContactPointTable"`
+	CreatedBy         *string `json:"CreatedBy"`
+	CreatedDateTime   *string `json:"CreatedDateTime"`
+	CreateLocation    *string `json:"CreateLocation"`
+	UpdatedBy         *string `json:"UpdatedBy"`
+	UpdatedDateTime   *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetContactPointCategories(ctx context.Context) ([]APIContactPointCategory, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ContactPointCategories")
+	if err != nil {
+		return nil, fmt.Errorf("fetching contact point categories: %w", err)
+	}
+	var items []APIContactPointCategory
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing contact point categories: %w", err)
+	}
+	return items, nil
+}
+
+type APIContactPointCategorySummary struct {
+	Id          *int    `json:"Id"`
+	Description *string `json:"Description"`
+}
+
+type APIPurposeCategorySummary struct {
+	Id          *int    `json:"Id"`
+	Description *string `json:"Description"`
+	Inactive    bool    `json:"Inactive"`
+}
+
+type APIContactPointPurposeSummary struct {
+	Id              *int                      `json:"Id"`
+	Description     *string                   `json:"Description"`
+	Inactive        bool                      `json:"Inactive"`
+	PurposeCategory *APIPurposeCategorySummary `json:"PurposeCategory"`
+}
+
+type APIContactPointCategoryPurpose struct {
+	Id                   *int                            `json:"Id"`
+	ContactPointCategory *APIContactPointCategorySummary `json:"ContactPointCategory"`
+	Purpose              *APIContactPointPurposeSummary  `json:"Purpose"`
+	CreatedBy            *string                         `json:"CreatedBy"`
+	CreatedDateTime      *string                         `json:"CreatedDateTime"`
+	CreateLocation       *string                         `json:"CreateLocation"`
+	UpdatedBy            *string                         `json:"UpdatedBy"`
+	UpdatedDateTime      *string                         `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetContactPointCategoryPurposes(ctx context.Context) ([]APIContactPointCategoryPurpose, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ContactPointCategoryPurposes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching contact point category purposes: %w", err)
+	}
+	var items []APIContactPointCategoryPurpose
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing contact point category purposes: %w", err)
+	}
+	return items, nil
+}
+
+type APIContactPointPurposeCategory struct {
+	Id              *int                `json:"Id"`
+	Description     *string             `json:"Description"`
+	Inactive        bool                `json:"Inactive"`
+	ControlGroup    *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy       *string             `json:"CreatedBy"`
+	CreatedDateTime *string             `json:"CreatedDateTime"`
+	CreateLocation  *string             `json:"CreateLocation"`
+	UpdatedBy       *string             `json:"UpdatedBy"`
+	UpdatedDateTime *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetContactPointPurposeCategories(ctx context.Context) ([]APIContactPointPurposeCategory, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ContactPointPurposeCategories")
+	if err != nil {
+		return nil, fmt.Errorf("fetching contact point purpose categories: %w", err)
+	}
+	var items []APIContactPointPurposeCategory
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing contact point purpose categories: %w", err)
+	}
+	return items, nil
+}
+
+type APIContactPointPurpose struct {
+	Id              *int                      `json:"Id"`
+	Description     *string                   `json:"Description"`
+	Inactive        bool                      `json:"Inactive"`
+	PurposeCategory *APIPurposeCategorySummary `json:"PurposeCategory"`
+	CreatedBy       *string                   `json:"CreatedBy"`
+	CreatedDateTime *string                   `json:"CreatedDateTime"`
+	CreateLocation  *string                   `json:"CreateLocation"`
+	UpdatedBy       *string                   `json:"UpdatedBy"`
+	UpdatedDateTime *string                   `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetContactPointPurposes(ctx context.Context) ([]APIContactPointPurpose, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ContactPointPurposes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching contact point purposes: %w", err)
+	}
+	var items []APIContactPointPurpose
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing contact point purposes: %w", err)
+	}
+	return items, nil
+}
+
+type APIContactType struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetContactTypes(ctx context.Context) ([]APIContactType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/ContactTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching contact types: %w", err)
+	}
+	var items []APIContactType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing contact types: %w", err)
+	}
+	return items, nil
+}
+
+type APIKeywordSummary struct {
+	Id          int     `json:"Id"`
+	Description *string `json:"Description"`
+}
+
+type APIKeywordConstituentType struct {
+	Id              *int                      `json:"Id"`
+	Inactive        *bool                     `json:"Inactive"`
+	Rank            *int                      `json:"Rank"`
+	Keyword         *APIKeywordSummary        `json:"Keyword"`
+	ConstituentType *APIConstituentTypeSummary `json:"ConstituentType"`
+	ControlGroup    *APIControlGroupRef       `json:"ControlGroup"`
+}
+
+func (c *Client) GetKeywordConstituentTypes(ctx context.Context) ([]APIKeywordConstituentType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/KeywordConstituentTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching keyword constituent types: %w", err)
+	}
+	var items []APIKeywordConstituentType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing keyword constituent types: %w", err)
+	}
+	return items, nil
+}
+
+type APIMailIndicator struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetMailIndicators(ctx context.Context) ([]APIMailIndicator, error) {
+	data, err := c.Get(ctx, "/ReferenceData/MailIndicators")
+	if err != nil {
+		return nil, fmt.Errorf("fetching mail indicators: %w", err)
+	}
+	var items []APIMailIndicator
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing mail indicators: %w", err)
+	}
+	return items, nil
+}
+
+type APINameStatus struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetNameStatuses(ctx context.Context) ([]APINameStatus, error) {
+	data, err := c.Get(ctx, "/ReferenceData/NameStatuses")
+	if err != nil {
+		return nil, fmt.Errorf("fetching name statuses: %w", err)
+	}
+	var items []APINameStatus
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing name statuses: %w", err)
+	}
+	return items, nil
+}
+
+type APIPhoneIndicator struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPhoneIndicators(ctx context.Context) ([]APIPhoneIndicator, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PhoneIndicators")
+	if err != nil {
+		return nil, fmt.Errorf("fetching phone indicators: %w", err)
+	}
+	var items []APIPhoneIndicator
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing phone indicators: %w", err)
+	}
+	return items, nil
+}
+
+type APIPhoneType struct {
+	Id                 *int                `json:"Id"`
+	Description        *string             `json:"Description"`
+	Inactive           *bool               `json:"Inactive"`
+	AllowTelemarketing *bool               `json:"AllowTelemarketing"`
+	ControlGroup       *APIControlGroupRef `json:"ControlGroup"`
+	CreatedBy          *string             `json:"CreatedBy"`
+	CreatedDateTime    *string             `json:"CreatedDateTime"`
+	CreateLocation     *string             `json:"CreateLocation"`
+	UpdatedBy          *string             `json:"UpdatedBy"`
+	UpdatedDateTime    *string             `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetPhoneTypes(ctx context.Context) ([]APIPhoneType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/PhoneTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching phone types: %w", err)
+	}
+	var items []APIPhoneType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing phone types: %w", err)
+	}
+	return items, nil
+}
+
+type APIRelationshipCategory struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetRelationshipCategories(ctx context.Context) ([]APIRelationshipCategory, error) {
+	data, err := c.Get(ctx, "/ReferenceData/RelationshipCategories")
+	if err != nil {
+		return nil, fmt.Errorf("fetching relationship categories: %w", err)
+	}
+	var items []APIRelationshipCategory
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing relationship categories: %w", err)
+	}
+	return items, nil
+}
