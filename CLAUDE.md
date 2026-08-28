@@ -139,7 +139,32 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `report_request.go` — `ReportRequest`, `ReportRequestParameter`, `ReportResult`, `ReportResultRef`, `ReportResultReportRef`; `ReportRequestFromAPI`, `AttachRequestDetail`, `ReportResultFromAPI`
 - `pkg/config/` — config management; config path is `$XDG_CONFIG_HOME/tess/config.json` (defaults to `~/.config/tess/config.json`)
 - `schemas/constituent.schema.json` — JSON Schema for the `Constituent` domain object (**must be updated when domain fields change**)
-- `swagger.json` — Tessitura API swagger file (v16.0.27.97921)
+- `swagger.json` — Tessitura API swagger file (v16.0.27.97921); OpenAPI 3.0 format — model schemas are under `components.schemas` (not `definitions`), and response `$ref` paths use `#/components/schemas/ModelName`
+
+## Swagger lookup recipe
+
+To get API struct fields for a reference data endpoint:
+
+```python
+import json
+with open('swagger.json') as f:
+    swagger = json.load(f)
+model = swagger['components']['schemas']['ModelName']  # e.g. 'ConstituentProtectionType'
+for name, prop in model.get('properties', {}).items():
+    print(name, prop.get('type', prop.get('$ref', '').split('/')[-1]), 'nullable' if prop.get('nullable') else '')
+```
+
+Common sub-object refs resolve to other `components.schemas` entries (e.g. `ControlGroupSummary`, `RefItem`). Map these to existing Go types like `APIControlGroupRef`, `APIRefItem`.
+
+## Adding a `tess ref` command
+
+Each `tess ref <resource> list` command needs three things:
+
+1. **API struct + getter** in `pkg/tessitura/reference.go` — struct mirrors the JSON shape from swagger; getter calls `c.Get(ctx, "/ReferenceData/<Resource>")`, unmarshals into a slice, returns it. Use the full endpoint (not `/Summary`) per the "full records" rule.
+2. **CLI file** `internal/cli/ref_<resource>.go` — defines the cobra command vars and `runRef<Resource>List` function. Follow the pattern in any existing `ref_*.go` file.
+3. **Registration** in `internal/cli/ref.go` — add `refCmd.AddCommand(ref<Resource>Cmd)` in `init()`, alphabetically.
+
+After adding, update `CLAUDE.md` (directory listing, type list in `reference.go` entry, implemented commands section) and `README.md`.
 
 ## Standing orders
 
