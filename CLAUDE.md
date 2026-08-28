@@ -67,6 +67,13 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `ref_languages.go` — `tess ref languages list`
   - `ref_login_types.go` — `tess ref login-types list`
   - `ref_machine_settings.go` — `tess ref machine-settings list`
+  - `ref_membership_benefit_frequencies.go` — `tess ref membership-benefit-frequencies list`
+  - `ref_membership_benefit_types.go` — `tess ref membership-benefit-types list`
+  - `ref_membership_level_categories.go` — `tess ref membership-level-categories list`
+  - `ref_membership_level_trends.go` — `tess ref membership-level-trends list`
+  - `ref_membership_periods.go` — `tess ref membership-periods list`
+  - `ref_membership_standings.go` — `tess ref membership-standings list`
+  - `ref_membership_statuses.go` — `tess ref membership-statuses list`
   - `ref_note_types.go` — `tess ref note-types list`
   - `ref_order_categories.go` — `tess ref order-categories list`
   - `ref_original_sources.go` — `tess ref original-sources list`
@@ -122,7 +129,7 @@ Cobra CLI pattern (like SF CLI / AWS CLI / Twilio CLI).
   - `attributes.go` — `APIAttribute`, `GetAttributes`, `CreateAttribute`, `UpdateAttribute`, `DeleteAttribute`
   - `interests.go` — `APIInterest`, `GetInterests`, `CreateInterest`, `UpdateInterest`
   - `electronic_addresses.go` — `GetElectronicAddresses`, `UpdateElectronicAddress`
-  - `reference.go` — all reference data API structs and getter functions; types include `APIRefItem`, `APISeatStatus`, `APIMachineSetting`, `APIConstituentType`, `APIOriginalSource`, `APISpecialActivityType`, `APISpecialActivityStatus`, `APIKeyword`, `APIInterestType`, `APIInactiveReason`, `APIControlGroupRef`, `APIRelationshipCategoryRef`, `APIReportCategory`, `APIReportType`, `APISeason`, `APIPerformanceStatus`, `APIPerformanceType`, `APIPriceCategory`, `APIPriceTypeCategory`, `APIPriceTypeGroup`, `APIPaymentType`, `APIDeliveryMethod`, `APIOrderCategory`, `APISalesChannel`, `APINoteType`, `APIElectronicAddressType`, `APIContactPermissionCategory`, `APIContactPermissionType`, `APIAffiliationType`, `APIAssociationType`, `APIAliasType`, `APILoginType`, `APIGender`, `APIPronoun`, `APIPrefix`, `APISuffix`, `APICountry`, `APIState`, `APIAddressType`, `APILanguage`, `APIConstituencyType`, `APIConstituentGroup`, `APIKeywordCategory`, `APIInterestCategory`, `APIUserGroup`, `APIBusinessUnit`, `APITheater`, `APISection`, `APISeatCode`, `APIAppealCategory`, `APICampaignCategory`, `APIContributionDesignation`, `APIContributionImportSet`, `APIDesignationCode`, `APIDonationLevel`, `APIPhilanthropyType`, `APIPlanPriority`, `APIPlanSource`, `APIPlanStatus`, `APIPlanType`, `APIPlannedGivingCode`, `APIPlannedGivingFunding`, `APIPlannedGivingGiftType`, `APIPlannedGivingOnFile`, `APIPlannedGivingPurpose`, `APIPlannedGivingSource`, `APIPlannedGivingStatus`, `APIRecognitionType`
+  - `reference.go` — all reference data API structs and getter functions; types include `APIRefItem`, `APISeatStatus`, `APIMachineSetting`, `APIConstituentType`, `APIOriginalSource`, `APISpecialActivityType`, `APISpecialActivityStatus`, `APIKeyword`, `APIInterestType`, `APIInactiveReason`, `APIControlGroupRef`, `APIRelationshipCategoryRef`, `APIReportCategory`, `APIReportType`, `APISeason`, `APIPerformanceStatus`, `APIPerformanceType`, `APIPriceCategory`, `APIPriceTypeCategory`, `APIPriceTypeGroup`, `APIPaymentType`, `APIDeliveryMethod`, `APIOrderCategory`, `APISalesChannel`, `APINoteType`, `APIElectronicAddressType`, `APIContactPermissionCategory`, `APIContactPermissionType`, `APIAffiliationType`, `APIAssociationType`, `APIAliasType`, `APILoginType`, `APIGender`, `APIPronoun`, `APIPrefix`, `APISuffix`, `APICountry`, `APIState`, `APIAddressType`, `APILanguage`, `APIConstituencyType`, `APIConstituentGroup`, `APIKeywordCategory`, `APIInterestCategory`, `APIUserGroup`, `APIBusinessUnit`, `APITheater`, `APISection`, `APISeatCode`, `APIAppealCategory`, `APICampaignCategory`, `APIContributionDesignation`, `APIContributionImportSet`, `APIDesignationCode`, `APIDonationLevel`, `APIPhilanthropyType`, `APIPlanPriority`, `APIPlanSource`, `APIPlanStatus`, `APIPlanType`, `APIPlannedGivingCode`, `APIPlannedGivingFunding`, `APIPlannedGivingGiftType`, `APIPlannedGivingOnFile`, `APIPlannedGivingPurpose`, `APIPlannedGivingSource`, `APIPlannedGivingStatus`, `APIRecognitionType`, `APIMembershipBenefitFrequency`, `APIMembershipBenefitType`, `APIMembershipLevelCategory`, `APIMembershipLevelTrend`, `APIMembershipPeriod`, `APIMembershipStanding`, `APIMembershipStatus`
   - `reports.go` — `APIReport`, `APIReportDetail`, `APIReportParameter`, `ReportResult`; `GetReports`, `GetReport`, `GetReportsBatch`
   - `report_requests.go` — `APIReportRequest`, `APIReportRequestDetail`, `APIReportResult`, `ReportRequestResult`, `ReportResultsParams`; `GetReportRequests`, `GetReportRequest`, `GetReportRequestsBatch`, `GetReportResults`
 - `pkg/domain/` — clean domain types mapped from raw API responses (all consumer code uses these)
@@ -362,6 +369,27 @@ Lists available login types for classifying constituent web logins.
 
 ### `tess ref machine-settings list`
 Lists machine settings (workstation name, card reader configuration, merchant IDs, audit fields). Uses the full `/ReferenceData/MachineSettings` endpoint (not Summary, which returns empty descriptions).
+
+### `tess ref membership-benefit-frequencies list`
+Lists available frequency options for membership benefits.
+
+### `tess ref membership-benefit-types list`
+Lists available types of membership benefits.
+
+### `tess ref membership-level-categories list`
+Lists available categories for membership levels.
+
+### `tess ref membership-level-trends list`
+Lists available trend classifications for membership levels.
+
+### `tess ref membership-periods list`
+Lists available membership period definitions.
+
+### `tess ref membership-standings list`
+Lists available standing types for memberships.
+
+### `tess ref membership-statuses list`
+Lists available status values for memberships.
 
 ### `tess ref note-types list`
 Lists available note types for classifying constituent notes.

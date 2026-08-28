@@ -1781,3 +1781,166 @@ func (c *Client) GetPlannedGivingStatuses(ctx context.Context) ([]APIPlannedGivi
 	}
 	return items, nil
 }
+
+type APIMembershipBenefitFrequency struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	Rank            int     `json:"Rank"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetMembershipBenefitFrequencies(ctx context.Context) ([]APIMembershipBenefitFrequency, error) {
+	data, err := c.Get(ctx, "/ReferenceData/MembershipBenefitFrequencies")
+	if err != nil {
+		return nil, fmt.Errorf("fetching membership benefit frequencies: %w", err)
+	}
+	var items []APIMembershipBenefitFrequency
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing membership benefit frequencies: %w", err)
+	}
+	return items, nil
+}
+
+type APIMembershipBenefitType struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetMembershipBenefitTypes(ctx context.Context) ([]APIMembershipBenefitType, error) {
+	data, err := c.Get(ctx, "/ReferenceData/MembershipBenefitTypes")
+	if err != nil {
+		return nil, fmt.Errorf("fetching membership benefit types: %w", err)
+	}
+	var items []APIMembershipBenefitType
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing membership benefit types: %w", err)
+	}
+	return items, nil
+}
+
+type APIMembershipLevelCategory struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetMembershipLevelCategories(ctx context.Context) ([]APIMembershipLevelCategory, error) {
+	data, err := c.Get(ctx, "/ReferenceData/MembershipLevelCategories")
+	if err != nil {
+		return nil, fmt.Errorf("fetching membership level categories: %w", err)
+	}
+	var items []APIMembershipLevelCategory
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing membership level categories: %w", err)
+	}
+	return items, nil
+}
+
+type APIMembershipLevelTrend struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetMembershipLevelTrends(ctx context.Context) ([]APIMembershipLevelTrend, error) {
+	data, err := c.Get(ctx, "/ReferenceData/MembershipLevelTrends")
+	if err != nil {
+		return nil, fmt.Errorf("fetching membership level trends: %w", err)
+	}
+	var items []APIMembershipLevelTrend
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing membership level trends: %w", err)
+	}
+	return items, nil
+}
+
+type APIMembershipPeriod struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	Rank            int     `json:"Rank"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetMembershipPeriods(ctx context.Context) ([]APIMembershipPeriod, error) {
+	data, err := c.Get(ctx, "/ReferenceData/MembershipPeriods")
+	if err != nil {
+		return nil, fmt.Errorf("fetching membership periods: %w", err)
+	}
+	var items []APIMembershipPeriod
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing membership periods: %w", err)
+	}
+	return items, nil
+}
+
+type APIMembershipStanding struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Inactive        *bool   `json:"Inactive"`
+	Rank            int     `json:"Rank"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetMembershipStandings(ctx context.Context) ([]APIMembershipStanding, error) {
+	data, err := c.Get(ctx, "/ReferenceData/MembershipStandings")
+	if err != nil {
+		return nil, fmt.Errorf("fetching membership standings: %w", err)
+	}
+	var items []APIMembershipStanding
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing membership standings: %w", err)
+	}
+	return items, nil
+}
+
+type APIMembershipStatus struct {
+	Id              *int    `json:"Id"`
+	Description     *string `json:"Description"`
+	Rank            int     `json:"Rank"`
+	CreatedBy       *string `json:"CreatedBy"`
+	CreatedDateTime *string `json:"CreatedDateTime"`
+	CreateLocation  *string `json:"CreateLocation"`
+	UpdatedBy       *string `json:"UpdatedBy"`
+	UpdatedDateTime *string `json:"UpdatedDateTime"`
+}
+
+func (c *Client) GetMembershipStatuses(ctx context.Context) ([]APIMembershipStatus, error) {
+	data, err := c.Get(ctx, "/ReferenceData/MembershipStatuses")
+	if err != nil {
+		return nil, fmt.Errorf("fetching membership statuses: %w", err)
+	}
+	var items []APIMembershipStatus
+	if err := json.Unmarshal(data, &items); err != nil {
+		return nil, fmt.Errorf("parsing membership statuses: %w", err)
+	}
+	return items, nil
+}

@@ -63,6 +63,13 @@ tess ref keywords list
 tess ref languages list
 tess ref login-types list
 tess ref machine-settings list
+tess ref membership-benefit-frequencies list
+tess ref membership-benefit-types list
+tess ref membership-level-categories list
+tess ref membership-level-trends list
+tess ref membership-periods list
+tess ref membership-standings list
+tess ref membership-statuses list
 tess ref note-types list
 tess ref order-categories list
 tess ref original-sources list
@@ -500,6 +507,13 @@ tess ref keywords list
 tess ref languages list
 tess ref login-types list
 tess ref machine-settings list
+tess ref membership-benefit-frequencies list
+tess ref membership-benefit-types list
+tess ref membership-level-categories list
+tess ref membership-level-trends list
+tess ref membership-periods list
+tess ref membership-standings list
+tess ref membership-statuses list
 tess ref note-types list
 tess ref order-categories list
 tess ref original-sources list
@@ -627,6 +641,27 @@ classifying constituent web logins.
 
 **tess ref machine-settings list** returns machine settings (workstation
 name, card reader configuration, merchant IDs, audit fields).
+
+**tess ref membership-benefit-frequencies list** returns available
+frequency options for membership benefits.
+
+**tess ref membership-benefit-types list** returns available types of
+membership benefits.
+
+**tess ref membership-level-categories list** returns available categories
+for membership levels.
+
+**tess ref membership-level-trends list** returns available trend
+classifications for membership levels.
+
+**tess ref membership-periods list** returns available membership period
+definitions.
+
+**tess ref membership-standings list** returns available standing types for
+memberships.
+
+**tess ref membership-statuses list** returns available status values for
+memberships.
 
 **tess ref note-types list** returns available note types for classifying
 constituent notes.

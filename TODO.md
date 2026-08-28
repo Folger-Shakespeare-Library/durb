@@ -32,13 +32,13 @@ These support fundraising, membership, and ticketing workflows that are natural 
 
 #### Membership (7)
 
-- [ ] MembershipBenefitFrequencies — frequency options for membership benefits
-- [ ] MembershipBenefitTypes — types of membership benefits
-- [ ] MembershipLevelCategories — categories for membership levels
-- [ ] MembershipLevelTrends — trend classifications for membership levels
-- [ ] MembershipPeriods — membership period definitions
-- [ ] MembershipStandings — standing types for memberships
-- [ ] MembershipStatuses — status values for memberships
+- [x] MembershipBenefitFrequencies — frequency options for membership benefits
+- [x] MembershipBenefitTypes — types of membership benefits
+- [x] MembershipLevelCategories — categories for membership levels
+- [x] MembershipLevelTrends — trend classifications for membership levels
+- [x] MembershipPeriods — membership period definitions
+- [x] MembershipStandings — standing types for memberships
+- [x] MembershipStatuses — status values for memberships
 
 #### Constituent / CRM (14)
 
